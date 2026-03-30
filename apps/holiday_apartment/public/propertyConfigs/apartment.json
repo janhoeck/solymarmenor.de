@@ -131,7 +131,7 @@
   },
   "price": {
     "perNight": {
-      "offSeason": 50,
+      "offSeason": 70,
       "mainSeason": 85
     },
     "cleaning": 85
