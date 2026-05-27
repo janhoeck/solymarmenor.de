@@ -1,6 +1,7 @@
 'use server'
 
-import { getSupabaseServer } from '@/utils/supabase/server'
+import { db } from '@/utils/db'
+import { guestbook } from '@/utils/db/schema'
 import { revalidatePath } from 'next/cache'
 
 import { FormState, GuestbookEntry, GuestbookFormData, schema } from './types'
@@ -18,29 +19,35 @@ export async function insertGuestbookEntry(_prevState: FormState, formData: Form
     }
   }
 
-  const supabaseServer = getSupabaseServer()
-  const { data, error } = await supabaseServer
-    .from('guestbook')
-    .insert({
-      name: guestbookFormData.name,
-      message: guestbookFormData.message,
-      rating: Number(guestbookFormData.rating),
-    })
-    .select('id')
-    .single()
+  try {
+    const [data] = await db
+      .insert(guestbook)
+      .values({
+        name: guestbookFormData.name,
+        message: guestbookFormData.message,
+        rating: Number(guestbookFormData.rating),
+      })
+      .returning({ id: guestbook.id })
 
-  if (error || !data) {
+    if (!data) {
+      return {
+        entry: null,
+        success: false,
+        errors: null,
+      }
+    }
+
+    revalidatePath('/guestbook')
+    return {
+      entry: data as GuestbookEntry,
+      success: true,
+      errors: null,
+    }
+  } catch {
     return {
       entry: null,
       success: false,
       errors: null,
     }
-  }
-
-  revalidatePath('/guestbook')
-  return {
-    entry: data as GuestbookEntry,
-    success: true,
-    errors: null,
   }
 }

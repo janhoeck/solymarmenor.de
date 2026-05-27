@@ -14,13 +14,12 @@
       "dependsOn": ["^check-types"]
     },
     "dev": {
+      "dependsOn": ["^build"],
       "cache": false,
       "persistent": true
     }
   },
   "globalEnv": [
-    "SUPABASE_SERVICE_ROLE_KEY",
-    "SUPABASE_URL",
     "BETTER_AUTH_SECRET",
     "TWITCH_CLIENT_ID",
     "TWITCH_CLIENT_SECRET",
