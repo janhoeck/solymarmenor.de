@@ -1,6 +1,6 @@
 'use client'
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@jan_hoeck/ui'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui'
 import { useLocale, useTranslations } from 'next-intl'
 
 import { usePathname, useRouter } from '../../../i18n/navigation'

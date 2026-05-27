@@ -1,7 +1,7 @@
 import { PropertyDetailItem } from '@/components/property/sections/propertyDetailsSection/PropertyDetailItem'
 import { getTranslation } from '@/components/property/utils'
 import { PropertyConfiguration } from '@/types/PropertyConfiguration'
-import { Badge, H1, P } from '@jan_hoeck/ui'
+import { Badge, H1, P } from '@/components/ui'
 import { useLocale } from 'next-intl'
 import { LuMapPin } from 'react-icons/lu'
 

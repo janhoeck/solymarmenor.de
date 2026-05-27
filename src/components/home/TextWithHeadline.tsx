@@ -1,4 +1,4 @@
-import { H2, P } from '@jan_hoeck/ui'
+import { H2, P } from '@/components/ui'
 import { twMerge } from 'tailwind-merge'
 
 export type TextWithHeadlineProps = {

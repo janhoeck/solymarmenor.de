@@ -1,4 +1,4 @@
-import { List, P } from '@jan_hoeck/ui'
+import { List, P } from '@/components/ui'
 
 import { ContentBlock as ContentBlockType } from '../../../types/ContentBlock'
 

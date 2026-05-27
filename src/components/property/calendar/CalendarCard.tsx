@@ -7,7 +7,7 @@ import esLocale from '@fullcalendar/core/locales/es'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import iCalendarPlugin from '@fullcalendar/icalendar'
 import FullCalendar from '@fullcalendar/react'
-import { Card, CardContent } from '@jan_hoeck/ui'
+import { Card, CardContent } from '@/components/ui'
 import { useLocale } from 'next-intl'
 
 import './fullCalendar.css'

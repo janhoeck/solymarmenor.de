@@ -1,4 +1,4 @@
-import { Separator } from '@jan_hoeck/ui'
+import { Separator } from '@/components/ui'
 import { useTranslations } from 'next-intl'
 
 import { Link } from '../../i18n/navigation'

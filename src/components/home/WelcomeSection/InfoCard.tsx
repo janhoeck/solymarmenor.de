@@ -1,4 +1,4 @@
-import { Card, CardDescription, CardHeader, CardTitle } from '@jan_hoeck/ui'
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui'
 import React from 'react'
 
 export type InfoCardProps = {

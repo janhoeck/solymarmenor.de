@@ -11,7 +11,7 @@ import {
   Small,
   Textarea,
   toast,
-} from '@jan_hoeck/ui'
+} from '@/components/ui'
 import { useTranslations } from 'next-intl'
 import { Form } from 'radix-ui'
 import { useActionState, useEffect, useState } from 'react'

@@ -1,7 +1,7 @@
 import { getTranslation } from '@/components/property/utils'
 import { Location } from '@/types/PropertyConfiguration'
 import { safeJoin } from '@/utils/join'
-import { Card, CardContent, Muted } from '@jan_hoeck/ui'
+import { Card, CardContent, Muted } from '@/components/ui'
 import { useLocale } from 'next-intl'
 import { LuMapPin } from 'react-icons/lu'
 

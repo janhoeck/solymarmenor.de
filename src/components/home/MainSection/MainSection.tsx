@@ -1,5 +1,5 @@
 import { TextWithHeadline } from '@/components/home/TextWithHeadline'
-import { Card, CardDescription, CardHeader, CardTitle } from '@jan_hoeck/ui'
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui'
 import { useTranslations } from 'next-intl'
 import React from 'react'
 import { IoMdHeartEmpty } from 'react-icons/io'

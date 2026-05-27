@@ -1,6 +1,6 @@
 import { getTranslation } from '@/components/property/utils'
 import { PropertyConfiguration } from '@/types/PropertyConfiguration'
-import { Badge, Button, Card, CardContent, CardFooter, CardHeader, H3, Muted } from '@jan_hoeck/ui'
+import { Badge, Button, Card, CardContent, CardFooter, CardHeader, H3, Muted } from '@/components/ui'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 import Link from 'next/link'

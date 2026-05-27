@@ -1,7 +1,8 @@
 'use client'
 
 import { Logo } from '@/components/shared/Logo/Logo'
-import { Button, useOpenState } from '@jan_hoeck/ui'
+import { Button } from '@/components/ui'
+import { useOpenState } from '@/hooks'
 import React from 'react'
 import { IoMdClose } from 'react-icons/io'
 import { LiaBarsSolid } from 'react-icons/lia'

@@ -2,7 +2,7 @@ import { BookItCard } from '@/components/property/bookIt/BookItCard'
 import { CalendarCard } from '@/components/property/calendar/CalendarCard'
 import { PropertyImageGrid } from '@/components/property/images/PropertyImageGrid'
 import { PropertyConfiguration } from '@/types/PropertyConfiguration'
-import { Separator } from '@jan_hoeck/ui'
+import { Separator } from '@/components/ui'
 
 import { ContentContainer } from '../shared/Container/ContentContainer'
 import { AmenitiesSection } from './sections/amenitiesSection/AmenitiesSection'

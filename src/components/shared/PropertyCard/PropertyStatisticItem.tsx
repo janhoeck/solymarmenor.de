@@ -1,4 +1,4 @@
-import { Muted } from '@jan_hoeck/ui'
+import { Muted } from '@/components/ui'
 import { type IconType } from 'react-icons'
 
 export type PropertyStatisticItemProps = {

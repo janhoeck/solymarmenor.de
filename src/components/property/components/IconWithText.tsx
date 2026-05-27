@@ -1,4 +1,4 @@
-import { Muted, P } from '@jan_hoeck/ui'
+import { Muted, P } from '@/components/ui'
 import { IconType } from 'react-icons'
 
 export type ItemWithIconProps = {

@@ -1,4 +1,4 @@
-import { Badge, Button, H1, P } from '@jan_hoeck/ui'
+import { Badge, Button, H1, P } from '@/components/ui'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import React from 'react'

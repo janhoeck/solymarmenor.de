@@ -1,4 +1,4 @@
-import { Button, Input, Small, Textarea, toast } from '@jan_hoeck/ui'
+import { Button, Input, Small, Textarea, toast } from '@/components/ui'
 import { useTranslations } from 'next-intl'
 import { Form } from 'radix-ui'
 import { useActionState, useEffect, useState } from 'react'

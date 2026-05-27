@@ -1,4 +1,4 @@
-import { DesktopOnly, MobileOnly } from '@jan_hoeck/ui'
+import { DesktopOnly, MobileOnly } from '@/components/shared/Responsive'
 
 import { DesktopNavigationContent } from './DesktopNavigationContent'
 import { MobileNavigationContent } from './MobileNavigationContent'

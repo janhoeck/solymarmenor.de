@@ -1,5 +1,5 @@
 import { PropertyConfiguration } from '@/types/PropertyConfiguration'
-import { isDefined } from '@jan_hoeck/utils'
+import { isDefined } from '@/utils/array'
 import fs from 'fs'
 import path from 'path'
 

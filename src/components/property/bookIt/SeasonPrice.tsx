@@ -1,4 +1,4 @@
-import { Badge, Muted, P, Small } from '@jan_hoeck/ui'
+import { Badge, Muted, P, Small } from '@/components/ui'
 import { useTranslations } from 'next-intl'
 import { twMerge } from 'tailwind-merge'
 

@@ -1,4 +1,4 @@
-import { Card, CardContent, P, Small } from '@jan_hoeck/ui'
+import { Card, CardContent, P, Small } from '@/components/ui'
 import { useLocale } from 'next-intl'
 
 import { StarRating } from './StarRating'

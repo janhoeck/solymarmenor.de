@@ -1,4 +1,4 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@jan_hoeck/ui'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui'
 import React from 'react'
 import { IconType } from 'react-icons'
 import { twMerge } from 'tailwind-merge'

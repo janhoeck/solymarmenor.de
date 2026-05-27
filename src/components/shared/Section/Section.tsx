@@ -1,4 +1,4 @@
-import { H2, H3 } from '@jan_hoeck/ui'
+import { H2, H3 } from '@/components/ui'
 import { ReactNode } from 'react'
 
 export type SectionProps = {

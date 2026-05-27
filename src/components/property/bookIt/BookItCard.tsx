@@ -1,5 +1,5 @@
 import { PriceConfig } from '@/types/PropertyConfiguration'
-import { Button, Card, CardContent, P, Separator, Small } from '@jan_hoeck/ui'
+import { Button, Card, CardContent, P, Separator, Small } from '@/components/ui'
 import { useTranslations } from 'next-intl'
 import { PiEnvelopeOpenLight, PiPhoneCallLight } from 'react-icons/pi'
 

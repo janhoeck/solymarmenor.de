@@ -3,7 +3,7 @@
 import { ContentContainer } from '@/components/shared/Container/ContentContainer'
 import { GuestbookForm } from '@/components/shared/GuestbookForm/GuestbookForm'
 import { Section } from '@/components/shared/Section/Section'
-import { P } from '@jan_hoeck/ui'
+import { P } from '@/components/ui'
 import { useTranslations } from 'next-intl'
 
 export const EmptyGuestbookView = () => {

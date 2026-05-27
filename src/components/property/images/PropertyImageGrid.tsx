@@ -10,7 +10,7 @@ import {
   DialogPortal,
   DialogTitle,
   DialogTrigger,
-} from '@jan_hoeck/ui'
+} from '@/components/ui'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import { MdOutlineChevronLeft, MdOutlineChevronRight } from 'react-icons/md'
