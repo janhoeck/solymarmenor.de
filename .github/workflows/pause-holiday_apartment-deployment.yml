@@ -5,7 +5,10 @@ on:
     branches:
       - main
     paths:
-      - 'apps/holiday_apartment/**'
+      - 'src/**'
+      - 'public/**'
+      - 'package.json'
+      - 'next.config.ts'
 
 jobs:
   pause-deployment:
