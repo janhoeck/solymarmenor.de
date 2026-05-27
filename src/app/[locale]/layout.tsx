@@ -3,8 +3,6 @@ import { LayoutNavigation } from '@/components/shared/LayoutNavigation'
 import { WebVitals } from '@/components/shared/WebVitals'
 import { generateCanonicalMetadata } from '@/lib/metadata'
 import { Toaster } from '@/components/ui'
-import { Analytics } from '@vercel/analytics/next'
-import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Metadata } from 'next'
 import { NextIntlClientProvider, hasLocale } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
@@ -172,8 +170,6 @@ export default async function Layout(props: LayoutProps) {
           richColors
           position='top-center'
         />
-        <Analytics />
-        <SpeedInsights />
       </body>
     </html>
   )
