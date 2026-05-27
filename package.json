@@ -7,7 +7,7 @@
     "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "check-types": "tsc --noEmit",
     "analyze": "next experimental-analyze",
     "format": "prettier --write \"src/**/*.{ts,tsx,md,css}\""
