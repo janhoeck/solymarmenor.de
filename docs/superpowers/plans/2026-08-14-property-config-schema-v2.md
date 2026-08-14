@@ -3176,7 +3176,46 @@ In `scripts`:
 "validate:content": "node --experimental-strip-types scripts/validate-content.mjs",
 ```
 
-- [ ] **Step 5: Migrationsskripte entfernen**
+- [ ] **Step 5: Zwei Nachschärfungen aus dem Review von Task 5**
+
+**`secretRef` von einer Formatprüfung zu einer Allowlist machen.** `^[A-Z][A-Z0-9_]*$` trifft auf
+jeden SCREAMING_SNAKE-Namen zu, also auch auf `DATABASE_URL`. Ein Aufrufer kann das nicht
+erreichen — der Wert steht in versionierten Daten —, aber eine unglückliche Datenänderung könnte
+den Fetch auf ein fremdes Secret zeigen lassen. In `src/data/property-schema.ts`:
+
+```ts
+    secretRef: z.string().regex(/^ICAL_[A-Z0-9_]+$/),
+```
+
+Und den bestehenden Test in `src/data/property-schema.test.ts` um den Fall ergänzen:
+
+```ts
+test('rejects a secretRef that points at an unrelated environment variable', () => {
+  assert.throws(() =>
+    propertySchema.parse({
+      ...validProperty,
+      calendar: { provider: 'airbnb', secretRef: 'DATABASE_URL' },
+    }),
+  )
+})
+```
+
+**Die Kalender-Regressionsprüfung schärfen.** In `src/data/properties/data.test.ts` prüft die
+Zusicherung heute auf `airbnb.de/calendar` — eine `.com`-URL rutschte durch — und meldet im
+Fehlerfall nur „expression evaluated to a falsy value". Ersetzen durch:
+
+```ts
+test('no property carries a calendar url in its data', () => {
+  const serialized = JSON.stringify(properties)
+  const match = serialized.match(/https?:\/\/[^"]*airbnb[^"]*/i)
+  assert.equal(match, null, `calendar url leaked into the property data: ${match?.[0]}`)
+})
+```
+
+Run: `pnpm test`
+Expected: PASS.
+
+- [ ] **Step 6: Migrationsskripte entfernen**
 
 ```bash
 git rm -r scripts/migrations
@@ -3185,12 +3224,12 @@ git rm -r scripts/migrations
 Sie haben ihren Zweck erfüllt; ihre Wirkung liegt in den committeten JSON-Dateien und ihr Ablauf in
 der Git-Historie.
 
-- [ ] **Step 6: Gesamtdurchlauf**
+- [ ] **Step 7: Gesamtdurchlauf**
 
 Run: `pnpm test && pnpm check-types && pnpm lint && pnpm validate:content && pnpm images:sync --check && pnpm build`
 Expected: alles fehlerfrei.
 
-- [ ] **Step 7: README um die Datenpflege ergänzen**
+- [ ] **Step 8: README um die Datenpflege ergänzen**
 
 An `README.md` anhängen:
 
@@ -3212,11 +3251,12 @@ Ein neues Objekt: JSON-Datei in `src/data/properties/` anlegen und in
 `src/lib/properties/repository.ts`.
 ```
 
-- [ ] **Step 8: Commit**
+- [ ] **Step 9: Commit**
+
+Das `git rm -r scripts/migrations` aus Schritt 6 hat die Löschung bereits gestaged.
 
 ```bash
-git add scripts package.json README.md
-git rm -r scripts/migrations
+git add scripts package.json README.md src/data
 git commit -m "feat: add content validation and document data maintenance"
 ```
 
