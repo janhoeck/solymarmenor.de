@@ -219,12 +219,10 @@
         "currentPrice": "Precio actual",
         "mwst": "IVA incl.",
         "mainSeason": {
-          "title": "Temporada alta",
-          "range": "Abril - Septiembre"
+          "title": "Temporada alta"
         },
         "offSeason": {
-          "title": "Temporada baja",
-          "range": "Octubre - Marzo"
+          "title": "Temporada baja"
         },
         "cleaning": {
           "text": "Limpieza final: {cleaning} €",

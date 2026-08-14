@@ -219,12 +219,10 @@
         "currentPrice": "Current price",
         "mwst": "incl. VAT",
         "mainSeason": {
-          "title": "Main season",
-          "range": "April - September"
+          "title": "Main season"
         },
         "offSeason": {
-          "title": "Off season",
-          "range": "October - March"
+          "title": "Off season"
         },
         "cleaning": {
           "text": "Final cleaning: {cleaning} €",

@@ -219,12 +219,10 @@
         "currentPrice": "Aktueller Preis",
         "mwst": "inkl. MwSt.",
         "mainSeason": {
-          "title": "Hauptsaison",
-          "range": "April - September"
+          "title": "Hauptsaison"
         },
         "offSeason": {
-          "title": "Nebensaison",
-          "range": "Oktober - März"
+          "title": "Nebensaison"
         },
         "cleaning": {
           "text": "Endreinigung: {cleaning} €",

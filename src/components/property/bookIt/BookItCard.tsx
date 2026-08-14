@@ -1,7 +1,7 @@
-import { isDateInPeriod } from '@/data/pricing'
+import { formatSeasonRange, isDateInPeriod } from '@/data/pricing'
 import type { PropertyPricing } from '@/data/property-schema'
 import { Button, Card, CardContent, P, Separator, Small } from '@/components/ui'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { PiEnvelopeOpenLight, PiPhoneCallLight } from 'react-icons/pi'
 
 import { Link } from '../../../i18n/navigation'
@@ -15,6 +15,7 @@ export const BookItCard = (props: BookItCardProps) => {
   const { pricing } = props
 
   const t = useTranslations('pages.property.bookIt')
+  const locale = useLocale()
   const today = new Date()
 
   const mainRate = pricing.rates.find((rate) => rate.season === 'main')
@@ -32,7 +33,7 @@ export const BookItCard = (props: BookItCardProps) => {
             <SeasonPrice
               isActive={isActive(mainRate)}
               price={mainRate.pricePerNight}
-              seasonRange={t('mainSeason.range')}
+              seasonRange={formatSeasonRange(mainRate.periods, locale)}
               seasonType='main'
               title={t('mainSeason.title')}
             />
@@ -41,7 +42,7 @@ export const BookItCard = (props: BookItCardProps) => {
             <SeasonPrice
               isActive={isActive(offRate)}
               price={offRate.pricePerNight}
-              seasonRange={t('offSeason.range')}
+              seasonRange={formatSeasonRange(offRate.periods, locale)}
               seasonType='off'
               title={t('offSeason.title')}
             />
