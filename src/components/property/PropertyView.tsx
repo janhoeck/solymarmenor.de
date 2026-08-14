@@ -41,7 +41,7 @@ export const PropertyView = (props: PropertyViewProps) => {
           </div>
           <div className='lg:col-span-1'>
             <div className='sticky top-24 space-y-6'>
-              <BookItCard price={configuration.price} />
+              <BookItCard pricing={configuration.pricing} />
               <CalendarCard
                 propertyId={configuration.id}
                 hasCalendar={Boolean(configuration.calendar)}

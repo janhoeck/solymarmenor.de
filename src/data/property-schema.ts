@@ -100,12 +100,41 @@ const houseRulesSchema = z
   })
   .strict()
 
-const priceSchema = z
+const seasonPeriodSchema = z
   .object({
-    perNight: z.object({ offSeason: z.number().positive(), mainSeason: z.number().positive() }).strict(),
-    cleaning: z.number().positive().optional(),
+    from: z.string().regex(/^\d{2}-\d{2}$/),
+    to: z.string().regex(/^\d{2}-\d{2}$/),
   })
   .strict()
+
+const pricingSchema = z
+  .object({
+    currency: z.literal('EUR'),
+    rates: z
+      .array(
+        z
+          .object({
+            season: z.enum(['off', 'main', 'peak']),
+            pricePerNight: z.number().positive(),
+            periods: z.array(seasonPeriodSchema),
+          })
+          .strict(),
+      )
+      .min(1),
+    fees: z.array(
+      z
+        .object({
+          type: z.enum(['cleaning']),
+          amount: z.number().positive(),
+          basis: z.enum(['perStay', 'perNight', 'perPerson']),
+        })
+        .strict(),
+    ),
+    minNights: z.number().int().min(1).nullable(),
+  })
+  .strict()
+
+export type PropertyPricing = z.infer<typeof pricingSchema>
 
 /**
  * Points at the name of an environment variable, never at its value, so the
@@ -160,7 +189,7 @@ export const propertySchema = z
     title: localizedTextSchema,
     subtitle: localizedTextSchema,
     description: contentBlocksSchema,
-    price: priceSchema,
+    pricing: pricingSchema,
     location: locationSchema,
     images: imagesSchema,
     highlights: highlightsSchema,

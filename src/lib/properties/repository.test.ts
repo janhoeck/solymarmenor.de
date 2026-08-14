@@ -20,7 +20,15 @@ const propertyFixture: Property = {
   title: translation,
   subtitle: translation,
   description: [{ type: 'paragraph', text: translation }],
-  price: { perNight: { offSeason: 1, mainSeason: 1 } },
+  pricing: {
+    currency: 'EUR',
+    rates: [
+      { season: 'main', pricePerNight: 1, periods: [{ from: '04-01', to: '09-30' }] },
+      { season: 'off', pricePerNight: 1, periods: [{ from: '10-01', to: '03-31' }] },
+    ],
+    fees: [],
+    minNights: null,
+  },
   location: {
     lat: 0,
     lng: 0,

@@ -17,7 +17,15 @@ const validProperty = {
   title: validTranslation,
   subtitle: validTranslation,
   description: [{ type: 'paragraph', text: validTranslation }],
-  price: { perNight: { offSeason: 70, mainSeason: 85 }, cleaning: 85 },
+  pricing: {
+    currency: 'EUR',
+    rates: [
+      { season: 'main', pricePerNight: 85, periods: [{ from: '04-01', to: '09-30' }] },
+      { season: 'off', pricePerNight: 70, periods: [{ from: '10-01', to: '03-31' }] },
+    ],
+    fees: [{ type: 'cleaning', amount: 85, basis: 'perStay' }],
+    minNights: null,
+  },
   location: {
     lat: 37.75,
     lng: -0.84,

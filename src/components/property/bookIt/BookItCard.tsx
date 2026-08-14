@@ -1,4 +1,5 @@
-import type { Property } from '@/data/property-schema'
+import { isDateInPeriod } from '@/data/pricing'
+import type { PropertyPricing } from '@/data/property-schema'
 import { Button, Card, CardContent, P, Separator, Small } from '@/components/ui'
 import { useTranslations } from 'next-intl'
 import { PiEnvelopeOpenLight, PiPhoneCallLight } from 'react-icons/pi'
@@ -7,35 +8,44 @@ import { Link } from '../../../i18n/navigation'
 import { SeasonPrice } from './SeasonPrice'
 
 export type BookItCardProps = {
-  price: Property['price']
+  pricing: PropertyPricing
 }
 
 export const BookItCard = (props: BookItCardProps) => {
-  const { price } = props
-  const { perNight, cleaning } = price
+  const { pricing } = props
 
   const t = useTranslations('pages.property.bookIt')
   const today = new Date()
-  const isDiscountPeriod = [9, 10, 11, 0, 1, 2].includes(today.getMonth())
+
+  const mainRate = pricing.rates.find((rate) => rate.season === 'main')
+  const offRate = pricing.rates.find((rate) => rate.season === 'off')
+  const cleaning = pricing.fees.find((fee) => fee.type === 'cleaning')?.amount
+
+  const isActive = (rate: PropertyPricing['rates'][number] | undefined) =>
+    Boolean(rate?.periods.some((period) => isDateInPeriod(period, today)))
 
   return (
     <Card>
       <CardContent className='space-y-6'>
         <div className='grid grid-cols-2 gap-2'>
-          <SeasonPrice
-            isActive={!isDiscountPeriod}
-            price={perNight.mainSeason}
-            seasonRange={t('mainSeason.range')}
-            seasonType='main'
-            title={t('mainSeason.title')}
-          />
-          <SeasonPrice
-            isActive={isDiscountPeriod}
-            price={perNight.offSeason}
-            seasonRange={t('offSeason.range')}
-            seasonType='off'
-            title={t('offSeason.title')}
-          />
+          {mainRate && (
+            <SeasonPrice
+              isActive={isActive(mainRate)}
+              price={mainRate.pricePerNight}
+              seasonRange={t('mainSeason.range')}
+              seasonType='main'
+              title={t('mainSeason.title')}
+            />
+          )}
+          {offRate && (
+            <SeasonPrice
+              isActive={isActive(offRate)}
+              price={offRate.pricePerNight}
+              seasonRange={t('offSeason.range')}
+              seasonType='off'
+              title={t('offSeason.title')}
+            />
+          )}
         </div>
         {cleaning && (
           <div className='p-2 bg-gray-50 rounded-md flex items-center'>
