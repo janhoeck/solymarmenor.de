@@ -1,6 +1,5 @@
 'use client'
 
-import type { Property } from '@/data/property-schema'
 import deLocale from '@fullcalendar/core/locales/de'
 import enLocale from '@fullcalendar/core/locales/en-gb'
 import esLocale from '@fullcalendar/core/locales/es'
@@ -13,14 +12,15 @@ import { useLocale } from 'next-intl'
 import './fullCalendar.css'
 
 export type CalendarCardProps = {
-  propertyConfig: Property
+  propertyId: string
+  hasCalendar: boolean
 }
 
 export const CalendarCard = (props: CalendarCardProps) => {
-  const { propertyConfig } = props
+  const { propertyId, hasCalendar } = props
   const locale = useLocale()
 
-  if (!propertyConfig.icalUrl) {
+  if (!hasCalendar) {
     return null
   }
 
@@ -36,8 +36,7 @@ export const CalendarCard = (props: CalendarCardProps) => {
     }
   }
 
-  const encodedUrl = encodeURIComponent(propertyConfig.icalUrl)
-  const apiUrl = `/api/ics?url=${encodedUrl}`
+  const apiUrl = `/api/ics?property=${encodeURIComponent(propertyId)}`
 
   return (
     <Card>

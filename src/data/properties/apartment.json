@@ -5,7 +5,6 @@
   "status": "published",
   "kind": "apartment",
   "updatedAt": "2026-08-14",
-  "icalUrl": "https://www.airbnb.de/calendar/ical/1600027444596724832.ics?t=555ce05d91d148c085e362b822966878",
   "imageSources": [
     "/images/apartment/coverPhoto.webp",
     "/images/apartment/IMG_9806.webp",
@@ -320,5 +319,9 @@
         "es": "Ya sea que busques unas vacaciones de playa en España, unas vacaciones de golf activas en la Costa Cálida o simplemente relajación con la familia - Los Alcázares ofrece las mejores condiciones para una estancia inolvidable."
       }
     ]
+  },
+  "calendar": {
+    "provider": "airbnb",
+    "secretRef": "ICAL_APARTMENT"
   }
 }

@@ -12,7 +12,7 @@ const validProperty = {
   status: 'published',
   kind: 'apartment',
   updatedAt: '2026-08-14',
-  icalUrl: 'https://www.airbnb.de/calendar/ical/123.ics?t=abc',
+  calendar: { provider: 'airbnb', secretRef: 'ICAL_APARTMENT' },
   title: validTranslation,
   subtitle: validTranslation,
   description: [validTranslation],
@@ -89,4 +89,17 @@ test('rejects a leftover address description field', () => {
   // type locally so this negative test can still construct the stale v1 shape.
   ;(property.location.address as unknown as Record<string, unknown>).description = { de: 'Hinweis' }
   assert.throws(() => propertySchema.parse(property))
+})
+
+test('rejects a calendar that carries a url instead of a variable name', () => {
+  assert.throws(() =>
+    propertySchema.parse({
+      ...validProperty,
+      calendar: { provider: 'airbnb', secretRef: 'https://www.airbnb.de/calendar/ical/1.ics' },
+    }),
+  )
+})
+
+test('rejects a leftover icalUrl field', () => {
+  assert.throws(() => propertySchema.parse({ ...validProperty, icalUrl: 'https://example.com' }))
 })

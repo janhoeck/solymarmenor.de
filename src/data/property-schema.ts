@@ -100,6 +100,17 @@ const priceSchema = z
   })
   .strict()
 
+/**
+ * Points at the name of an environment variable, never at its value, so the
+ * calendar token never enters the data files or the client bundle.
+ */
+const calendarSchema = z
+  .object({
+    provider: z.literal('airbnb'),
+    secretRef: z.string().regex(/^[A-Z][A-Z0-9_]*$/),
+  })
+  .strict()
+
 export const propertySchema = z
   .object({
     schemaVersion: z.literal(2),
@@ -108,8 +119,7 @@ export const propertySchema = z
     status: z.enum(['published', 'draft']),
     kind: z.enum(['apartment', 'house']),
     updatedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-    /** Replaced by `calendar.secretRef` in task 5, together with the route and the component. */
-    icalUrl: z.url().optional(),
+    calendar: calendarSchema.optional(),
     title: translationMapSchema,
     subtitle: translationMapSchema,
     description: descriptionSchema,

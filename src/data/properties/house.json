@@ -5,7 +5,6 @@
   "status": "published",
   "kind": "house",
   "updatedAt": "2026-08-14",
-  "icalUrl": "https://www.airbnb.de/calendar/ical/1597951986158408642.ics?t=4ecb6d9da4c44475bf7daf64246b1e44",
   "imageSources": [
     "/images/house/coverPhoto.webp",
     "/images/house/IMG_1671.webp",
@@ -316,5 +315,9 @@
         "es": "Ya sea unas vacaciones de playa, una escapada de golf o días de relax en familia, Estrella de Mar ofrece el entorno perfecto para una estancia inolvidable."
       }
     ]
+  },
+  "calendar": {
+    "provider": "airbnb",
+    "secretRef": "ICAL_HOUSE"
   }
 }
