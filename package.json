@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
+    "test": "node --test --experimental-strip-types \"src/**/*.test.ts\"",
     "check-types": "tsc --noEmit",
     "analyze": "next experimental-analyze",
     "format": "prettier --write \"src/**/*.{ts,tsx,md,css}\""

@@ -1,10 +1,10 @@
 import { ContentBlock } from '@/types/ContentBlock'
-import { Description, DescriptionItem, TranslationMap } from '@/types/PropertyConfiguration'
+import type { Description, TranslationMap } from '@/data/property-schema'
 
 /**
  * Type guard to check if a content item is a simple TranslatedText.
  */
-export function isTranslatedText(item: DescriptionItem): item is TranslationMap {
+export function isTranslatedText(item: Description[number]): item is TranslationMap {
   return !('bulletpoints' in item)
 }
 

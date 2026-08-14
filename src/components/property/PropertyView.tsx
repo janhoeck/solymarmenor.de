@@ -1,7 +1,7 @@
 import { BookItCard } from '@/components/property/bookIt/BookItCard'
 import { CalendarCard } from '@/components/property/calendar/CalendarCard'
 import { PropertyImageGrid } from '@/components/property/images/PropertyImageGrid'
-import { PropertyConfiguration } from '@/types/PropertyConfiguration'
+import type { Property } from '@/data/property-schema'
 import { Separator } from '@/components/ui'
 
 import { ContentContainer } from '../shared/Container/ContentContainer'
@@ -12,7 +12,7 @@ import { LocationDescriptionSection } from './sections/locationDescriptionSectio
 import { PropertyDetailsSection } from './sections/propertyDetailsSection/PropertyDetailsSection'
 
 export type PropertyViewProps = {
-  configuration: PropertyConfiguration
+  configuration: Property
 }
 
 export const PropertyView = (props: PropertyViewProps) => {

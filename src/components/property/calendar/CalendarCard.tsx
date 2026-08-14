@@ -1,6 +1,6 @@
 'use client'
 
-import { PropertyConfiguration } from '@/types/PropertyConfiguration'
+import type { Property } from '@/data/property-schema'
 import deLocale from '@fullcalendar/core/locales/de'
 import enLocale from '@fullcalendar/core/locales/en-gb'
 import esLocale from '@fullcalendar/core/locales/es'
@@ -13,7 +13,7 @@ import { useLocale } from 'next-intl'
 import './fullCalendar.css'
 
 export type CalendarCardProps = {
-  propertyConfig: PropertyConfiguration
+  propertyConfig: Property
 }
 
 export const CalendarCard = (props: CalendarCardProps) => {

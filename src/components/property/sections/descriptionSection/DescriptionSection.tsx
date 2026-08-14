@@ -1,11 +1,11 @@
 import { convertDescription } from '@/components/property/utils'
 import { ContentBlock } from '@/components/shared/ContentBlock/ContentBlock'
 import { Section } from '@/components/shared/Section/Section'
-import { PropertyConfiguration } from '@/types/PropertyConfiguration'
+import type { Property } from '@/data/property-schema'
 import { useLocale, useTranslations } from 'next-intl'
 
 export type DescriptionSectionProps = {
-  propertyConfig: PropertyConfiguration
+  propertyConfig: Property
 }
 
 export const DescriptionSection = (props: DescriptionSectionProps) => {

@@ -1,12 +1,12 @@
 import { PropertyDetailItem } from '@/components/property/sections/propertyDetailsSection/PropertyDetailItem'
 import { getTranslation } from '@/components/property/utils'
-import { PropertyConfiguration } from '@/types/PropertyConfiguration'
+import type { Property } from '@/data/property-schema'
 import { Badge, H1, P } from '@/components/ui'
 import { useLocale } from 'next-intl'
 import { LuMapPin } from 'react-icons/lu'
 
 export type PropertyDetailsSectionProps = {
-  propertyConfig: PropertyConfiguration
+  propertyConfig: Property
 }
 
 export const PropertyDetailsSection = (props: PropertyDetailsSectionProps) => {

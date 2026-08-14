@@ -1,11 +1,11 @@
 import { Section } from '@/components/shared/Section/Section'
-import { PropertyConfiguration } from '@/types/PropertyConfiguration'
+import type { Property } from '@/data/property-schema'
 import { useTranslations } from 'next-intl'
 
 import { AmenityFeaturesBlock } from './AmenityFeaturesBlock'
 
 export type EquipmentFeaturesSectionProps = {
-  propertyConfig: PropertyConfiguration
+  propertyConfig: Property
 }
 
 export const AmenitiesSection = (props: EquipmentFeaturesSectionProps) => {

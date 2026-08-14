@@ -1,9 +1,9 @@
-import { PropertyConfiguration } from '@/types/PropertyConfiguration'
+import type { Property } from '@/data/property-schema'
 import { isDefined } from '@/utils/array'
 import fs from 'fs'
 import path from 'path'
 
-export const loadPropertyConfigs = (): PropertyConfiguration[] => {
+export const loadPropertyConfigs = (): Property[] => {
   try {
     const filePath = path.join(process.cwd(), 'public/propertyConfigs')
     const dictionaryFileNames = fs.readdirSync(filePath)
@@ -14,11 +14,11 @@ export const loadPropertyConfigs = (): PropertyConfiguration[] => {
   return []
 }
 
-export const loadPropertyConfig = (id: string): PropertyConfiguration | undefined => {
+export const loadPropertyConfig = (id: string): Property | undefined => {
   try {
     const filePath = path.join(process.cwd(), 'public/propertyConfigs', `${id}.json`)
     const jsonData = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
-    return jsonData as PropertyConfiguration
+    return jsonData as Property
   } catch (error) {
     console.error(error)
     return undefined

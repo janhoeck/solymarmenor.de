@@ -1,5 +1,5 @@
 import { getTranslation } from '@/components/property/utils'
-import { Location } from '@/types/PropertyConfiguration'
+import type { Property } from '@/data/property-schema'
 import { safeJoin } from '@/utils/join'
 import { Card, CardContent, Muted } from '@/components/ui'
 import { useLocale } from 'next-intl'
@@ -10,7 +10,7 @@ import { GoogleMaps } from './GoogleMaps'
 export type AddressCardProps = {
   lat: number
   lng: number
-  address: Location['address']
+  address: Property['location']['address']
 }
 
 export const AddressCard = (props: AddressCardProps) => {

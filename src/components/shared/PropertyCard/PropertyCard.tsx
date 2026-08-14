@@ -1,5 +1,5 @@
 import { getTranslation } from '@/components/property/utils'
-import { PropertyConfiguration } from '@/types/PropertyConfiguration'
+import type { Property } from '@/data/property-schema'
 import { Badge, Button, Card, CardContent, CardFooter, CardHeader, H3, Muted } from '@/components/ui'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
@@ -11,7 +11,7 @@ import { MdOutlineOpenInNew } from 'react-icons/md'
 import { PropertyStatisticItem } from './PropertyStatisticItem'
 
 export type PropertyCardProps = {
-  propertyConfiguration: PropertyConfiguration
+  propertyConfiguration: Property
 }
 
 export const PropertyCard = (props: PropertyCardProps) => {

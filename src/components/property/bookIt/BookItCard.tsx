@@ -1,4 +1,4 @@
-import { PriceConfig } from '@/types/PropertyConfiguration'
+import type { Property } from '@/data/property-schema'
 import { Button, Card, CardContent, P, Separator, Small } from '@/components/ui'
 import { useTranslations } from 'next-intl'
 import { PiEnvelopeOpenLight, PiPhoneCallLight } from 'react-icons/pi'
@@ -7,7 +7,7 @@ import { Link } from '../../../i18n/navigation'
 import { SeasonPrice } from './SeasonPrice'
 
 export type BookItCardProps = {
-  price: PriceConfig
+  price: Property['price']
 }
 
 export const BookItCard = (props: BookItCardProps) => {

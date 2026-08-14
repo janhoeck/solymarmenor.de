@@ -1,11 +1,11 @@
 import { IconWithText } from '@/components/property/components/IconWithText'
 import { iconMapping } from '@/components/property/iconMapping'
 import { getTranslation } from '@/components/property/utils'
-import { PropertyDetailItem as PropertyDetailItemType } from '@/types/PropertyConfiguration'
+import type { Property } from '@/data/property-schema'
 import { useLocale } from 'next-intl'
 
 export type PropertyDetailItemProps = {
-  detail: PropertyDetailItemType
+  detail: Property['propertyDetails'][number]
 }
 
 export const PropertyDetailItem = (props: PropertyDetailItemProps) => {

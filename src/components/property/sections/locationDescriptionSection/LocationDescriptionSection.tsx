@@ -1,13 +1,13 @@
 import { convertDescription } from '@/components/property/utils'
 import { ContentBlock } from '@/components/shared/ContentBlock/ContentBlock'
 import { Section } from '@/components/shared/Section/Section'
-import { PropertyConfiguration } from '@/types/PropertyConfiguration'
+import type { Property } from '@/data/property-schema'
 import { useLocale, useTranslations } from 'next-intl'
 
 import { AddressCard } from './AddressCard'
 
 export type LocationDescriptionSectionProps = {
-  propertyConfig: PropertyConfiguration
+  propertyConfig: Property
 }
 
 export const LocationDescriptionSection = (props: LocationDescriptionSectionProps) => {

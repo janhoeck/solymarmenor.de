@@ -1,6 +1,6 @@
 'use client'
 
-import { PropertyConfiguration } from '@/types/PropertyConfiguration'
+import type { Property } from '@/data/property-schema'
 import {
   Button,
   Dialog,
@@ -16,7 +16,7 @@ import React, { useState } from 'react'
 import { MdOutlineChevronLeft, MdOutlineChevronRight } from 'react-icons/md'
 
 export type PropertyImageGridProps = {
-  imageSources: PropertyConfiguration['imageSources']
+  imageSources: Property['imageSources']
 }
 
 export const PropertyImageGrid = (props: PropertyImageGridProps) => {
