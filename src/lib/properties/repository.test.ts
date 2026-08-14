@@ -1,7 +1,49 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
 
-import { getProperties, getPropertyById, getPropertyBySlug } from './repository.ts'
+import type { Property } from '../../data/property-schema.ts'
+import { getProperties, getPropertyById, getPropertyBySlug, selectPublished } from './repository.ts'
+
+const translation = { de: 'Text' }
+
+/**
+ * Minimal but schema-shaped property used to build synthetic input for
+ * `selectPublished`, independent of the real JSON fixtures.
+ */
+const propertyFixture: Property = {
+  schemaVersion: 2,
+  id: 'fixture',
+  slug: 'fixture',
+  status: 'published',
+  kind: 'apartment',
+  updatedAt: '2026-08-14',
+  title: translation,
+  subtitle: translation,
+  description: [translation],
+  price: { perNight: { offSeason: 1, mainSeason: 1 } },
+  location: {
+    lat: 0,
+    lng: 0,
+    address: {
+      street: 'Street',
+      houseNumber: '1',
+      postalCode: '00000',
+      city: 'City',
+      country: 'ES',
+    },
+    description: [translation],
+  },
+  imageSources: [
+    '/images/fixture/a.webp',
+    '/images/fixture/b.webp',
+    '/images/fixture/c.webp',
+    '/images/fixture/d.webp',
+    '/images/fixture/e.webp',
+  ],
+  propertyDetails: [],
+  amenities: {},
+  houseRules: { checkIn: translation, checkOut: translation, rules: [] },
+}
 
 test('returns every published property', async () => {
   const result = await getProperties()
@@ -30,4 +72,23 @@ test('finds a property by id', async () => {
 
 test('returns undefined for an unknown slug', async () => {
   assert.equal(await getPropertyBySlug('does-not-exist'), undefined)
+})
+
+test('selectPublished drops drafts and sorts the remainder by id', () => {
+  const input: Property[] = [
+    { ...propertyFixture, id: 'zebra', slug: 'zebra' },
+    { ...propertyFixture, id: 'apple', slug: 'apple', status: 'draft' },
+    { ...propertyFixture, id: 'mango', slug: 'mango' },
+  ]
+
+  const result = selectPublished(input)
+
+  // Input is deliberately out of order (zebra before mango) and includes a
+  // draft (apple) that must be excluded. If either the filter or the sort is
+  // removed, this assertion fails: an unfiltered result would include 'apple',
+  // and an unsorted result would keep insertion order ['zebra', 'mango'].
+  assert.deepEqual(
+    result.map((property) => property.id),
+    ['mango', 'zebra'],
+  )
 })
