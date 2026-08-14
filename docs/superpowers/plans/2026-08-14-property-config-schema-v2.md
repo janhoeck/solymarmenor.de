@@ -1475,8 +1475,20 @@ export const ContentBlock = (props: ContentBlockProps) => {
 }
 ```
 
-`dangerouslySetInnerHTML` bleibt, weil die bestehenden Texte HTML enthalten dürfen und die Daten aus
-dem eigenen Repository stammen — kein Nutzereingabe-Pfad.
+**`dangerouslySetInnerHTML` bleibt — bewusste Entscheidung, kein Versehen.** Begründung (vom
+Auftraggeber bestätigt): die Texte sollen Inline-Auszeichnung wie `<strong>` oder `<em>` tragen
+können. Die Daten stammen ausschließlich aus dem eigenen Repository und durchlaufen keinen
+Nutzereingabe-Pfad — es gibt keine Route, über die Fremdtext in ein `LocalizedText` gelangt. Diese
+Begründung gehört als Kommentar in die Komponente, damit sie nicht bei jedem Review neu diskutiert
+wird:
+
+```tsx
+/**
+ * Content is authored in this repository and never sourced from user input, so
+ * inline markup (<strong>, <em>) in the texts is rendered on purpose. Any future
+ * path that lets third-party text reach a LocalizedText must sanitize first.
+ */
+```
 
 - [ ] **Step 2: Aufrufer umstellen**
 
