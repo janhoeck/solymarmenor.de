@@ -5,18 +5,31 @@ import { localizedTextSchema } from './localized-text.ts'
 
 export { type LocalizedText, localizedTextSchema, LOCALES, type Locale } from './localized-text.ts'
 
-const descriptionItemSchema = z.union([
-  localizedTextSchema,
+/**
+ * A block of editorial content. Discriminated by `type` so new block kinds can
+ * be added without touching existing data or breaking the renderer.
+ */
+export const contentBlockSchema = z.discriminatedUnion('type', [
+  z.object({ type: z.literal('paragraph'), text: localizedTextSchema }).strict(),
   z
     .object({
-      text: localizedTextSchema.optional(),
-      bulletpoints: z.array(localizedTextSchema).min(1),
+      type: z.literal('list'),
+      intro: localizedTextSchema.optional(),
+      items: z.array(localizedTextSchema).min(1),
+    })
+    .strict(),
+  z
+    .object({
+      type: z.literal('note'),
+      variant: z.enum(['info', 'warning']),
+      text: localizedTextSchema,
     })
     .strict(),
 ])
 
-export const descriptionSchema = z.array(descriptionItemSchema)
-export type Description = z.infer<typeof descriptionSchema>
+export type PropertyContentBlock = z.infer<typeof contentBlockSchema>
+
+export const contentBlocksSchema = z.array(contentBlockSchema).min(1)
 
 /**
  * Icon identifiers rendered by `src/components/property/iconMapping.ts`.
@@ -45,7 +58,7 @@ const locationSchema = z
     lat: z.number().min(-90).max(90),
     lng: z.number().min(-180).max(180),
     address: addressSchema,
-    description: descriptionSchema,
+    description: contentBlocksSchema,
   })
   .strict()
 
@@ -74,7 +87,7 @@ const houseRulesSchema = z
     checkIn: localizedTextSchema,
     checkOut: localizedTextSchema,
     rules: z.array(z.enum(['pet', 'party', 'smoking'])),
-    description: descriptionSchema.optional(),
+    description: contentBlocksSchema.optional(),
   })
   .strict()
 
@@ -107,7 +120,7 @@ export const propertySchema = z
     calendar: calendarSchema.optional(),
     title: localizedTextSchema,
     subtitle: localizedTextSchema,
-    description: descriptionSchema,
+    description: contentBlocksSchema,
     price: priceSchema,
     location: locationSchema,
     imageSources: z.array(z.string().startsWith('/images/')).min(5),

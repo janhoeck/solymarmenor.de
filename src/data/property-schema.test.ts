@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
 
-import { propertySchema } from './property-schema.ts'
+import { contentBlockSchema, propertySchema } from './property-schema.ts'
 
 const validTranslation = { de: 'Titel', en: 'Title', es: 'Título' }
 
@@ -15,7 +15,7 @@ const validProperty = {
   calendar: { provider: 'airbnb', secretRef: 'ICAL_APARTMENT' },
   title: validTranslation,
   subtitle: validTranslation,
-  description: [validTranslation],
+  description: [{ type: 'paragraph', text: validTranslation }],
   price: { perNight: { offSeason: 70, mainSeason: 85 }, cleaning: 85 },
   location: {
     lat: 37.75,
@@ -27,7 +27,7 @@ const validProperty = {
       city: 'Los Alcázares',
       country: 'ES',
     },
-    description: [validTranslation],
+    description: [{ type: 'paragraph', text: validTranslation }],
   },
   imageSources: [
     '/images/apartment/coverPhoto.webp',
@@ -94,4 +94,43 @@ test('rejects a calendar that carries a url instead of a variable name', () => {
 
 test('rejects a leftover icalUrl field', () => {
   assert.throws(() => propertySchema.parse({ ...validProperty, icalUrl: 'https://example.com' }))
+})
+
+test('accepts a paragraph block', () => {
+  const block = contentBlockSchema.parse({ type: 'paragraph', text: { de: 'Text' } })
+  assert.equal(block.type, 'paragraph')
+})
+
+test('accepts a list block with an intro', () => {
+  const block = contentBlockSchema.parse({
+    type: 'list',
+    intro: { de: 'Einleitung' },
+    items: [{ de: 'Erster Punkt' }],
+  })
+  assert.equal(block.type, 'list')
+})
+
+test('accepts a list block without an intro', () => {
+  assert.doesNotThrow(() => contentBlockSchema.parse({ type: 'list', items: [{ de: 'Punkt' }] }))
+})
+
+test('rejects a list block without items', () => {
+  assert.throws(() => contentBlockSchema.parse({ type: 'list', items: [] }))
+})
+
+test('accepts a note block', () => {
+  const block = contentBlockSchema.parse({
+    type: 'note',
+    variant: 'warning',
+    text: { de: 'Haustiere sind nicht gestattet.' },
+  })
+  assert.equal(block.type, 'note')
+})
+
+test('rejects a block without a type', () => {
+  assert.throws(() => contentBlockSchema.parse({ text: { de: 'Text' } }))
+})
+
+test('rejects an unknown block type', () => {
+  assert.throws(() => contentBlockSchema.parse({ type: 'video', text: { de: 'Text' } }))
 })
