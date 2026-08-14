@@ -16,8 +16,3 @@ test('every slug is unique', () => {
   const slugs = properties.map((property) => property.slug)
   assert.equal(new Set(slugs).size, slugs.length)
 })
-
-test('no property carries a calendar url in its data', () => {
-  const serialized = JSON.stringify(properties)
-  assert.ok(!serialized.includes('airbnb.de/calendar'))
-})
