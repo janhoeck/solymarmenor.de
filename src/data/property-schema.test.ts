@@ -82,3 +82,11 @@ test('requires the german translation', () => {
 test('accepts a translation with german only', () => {
   assert.deepEqual(translationMapSchema.parse({ de: 'Titel' }), { de: 'Titel' })
 })
+
+test('rejects a leftover address description field', () => {
+  const property = structuredClone(validProperty)
+  // `address` no longer has a `description` field (renamed to `note`); widen the
+  // type locally so this negative test can still construct the stale v1 shape.
+  ;(property.location.address as unknown as Record<string, unknown>).description = { de: 'Hinweis' }
+  assert.throws(() => propertySchema.parse(property))
+})

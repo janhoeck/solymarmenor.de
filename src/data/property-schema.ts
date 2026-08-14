@@ -50,8 +50,8 @@ const addressSchema = z
     city: z.string().min(1),
     /** ISO 3166-1 alpha-2, uppercase. Rendered localized by the UI. */
     country: z.string().regex(/^[A-Z]{2}$/),
-    /** Renamed to `note` in a later task, together with the data migration. */
-    description: translationMapSchema.optional(),
+    /** Free-form hint about finding the address, e.g. a map correction. */
+    note: translationMapSchema.optional(),
   })
   .strict()
 

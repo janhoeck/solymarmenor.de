@@ -37,7 +37,7 @@ export const AddressCard = (props: AddressCardProps) => {
             <div className='text-sm text-muted-foreground'>{[address.postalCode, address.city].join(' ')}</div>
           </div>
         </div>
-        {address.description && <Muted>{getTranslation(locale, address.description)}</Muted>}
+        {address.note && <Muted>{getTranslation(locale, address.note)}</Muted>}
       </CardContent>
     </Card>
   )

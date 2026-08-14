@@ -1,5 +1,10 @@
 {
+  "schemaVersion": 2,
   "id": "apartment",
+  "slug": "apartment",
+  "status": "published",
+  "kind": "apartment",
+  "updatedAt": "2026-08-14",
   "icalUrl": "https://www.airbnb.de/calendar/ical/1600027444596724832.ics?t=555ce05d91d148c085e362b822966878",
   "imageSources": [
     "/images/apartment/coverPhoto.webp",
@@ -45,80 +50,6 @@
     "/images/apartment/IMG_9844.webp",
     "/images/apartment/IMG_9845.webp"
   ],
-  "location": {
-    "lat": 37.75631326446151,
-    "lng": -0.8499044215669385,
-    "address": {
-      "building": "Puerto Marina",
-      "street": "Calle Isla de Ibiza",
-      "houseNumber": "13",
-      "floorApartment": "1° A17",
-      "postalCode": "30710",
-      "city": "Los Alcázares",
-      "country": "Spain"
-    },
-    "description": [
-      {
-        "de": "Los Alcázares ist ein beliebter Ferienort an der sonnigen Costa Cálida in der spanischen Region Murcia. Direkt gelegen am traumhaften Mar Menor, der größten Salzwasserlagune Europas, bietet der Ort perfekte Bedingungen für einen erholsamen und gleichzeitig aktiven Urlaub in Spanien.",
-        "en": "Los Alcázares is a popular holiday resort on the sunny Costa Cálida in the Spanish region of Murcia. Located directly on the beautiful Mar Menor, Europe's largest saltwater lagoon, the resort offers perfect conditions for a relaxing and active holiday in Spain.",
-        "es": "Los Alcázares es un popular resort vacacional en la soleada Costa Cálida en la región española de Murcia. Ubicado directamente en el hermoso Mar Menor, la laguna de agua salada más grande de Europa, el resort ofrece condiciones perfectas para unas vacaciones relajantes y activas en España."
-      },
-      {
-        "de": "Mit rund 7 Kilometern feinem Sandstrand, ruhigem, flachem Wasser und ganzjährig mildem Klima (durchschnittlich 20 °C) ist Los Alcázares das ideale Reiseziel für Familien, Paare und Aktivurlauber. Besonders beliebt ist das baden im Mar Menor, dessen jodhaltiges Salzwasser für seine therapeutischen Wirkungen bekannt ist – ideal bei Haut-, Atemwegs- und Gelenkproblemen. Ein natürliches Spa direkt vor der Haustür!",
-        "en": "With around 7 kilometers of fine sandy beach, calm, shallow water and a mild climate all year round (average 20°C), Los Alcázares is the ideal travel destination for families, couples and active holidaymakers. Particularly popular is bathing in the Mar Menor, whose iodine-rich saltwater is known for its therapeutic effects - ideal for skin, respiratory and joint problems. A natural spa right on your doorstep!",
-        "es": "Con alrededor de 7 kilómetros de playa de arena fina, agua tranquila y poco profunda y un clima suave durante todo el año (promedio de 20°C), Los Alcázares es el destino de viaje ideal para familias, parejas y vacacionistas activos. Particularmente popular es bañarse en el Mar Menor, cuya agua salada rica en yodo es conocida por sus efectos terapéuticos - ideal para problemas de piel, respiratorios y articulares. ¡Un spa natural justo en tu puerta!"
-      },
-      {
-        "de": "Unsere Ferienwohnung in Los Alcázares liegt nur wenige Meter vom Strand entfernt und ist hervorragend erreichbar: Der Flughafen Murcia-San Javier ist nur wenige Kilometer entfernt, der Flughafen Alicante ist in etwa 50 Minuten mit dem Auto erreichbar.",
-        "en": "Our holiday apartment in Los Alcázares is located just a few meters from the beach and is excellently accessible: Murcia-San Javier Airport is only a few kilometers away, Alicante Airport can be reached in about 50 minutes by car.",
-        "es": "Nuestro apartamento vacacional en Los Alcázares está ubicado a solo unos metros de la playa y es excelentemente accesible: el Aeropuerto Murcia-San Javier está a solo unos kilómetros, el Aeropuerto de Alicante se puede alcanzar en aproximadamente 50 minutos en coche."
-      },
-      {
-        "text": {
-          "de": "Erleben Sie in Los Alcázares eine perfekte Kombination aus Erholung, Sport und spanischem Lebensgefühl:",
-          "en": "Experience a perfect combination of relaxation, sport and Spanish lifestyle in Los Alcázares:",
-          "es": "Experimenta una combinación perfecta de relajación, deporte y estilo de vida español en Los Alcázares:"
-        },
-        "bulletpoints": [
-          {
-            "de": "Wassersportmöglichkeiten wie Segeln, Windsurfen, Kitesurfen, Kajakfahren, Stand-up-Paddling",
-            "en": "Water sports opportunities such as sailing, windsurfing, kitesurfing, kayaking, stand-up paddling",
-            "es": "Oportunidades de deportes acuáticos como vela, windsurf, kitesurf, kayak, stand-up paddle"
-          },
-          {
-            "de": "Moderne Sportzentren mit Tennis, Volleyball, Squash, Fitness, Fußball u.v.m.",
-            "en": "Modern sports centers with tennis, volleyball, squash, fitness, football and much more",
-            "es": "Centros deportivos modernos con tenis, voleibol, squash, fitness, fútbol y mucho más"
-          },
-          {
-            "de": "Lokale Spezialitäten aus der murcianischen Küche in zahlreichen Restaurants und Tapas-Bars",
-            "en": "Local specialties from Murcian cuisine in numerous restaurants and tapas bars",
-            "es": "Especialidades locales de la cocina murciana en numerosos restaurantes y bares de tapas"
-          },
-          {
-            "de": "Historische Sehenswürdigkeiten und spannende Ausflugsziele in der Umgebung",
-            "en": "Historical sights and exciting excursion destinations in the area",
-            "es": "Sitios históricos y emocionantes destinos de excursión en la zona"
-          }
-        ]
-      },
-      {
-        "de": "Die Stadt bietet eine sehr gute Infrastruktur mit Supermärkten, Apotheken, internationalen Schulen, medizinischer Versorgung, Golfplätzen und einem zuverlässigen Busservice entlang der Küste.",
-        "en": "The city offers excellent infrastructure with supermarkets, pharmacies, international schools, medical care, golf courses and a reliable bus service along the coast.",
-        "es": "La ciudad ofrece excelente infraestructura con supermercados, farmacias, colegios internacionales, atención médica, campos de golf y un servicio de autobús confiable a lo largo de la costa."
-      },
-      {
-        "de": "Für Golfspieler ist die Region ein Paradies: In der Nähe finden sich über 15 Golfplätze, darunter der bekannte La Manga Club, einer der besten Golfresorts Europas.",
-        "en": "For golfers, the region is a paradise: nearby there are over 15 golf courses, including the well-known La Manga Club, one of Europe's best golf resorts.",
-        "es": "Para los golfistas, la región es un paraíso: cerca hay más de 15 campos de golf, incluyendo el conocido La Manga Club, uno de los mejores resorts de golf de Europa."
-      },
-      {
-        "de": "Ob Sie einen Strandurlaub in Spanien, einen aktiven Golfurlaub an der Costa Cálida oder einfach nur Erholung mit der Familie suchen – Los Alcázares bietet beste Voraussetzungen für einen unvergesslichen Aufenthalt.",
-        "en": "Whether you are looking for a beach holiday in Spain, an active golf holiday on the Costa Cálida or simply relaxation with the family - Los Alcázares offers the best conditions for an unforgettable stay.",
-        "es": "Ya sea que busques unas vacaciones de playa en España, unas vacaciones de golf activas en la Costa Cálida o simplemente relajación con la familia - Los Alcázares ofrece las mejores condiciones para una estancia inolvidable."
-      }
-    ]
-  },
   "title": {
     "de": "Ferienwohnung Los Alcázares Mar Menor",
     "en": "Holiday Apartment Los Alcázares Mar Menor",
@@ -264,11 +195,33 @@
       "washing_rack",
       "washing_machine"
     ],
-    "outdoorArea": ["pool", "balcony"],
-    "kitchen": ["cooker", "oven", "dishes", "coffee_machine", "microwave", "freezer", "refrigerator", "kettle"],
-    "bedroom": ["bed_linen"],
-    "bathroom": ["hairdryer", "towels", "shower", "bathtub"],
-    "baby": ["baby_bed", "high_chair"]
+    "outdoorArea": [
+      "pool",
+      "balcony"
+    ],
+    "kitchen": [
+      "cooker",
+      "oven",
+      "dishes",
+      "coffee_machine",
+      "microwave",
+      "freezer",
+      "refrigerator",
+      "kettle"
+    ],
+    "bedroom": [
+      "bed_linen"
+    ],
+    "bathroom": [
+      "hairdryer",
+      "towels",
+      "shower",
+      "bathtub"
+    ],
+    "baby": [
+      "baby_bed",
+      "high_chair"
+    ]
   },
   "houseRules": {
     "checkIn": {
@@ -281,12 +234,90 @@
       "en": "Check-out before 11:00 AM",
       "es": "Check-out antes de las 11:00"
     },
-    "rules": ["party", "pet", "smoking"],
+    "rules": [
+      "party",
+      "pet",
+      "smoking"
+    ],
     "description": [
       {
         "de": "Gemäß der Hausordnung der Puerto-Marina-Anlage ist es nicht gestattet, Handtücher auf dem Balkon zu trocknen. Bitte verwenden Sie stattdessen den verfügbaren Wäscheständer.",
         "en": "According to the house rules of the Puerto Marina complex, it is not permitted to dry towels on the balcony. Please use the available drying rack instead.",
         "es": "Según las normas de la casa del complejo Puerto Marina, no está permitido secar toallas en el balcón. Por favor, usa el tendedero disponible en su lugar."
+      }
+    ]
+  },
+  "location": {
+    "lat": 37.75631326446151,
+    "lng": -0.8499044215669385,
+    "address": {
+      "building": "Puerto Marina",
+      "street": "Calle Isla de Ibiza",
+      "houseNumber": "13",
+      "floorApartment": "1° A17",
+      "postalCode": "30710",
+      "city": "Los Alcázares",
+      "country": "ES"
+    },
+    "description": [
+      {
+        "de": "Los Alcázares ist ein beliebter Ferienort an der sonnigen Costa Cálida in der spanischen Region Murcia. Direkt gelegen am traumhaften Mar Menor, der größten Salzwasserlagune Europas, bietet der Ort perfekte Bedingungen für einen erholsamen und gleichzeitig aktiven Urlaub in Spanien.",
+        "en": "Los Alcázares is a popular holiday resort on the sunny Costa Cálida in the Spanish region of Murcia. Located directly on the beautiful Mar Menor, Europe's largest saltwater lagoon, the resort offers perfect conditions for a relaxing and active holiday in Spain.",
+        "es": "Los Alcázares es un popular resort vacacional en la soleada Costa Cálida en la región española de Murcia. Ubicado directamente en el hermoso Mar Menor, la laguna de agua salada más grande de Europa, el resort ofrece condiciones perfectas para unas vacaciones relajantes y activas en España."
+      },
+      {
+        "de": "Mit rund 7 Kilometern feinem Sandstrand, ruhigem, flachem Wasser und ganzjährig mildem Klima (durchschnittlich 20 °C) ist Los Alcázares das ideale Reiseziel für Familien, Paare und Aktivurlauber. Besonders beliebt ist das baden im Mar Menor, dessen jodhaltiges Salzwasser für seine therapeutischen Wirkungen bekannt ist – ideal bei Haut-, Atemwegs- und Gelenkproblemen. Ein natürliches Spa direkt vor der Haustür!",
+        "en": "With around 7 kilometers of fine sandy beach, calm, shallow water and a mild climate all year round (average 20°C), Los Alcázares is the ideal travel destination for families, couples and active holidaymakers. Particularly popular is bathing in the Mar Menor, whose iodine-rich saltwater is known for its therapeutic effects - ideal for skin, respiratory and joint problems. A natural spa right on your doorstep!",
+        "es": "Con alrededor de 7 kilómetros de playa de arena fina, agua tranquila y poco profunda y un clima suave durante todo el año (promedio de 20°C), Los Alcázares es el destino de viaje ideal para familias, parejas y vacacionistas activos. Particularmente popular es bañarse en el Mar Menor, cuya agua salada rica en yodo es conocida por sus efectos terapéuticos - ideal para problemas de piel, respiratorios y articulares. ¡Un spa natural justo en tu puerta!"
+      },
+      {
+        "de": "Unsere Ferienwohnung in Los Alcázares liegt nur wenige Meter vom Strand entfernt und ist hervorragend erreichbar: Der Flughafen Murcia-San Javier ist nur wenige Kilometer entfernt, der Flughafen Alicante ist in etwa 50 Minuten mit dem Auto erreichbar.",
+        "en": "Our holiday apartment in Los Alcázares is located just a few meters from the beach and is excellently accessible: Murcia-San Javier Airport is only a few kilometers away, Alicante Airport can be reached in about 50 minutes by car.",
+        "es": "Nuestro apartamento vacacional en Los Alcázares está ubicado a solo unos metros de la playa y es excelentemente accesible: el Aeropuerto Murcia-San Javier está a solo unos kilómetros, el Aeropuerto de Alicante se puede alcanzar en aproximadamente 50 minutos en coche."
+      },
+      {
+        "text": {
+          "de": "Erleben Sie in Los Alcázares eine perfekte Kombination aus Erholung, Sport und spanischem Lebensgefühl:",
+          "en": "Experience a perfect combination of relaxation, sport and Spanish lifestyle in Los Alcázares:",
+          "es": "Experimenta una combinación perfecta de relajación, deporte y estilo de vida español en Los Alcázares:"
+        },
+        "bulletpoints": [
+          {
+            "de": "Wassersportmöglichkeiten wie Segeln, Windsurfen, Kitesurfen, Kajakfahren, Stand-up-Paddling",
+            "en": "Water sports opportunities such as sailing, windsurfing, kitesurfing, kayaking, stand-up paddling",
+            "es": "Oportunidades de deportes acuáticos como vela, windsurf, kitesurf, kayak, stand-up paddle"
+          },
+          {
+            "de": "Moderne Sportzentren mit Tennis, Volleyball, Squash, Fitness, Fußball u.v.m.",
+            "en": "Modern sports centers with tennis, volleyball, squash, fitness, football and much more",
+            "es": "Centros deportivos modernos con tenis, voleibol, squash, fitness, fútbol y mucho más"
+          },
+          {
+            "de": "Lokale Spezialitäten aus der murcianischen Küche in zahlreichen Restaurants und Tapas-Bars",
+            "en": "Local specialties from Murcian cuisine in numerous restaurants and tapas bars",
+            "es": "Especialidades locales de la cocina murciana en numerosos restaurantes y bares de tapas"
+          },
+          {
+            "de": "Historische Sehenswürdigkeiten und spannende Ausflugsziele in der Umgebung",
+            "en": "Historical sights and exciting excursion destinations in the area",
+            "es": "Sitios históricos y emocionantes destinos de excursión en la zona"
+          }
+        ]
+      },
+      {
+        "de": "Die Stadt bietet eine sehr gute Infrastruktur mit Supermärkten, Apotheken, internationalen Schulen, medizinischer Versorgung, Golfplätzen und einem zuverlässigen Busservice entlang der Küste.",
+        "en": "The city offers excellent infrastructure with supermarkets, pharmacies, international schools, medical care, golf courses and a reliable bus service along the coast.",
+        "es": "La ciudad ofrece excelente infraestructura con supermercados, farmacias, colegios internacionales, atención médica, campos de golf y un servicio de autobús confiable a lo largo de la costa."
+      },
+      {
+        "de": "Für Golfspieler ist die Region ein Paradies: In der Nähe finden sich über 15 Golfplätze, darunter der bekannte La Manga Club, einer der besten Golfresorts Europas.",
+        "en": "For golfers, the region is a paradise: nearby there are over 15 golf courses, including the well-known La Manga Club, one of Europe's best golf resorts.",
+        "es": "Para los golfistas, la región es un paraíso: cerca hay más de 15 campos de golf, incluyendo el conocido La Manga Club, uno de los mejores resorts de golf de Europa."
+      },
+      {
+        "de": "Ob Sie einen Strandurlaub in Spanien, einen aktiven Golfurlaub an der Costa Cálida oder einfach nur Erholung mit der Familie suchen – Los Alcázares bietet beste Voraussetzungen für einen unvergesslichen Aufenthalt.",
+        "en": "Whether you are looking for a beach holiday in Spain, an active golf holiday on the Costa Cálida or simply relaxation with the family - Los Alcázares offers the best conditions for an unforgettable stay.",
+        "es": "Ya sea que busques unas vacaciones de playa en España, unas vacaciones de golf activas en la Costa Cálida o simplemente relajación con la familia - Los Alcázares ofrece las mejores condiciones para una estancia inolvidable."
       }
     ]
   }

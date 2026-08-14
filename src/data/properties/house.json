@@ -1,5 +1,10 @@
 {
+  "schemaVersion": 2,
   "id": "house",
+  "slug": "house",
+  "status": "published",
+  "kind": "house",
+  "updatedAt": "2026-08-14",
   "icalUrl": "https://www.airbnb.de/calendar/ical/1597951986158408642.ics?t=4ecb6d9da4c44475bf7daf64246b1e44",
   "imageSources": [
     "/images/house/coverPhoto.webp",
@@ -74,59 +79,6 @@
     "/images/house/IMG_2208.webp",
     "/images/house/IMG_2215.webp"
   ],
-  "location": {
-    "lat": 37.673871,
-    "lng": -0.826053,
-    "address": {
-      "street": "Calle los Rosales",
-      "houseNumber": "3",
-      "postalCode": "30368",
-      "city": "Los Urrutias",
-      "country": "Spain",
-      "description": {
-        "de": "Bitte beachten Sie: Google Maps zeigt die Adresse gelegentlich nicht korrekt an, wenn sie manuell eingegeben wird. Vergewissern Sie sich daher, dass der Zielort richtig angezeigt wird – oder verwenden Sie alternativ Apple Karten für eine zuverlässige Navigation.",
-        "en": "Please note: Google Maps occasionally displays the address incorrectly when entered manually. Therefore, please ensure that the destination is displayed correctly—or alternatively, use Apple Maps for reliable navigation.",
-        "es": "Tenga en cuenta que Google Maps a veces no muestra correctamente la dirección cuando se introduce manualmente. Por lo tanto, asegúrese de que el destino se muestra correctamente o, como alternativa, utilice Apple Maps para una navegación fiable."
-      }
-    },
-    "description": [
-      {
-        "de": "Das Haus liegt in Estrella de Mar, einer ruhigen Urbanisation des kleinen Fischerdorfs Los Urrutias im Süden von Cartagena – nur eine Gehminute vom Mar Menor entfernt. Die Lage bietet eine perfekte Mischung aus Erholung und Nähe zu allen wichtigen Annehmlichkeiten. In wenigen Minuten erreichen Sie Strände, Restaurants, kleine Geschäfte, Apotheken, Arztzentrum, Bodega und gemütliche Strandbars.",
-        "en": "The house is located in Estrella de Mar, a quiet residential area of the small fishing village Los Urrutias in the south of Cartagena – just a one-minute walk from the Mar Menor. The location offers a perfect combination of relaxation and proximity to all essential amenities. Within minutes, you can reach beaches, restaurants, small shops, pharmacies, a medical center, a bodega, and cozy beach bars.",
-        "es": "La casa está situada en Estrella de Mar, una tranquila urbanización del pequeño pueblo pesquero de Los Urrutias, al sur de Cartagena, a solo un minuto a pie del Mar Menor. La ubicación ofrece una combinación perfecta de relax y cercanía a todos los servicios esenciales. En pocos minutos se puede llegar a playas, restaurantes, pequeñas tiendas, farmacias, centro médico, bodega y acogedores chiringuitos."
-      },
-      {
-        "de": "Die Urbanisation verfügt über Kinderspielplätze, Tennisplätze, Minigolf, Basketballkörbe, Tischtennisplatten, Außenfitnessgeräte und ein öffentliches Schwimmbad.",
-        "en": "The residential area offers children's playgrounds, tennis courts, mini-golf, basketball hoops, table tennis, outdoor fitness equipment, and a public swimming pool.",
-        "es": "La urbanización cuenta con parques infantiles, pistas de tenis, minigolf, canastas de baloncesto, mesas de ping-pong, equipos de ejercicio al aire libre y una piscina pública."
-      },
-      {
-        "de": "Das Mar Menor mit seinem flachen, warmen Wasser ist ideal zum Baden, Spazierengehen oder für Wassersport. Die Umgebung besticht durch mediterranes Flair, Palmen und gepflegte Wege entlang der Küste. Je nach Jahreszeit lassen sich Flamingos am Strand beobachten, und wilde Papageien fliegen durch das Dorf.",
-        "en": "The Mar Menor, with its shallow and warm waters, is perfect for swimming, walking, or water sports. The surroundings feature Mediterranean charm, palm trees, and well-kept coastal paths. Depending on the season, you can spot flamingos near the beach, and wild parrots flying through the village.",
-        "es": "El Mar Menor, con sus aguas poco profundas y cálidas, es ideal para nadar, pasear o practicar deportes acuáticos. Los alrededores destacan por su encanto mediterráneo, palmeras y caminos costeros bien cuidados. Según la temporada, se pueden observar flamencos cerca de la playa y loros salvajes que vuelan por el pueblo."
-      },
-      {
-        "de": "Ein Highlight für Naturliebhaber ist der nahegelegene erloschene Vulkan El Carmolí, der zu herrlichen Wandertouren einlädt.",
-        "en": "A highlight for nature lovers is the nearby extinct volcano El Carmolí, which offers beautiful hiking opportunities.",
-        "es": "Un punto destacado para los amantes de la naturaleza es el volcán extinto El Carmolí, situado cerca y perfecto para realizar hermosas rutas de senderismo."
-      },
-      {
-        "de": "Das Dorf bietet eine sehr gute Infrastruktur mit Supermärkten, medizinischer Versorgung, Sportanlagen, Golfplätzen und einem zuverlässigen Busservice entlang der Küste. Golfer finden in der Umgebung über 15 Plätze, darunter den renommierten La Manga Club, einen der besten Golfresorts Europas.",
-        "en": "The village offers excellent infrastructure with supermarkets, medical services, sports facilities, golf courses, and a reliable bus service along the coast. Golf enthusiasts will find over 15 courses nearby, including the renowned La Manga Club, one of Europe’s top golf resorts.",
-        "es": "El pueblo ofrece una excelente infraestructura con supermercados, servicios médicos, instalaciones deportivas, campos de golf y un servicio de autobús fiable a lo largo de la costa. Los amantes del golf encontrarán más de 15 campos cercanos, incluido el prestigioso La Manga Club, uno de los mejores complejos de golf de Europa."
-      },
-      {
-        "de": "Dank der guten Anbindung an Cartagena und die Hauptverkehrsstraßen eignet sich der Standort ideal für Ausflüge in die Altstadt, nach La Manga oder in die umliegenden Naturparks.",
-        "en": "Thanks to its good connections to Cartagena and the main roads, the location is ideal for excursions to the old town, La Manga, or the surrounding natural parks.",
-        "es": "Gracias a su buena conexión con Cartagena y las principales carreteras, la ubicación es ideal para excursiones al casco antiguo, La Manga o los parques naturales de los alrededores."
-      },
-      {
-        "de": "Ob Strandurlaub, Golfreise oder entspannte Tage mit der Familie – Estrella de Mar bietet beste Voraussetzungen für einen unvergesslichen Aufenthalt.",
-        "en": "Whether you're looking for a beach holiday, a golf getaway, or relaxing days with your family – Estrella de Mar offers the perfect setting for an unforgettable stay.",
-        "es": "Ya sea unas vacaciones de playa, una escapada de golf o días de relax en familia, Estrella de Mar ofrece el entorno perfecto para una estancia inolvidable."
-      }
-    ]
-  },
   "title": {
     "de": "Luxuriöses Ferienhaus in Estrella del Mar, Los Urrutias",
     "en": "Luxurious Holiday Home in Estrella del Mar, Los Urrutias ",
@@ -261,7 +213,10 @@
       "washing_rack",
       "washing_machine"
     ],
-    "outdoorArea": ["pool", "terrace"],
+    "outdoorArea": [
+      "pool",
+      "terrace"
+    ],
     "kitchen": [
       "cooker",
       "oven",
@@ -273,9 +228,17 @@
       "refrigerator",
       "kettle"
     ],
-    "bedroom": ["bed_linen"],
-    "bathroom": ["hairdryer", "towels", "shower"],
-    "baby": ["high_chair"]
+    "bedroom": [
+      "bed_linen"
+    ],
+    "bathroom": [
+      "hairdryer",
+      "towels",
+      "shower"
+    ],
+    "baby": [
+      "high_chair"
+    ]
   },
   "houseRules": {
     "checkIn": {
@@ -288,12 +251,69 @@
       "en": "Check-out before 11:00 AM",
       "es": "Check-out antes de las 11:00"
     },
-    "rules": ["party", "pet", "smoking"],
+    "rules": [
+      "party",
+      "pet",
+      "smoking"
+    ],
     "description": [
       {
         "de": "Gerne ermöglichen wir Ihnen flexible Check-in und Check-out Zeiten nach Absprache.",
         "en": "We are happy to offer you flexible check-in and check-out times by arrangement.",
         "es": "Estaremos encantados de ofrecerle horarios flexibles de check-in y check-out previa consulta."
+      }
+    ]
+  },
+  "location": {
+    "lat": 37.673871,
+    "lng": -0.826053,
+    "address": {
+      "street": "Calle los Rosales",
+      "houseNumber": "3",
+      "postalCode": "30368",
+      "city": "Los Urrutias",
+      "country": "ES",
+      "note": {
+        "de": "Bitte beachten Sie: Google Maps zeigt die Adresse gelegentlich nicht korrekt an, wenn sie manuell eingegeben wird. Vergewissern Sie sich daher, dass der Zielort richtig angezeigt wird – oder verwenden Sie alternativ Apple Karten für eine zuverlässige Navigation.",
+        "en": "Please note: Google Maps occasionally displays the address incorrectly when entered manually. Therefore, please ensure that the destination is displayed correctly—or alternatively, use Apple Maps for reliable navigation.",
+        "es": "Tenga en cuenta que Google Maps a veces no muestra correctamente la dirección cuando se introduce manualmente. Por lo tanto, asegúrese de que el destino se muestra correctamente o, como alternativa, utilice Apple Maps para una navegación fiable."
+      }
+    },
+    "description": [
+      {
+        "de": "Das Haus liegt in Estrella de Mar, einer ruhigen Urbanisation des kleinen Fischerdorfs Los Urrutias im Süden von Cartagena – nur eine Gehminute vom Mar Menor entfernt. Die Lage bietet eine perfekte Mischung aus Erholung und Nähe zu allen wichtigen Annehmlichkeiten. In wenigen Minuten erreichen Sie Strände, Restaurants, kleine Geschäfte, Apotheken, Arztzentrum, Bodega und gemütliche Strandbars.",
+        "en": "The house is located in Estrella de Mar, a quiet residential area of the small fishing village Los Urrutias in the south of Cartagena – just a one-minute walk from the Mar Menor. The location offers a perfect combination of relaxation and proximity to all essential amenities. Within minutes, you can reach beaches, restaurants, small shops, pharmacies, a medical center, a bodega, and cozy beach bars.",
+        "es": "La casa está situada en Estrella de Mar, una tranquila urbanización del pequeño pueblo pesquero de Los Urrutias, al sur de Cartagena, a solo un minuto a pie del Mar Menor. La ubicación ofrece una combinación perfecta de relax y cercanía a todos los servicios esenciales. En pocos minutos se puede llegar a playas, restaurantes, pequeñas tiendas, farmacias, centro médico, bodega y acogedores chiringuitos."
+      },
+      {
+        "de": "Die Urbanisation verfügt über Kinderspielplätze, Tennisplätze, Minigolf, Basketballkörbe, Tischtennisplatten, Außenfitnessgeräte und ein öffentliches Schwimmbad.",
+        "en": "The residential area offers children's playgrounds, tennis courts, mini-golf, basketball hoops, table tennis, outdoor fitness equipment, and a public swimming pool.",
+        "es": "La urbanización cuenta con parques infantiles, pistas de tenis, minigolf, canastas de baloncesto, mesas de ping-pong, equipos de ejercicio al aire libre y una piscina pública."
+      },
+      {
+        "de": "Das Mar Menor mit seinem flachen, warmen Wasser ist ideal zum Baden, Spazierengehen oder für Wassersport. Die Umgebung besticht durch mediterranes Flair, Palmen und gepflegte Wege entlang der Küste. Je nach Jahreszeit lassen sich Flamingos am Strand beobachten, und wilde Papageien fliegen durch das Dorf.",
+        "en": "The Mar Menor, with its shallow and warm waters, is perfect for swimming, walking, or water sports. The surroundings feature Mediterranean charm, palm trees, and well-kept coastal paths. Depending on the season, you can spot flamingos near the beach, and wild parrots flying through the village.",
+        "es": "El Mar Menor, con sus aguas poco profundas y cálidas, es ideal para nadar, pasear o practicar deportes acuáticos. Los alrededores destacan por su encanto mediterráneo, palmeras y caminos costeros bien cuidados. Según la temporada, se pueden observar flamencos cerca de la playa y loros salvajes que vuelan por el pueblo."
+      },
+      {
+        "de": "Ein Highlight für Naturliebhaber ist der nahegelegene erloschene Vulkan El Carmolí, der zu herrlichen Wandertouren einlädt.",
+        "en": "A highlight for nature lovers is the nearby extinct volcano El Carmolí, which offers beautiful hiking opportunities.",
+        "es": "Un punto destacado para los amantes de la naturaleza es el volcán extinto El Carmolí, situado cerca y perfecto para realizar hermosas rutas de senderismo."
+      },
+      {
+        "de": "Das Dorf bietet eine sehr gute Infrastruktur mit Supermärkten, medizinischer Versorgung, Sportanlagen, Golfplätzen und einem zuverlässigen Busservice entlang der Küste. Golfer finden in der Umgebung über 15 Plätze, darunter den renommierten La Manga Club, einen der besten Golfresorts Europas.",
+        "en": "The village offers excellent infrastructure with supermarkets, medical services, sports facilities, golf courses, and a reliable bus service along the coast. Golf enthusiasts will find over 15 courses nearby, including the renowned La Manga Club, one of Europe’s top golf resorts.",
+        "es": "El pueblo ofrece una excelente infraestructura con supermercados, servicios médicos, instalaciones deportivas, campos de golf y un servicio de autobús fiable a lo largo de la costa. Los amantes del golf encontrarán más de 15 campos cercanos, incluido el prestigioso La Manga Club, uno de los mejores complejos de golf de Europa."
+      },
+      {
+        "de": "Dank der guten Anbindung an Cartagena und die Hauptverkehrsstraßen eignet sich der Standort ideal für Ausflüge in die Altstadt, nach La Manga oder in die umliegenden Naturparks.",
+        "en": "Thanks to its good connections to Cartagena and the main roads, the location is ideal for excursions to the old town, La Manga, or the surrounding natural parks.",
+        "es": "Gracias a su buena conexión con Cartagena y las principales carreteras, la ubicación es ideal para excursiones al casco antiguo, La Manga o los parques naturales de los alrededores."
+      },
+      {
+        "de": "Ob Strandurlaub, Golfreise oder entspannte Tage mit der Familie – Estrella de Mar bietet beste Voraussetzungen für einen unvergesslichen Aufenthalt.",
+        "en": "Whether you're looking for a beach holiday, a golf getaway, or relaxing days with your family – Estrella de Mar offers the perfect setting for an unforgettable stay.",
+        "es": "Ya sea unas vacaciones de playa, una escapada de golf o días de relax en familia, Estrella de Mar ofrece el entorno perfecto para una estancia inolvidable."
       }
     ]
   }
