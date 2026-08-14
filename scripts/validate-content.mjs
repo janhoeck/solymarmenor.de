@@ -1,13 +1,13 @@
-// Checks what the zod schema cannot see: files on disk, cross-references and
-// uniqueness across properties. Reads and validates the JSON files itself
-// (rather than importing `src/data/properties/index.ts`, which throws on the
-// first invalid file) so every problem — schema violation or not — is
+// Checks what the zod schema cannot see: malformed JSON, files on disk,
+// cross-references and uniqueness across properties. Reads and validates the
+// JSON files itself (rather than importing `src/data/properties/index.ts`,
+// which throws on the first invalid file) so every problem — unparsable
+// JSON, a schema violation, or something the schema cannot express — is
 // reported as a readable message instead of a crash. Exits non-zero on any
 // problem.
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 
-import { AMENITIES } from '../src/data/amenities.ts'
 import { propertySchema } from '../src/data/property-schema.ts'
 
 const PUBLIC_DIR = path.join(process.cwd(), 'public')
@@ -24,7 +24,15 @@ const properties = []
 
 for (const id of PROPERTY_IDS) {
   const fileName = `${id}.json`
-  const raw = JSON.parse(readFileSync(path.join(DATA_DIR, fileName), 'utf-8'))
+  let raw
+
+  try {
+    raw = JSON.parse(readFileSync(path.join(DATA_DIR, fileName), 'utf-8'))
+  } catch (error) {
+    problems.push(`${fileName}: not valid JSON — ${error.message}`)
+    continue
+  }
+
   const result = propertySchema.safeParse(raw)
 
   if (!result.success) {
@@ -53,14 +61,6 @@ for (const property of properties) {
     if (!existsSync(path.join(PUBLIC_DIR, image.src))) {
       problems.push(`${where}: image file missing — ${image.src}`)
     }
-  }
-
-  for (const key of property.amenities) {
-    if (!(key in AMENITIES)) problems.push(`${where}: unknown amenity "${key}"`)
-  }
-
-  if (property.images.gallery.length < 4) {
-    problems.push(`${where}: gallery needs at least 4 images for the grid`)
   }
 
   const seasons = property.pricing.rates.map((rate) => rate.season)
