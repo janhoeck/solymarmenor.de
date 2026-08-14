@@ -1,13 +1,42 @@
 // Checks what the zod schema cannot see: files on disk, cross-references and
-// uniqueness across properties. Exits non-zero on any problem.
-import { existsSync } from 'node:fs'
+// uniqueness across properties. Reads and validates the JSON files itself
+// (rather than importing `src/data/properties/index.ts`, which throws on the
+// first invalid file) so every problem — schema violation or not — is
+// reported as a readable message instead of a crash. Exits non-zero on any
+// problem.
+import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 
 import { AMENITIES } from '../src/data/amenities.ts'
-import { properties } from '../src/data/properties/index.ts'
+import { propertySchema } from '../src/data/property-schema.ts'
 
 const PUBLIC_DIR = path.join(process.cwd(), 'public')
+const DATA_DIR = path.join(process.cwd(), 'src/data/properties')
+
+// Mirrors the discovery in `images-sync.mjs` so both scripts agree on what a
+// property is.
+const PROPERTY_IDS = readdirSync(DATA_DIR)
+  .filter((name) => name.endsWith('.json'))
+  .map((name) => name.replace(/\.json$/, ''))
+
 const problems = []
+const properties = []
+
+for (const id of PROPERTY_IDS) {
+  const fileName = `${id}.json`
+  const raw = JSON.parse(readFileSync(path.join(DATA_DIR, fileName), 'utf-8'))
+  const result = propertySchema.safeParse(raw)
+
+  if (!result.success) {
+    for (const issue of result.error.issues) {
+      const field = issue.path.length > 0 ? issue.path.join('.') : '(root)'
+      problems.push(`${fileName}: ${field}: ${issue.message}`)
+    }
+    continue
+  }
+
+  properties.push(result.data)
+}
 
 const slugs = new Set()
 const ids = new Set()

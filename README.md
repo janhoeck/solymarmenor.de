@@ -34,7 +34,7 @@ Die Objektdaten liegen in `src/data/properties/*.json` und werden beim Import ge
 | Befehl | Zweck |
 |---|---|
 | `pnpm test` | Schema- und Repository-Tests |
-| `pnpm validate:content` | Bilddateien, Amenity-Keys, Eindeutigkeit von id/slug |
+| `pnpm validate:content` | Schema (lesbare Meldungen statt Absturz), Bilddateien, Amenity-Keys, Eindeutigkeit von id/slug |
 | `pnpm images:sync` | Bilddimensionen aus den Dateien übernehmen |
 | `pnpm images:sync --check` | nur melden, nichts schreiben |
 
