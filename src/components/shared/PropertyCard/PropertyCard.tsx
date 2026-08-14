@@ -14,6 +14,19 @@ export type PropertyCardProps = {
   propertyConfiguration: Property
 }
 
+/**
+ * Badge amenities shown on the card, mapped to their message key under
+ * `pages.home.properties.card`. There is no `pages.property.amenities`
+ * namespace, so this reuses the existing card keys instead of introducing a
+ * second translation namespace for the same four amenities.
+ */
+const CARD_AMENITY_MESSAGE_KEYS = {
+  pool: 'pool',
+  air_conditioner: 'airConditioner',
+  wlan: 'wlan',
+  parking: 'parking',
+} as const
+
 export const PropertyCard = (props: PropertyCardProps) => {
   const { propertyConfiguration } = props
   const t = useTranslations('pages.home.properties.card')
@@ -59,10 +72,16 @@ export const PropertyCard = (props: PropertyCardProps) => {
           )}
         </div>
         <div className='flex flex-wrap gap-2'>
-          <Badge variant='secondary'>{t('pool')}</Badge>
-          <Badge variant='secondary'>{t('airConditioner')}</Badge>
-          <Badge variant='secondary'>{t('wlan')}</Badge>
-          <Badge variant='secondary'>{t('parking')}</Badge>
+          {(['pool', 'air_conditioner', 'wlan', 'parking'] as const)
+            .filter((key) => propertyConfiguration.amenities.includes(key))
+            .map((key) => (
+              <Badge
+                key={key}
+                variant='secondary'
+              >
+                {t(CARD_AMENITY_MESSAGE_KEYS[key])}
+              </Badge>
+            ))}
         </div>
       </CardContent>
 

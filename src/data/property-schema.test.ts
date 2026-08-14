@@ -32,7 +32,7 @@ const validProperty = {
   },
   images: { cover: validImage, gallery: Array.from({ length: 4 }, () => validImage) },
   highlights: [{ key: 'guests', icon: 'group', value: 4, label: validTranslation }],
-  amenities: { general: ['parking'], kitchen: ['oven'] },
+  amenities: ['parking', 'oven'],
   houseRules: {
     checkIn: validTranslation,
     checkOut: validTranslation,
@@ -64,9 +64,9 @@ test('rejects a country that is not an ISO alpha-2 code', () => {
   assert.throws(() => propertySchema.parse(property))
 })
 
-test('rejects an amenity that is not a known icon type', () => {
+test('rejects an amenity that is not a known amenity key', () => {
   const property = structuredClone(validProperty)
-  property.amenities.general = ['teleporter']
+  property.amenities = ['teleporter']
   assert.throws(() => propertySchema.parse(property))
 })
 

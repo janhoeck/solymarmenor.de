@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 import { ICON_TYPES } from '../types/IconType.ts'
+import { AMENITY_KEYS } from './amenities.ts'
 import { HIGHLIGHT_KEYS } from './highlight-keys.ts'
 import { localizedTextSchema } from './localized-text.ts'
 
@@ -86,15 +87,9 @@ export const highlightsSchema = z
   })
 
 const amenitiesSchema = z
-  .object({
-    general: z.array(iconTypeSchema).optional(),
-    outdoorArea: z.array(iconTypeSchema).optional(),
-    kitchen: z.array(iconTypeSchema).optional(),
-    bedroom: z.array(iconTypeSchema).optional(),
-    bathroom: z.array(iconTypeSchema).optional(),
-    baby: z.array(iconTypeSchema).optional(),
-  })
-  .strict()
+  .array(z.enum(AMENITY_KEYS))
+  .min(1)
+  .refine((keys) => new Set(keys).size === keys.length, { message: 'duplicate amenity key' })
 
 const houseRulesSchema = z
   .object({

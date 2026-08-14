@@ -98,48 +98,36 @@
       }
     }
   ],
-  "amenities": {
-    "general": [
-      "parking",
-      "air_conditioner",
-      "wlan",
-      "tv",
-      "barrier_free",
-      "elevator",
-      "fire_extinguisher",
-      "smoke_detector",
-      "vacuum",
-      "washing_rack",
-      "washing_machine"
-    ],
-    "outdoorArea": [
-      "pool",
-      "balcony"
-    ],
-    "kitchen": [
-      "cooker",
-      "oven",
-      "dishes",
-      "coffee_machine",
-      "microwave",
-      "freezer",
-      "refrigerator",
-      "kettle"
-    ],
-    "bedroom": [
-      "bed_linen"
-    ],
-    "bathroom": [
-      "hairdryer",
-      "towels",
-      "shower",
-      "bathtub"
-    ],
-    "baby": [
-      "baby_bed",
-      "high_chair"
-    ]
-  },
+  "amenities": [
+    "parking",
+    "air_conditioner",
+    "wlan",
+    "tv",
+    "barrier_free",
+    "elevator",
+    "fire_extinguisher",
+    "smoke_detector",
+    "vacuum",
+    "washing_rack",
+    "washing_machine",
+    "pool",
+    "balcony",
+    "cooker",
+    "oven",
+    "dishes",
+    "coffee_machine",
+    "microwave",
+    "freezer",
+    "refrigerator",
+    "kettle",
+    "bed_linen",
+    "hairdryer",
+    "towels",
+    "shower",
+    "bathtub",
+    "baby_bed",
+    "high_chair"
+  ],
   "houseRules": {
     "checkIn": {
       "de": "Check-in ab 15:00 Uhr",

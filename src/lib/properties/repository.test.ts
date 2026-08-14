@@ -43,7 +43,7 @@ const propertyFixture: Property = {
     ],
   },
   highlights: [{ key: 'guests', icon: 'group', value: 4, label: translation }],
-  amenities: {},
+  amenities: ['parking'],
   houseRules: { checkIn: translation, checkOut: translation, rules: [] },
 }
 

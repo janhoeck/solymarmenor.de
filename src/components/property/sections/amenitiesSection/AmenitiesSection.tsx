@@ -1,44 +1,29 @@
 import { Section } from '@/components/shared/Section/Section'
+import { groupAmenitiesByCategory } from '@/data/amenities'
 import type { Property } from '@/data/property-schema'
 import { useTranslations } from 'next-intl'
 
 import { AmenityFeaturesBlock } from './AmenityFeaturesBlock'
 
-export type EquipmentFeaturesSectionProps = {
+export type AmenitiesSectionProps = {
   propertyConfig: Property
 }
 
-export const AmenitiesSection = (props: EquipmentFeaturesSectionProps) => {
+export const AmenitiesSection = (props: AmenitiesSectionProps) => {
   const { propertyConfig } = props
-  const { amenities } = propertyConfig
   const t = useTranslations('pages.property.equipmentFeaturesSection')
+  const groups = groupAmenitiesByCategory(propertyConfig.amenities)
+
   return (
     <Section title={t('headline')}>
       <div className='grid grid-cols-2 gap-10'>
-        <AmenityFeaturesBlock
-          headline={t('subHeadlines.general')}
-          featureTypes={amenities.general}
-        />
-        <AmenityFeaturesBlock
-          headline={t('subHeadlines.kitchen')}
-          featureTypes={amenities.kitchen}
-        />
-        <AmenityFeaturesBlock
-          headline={t('subHeadlines.bathroom')}
-          featureTypes={amenities.bathroom}
-        />
-        <AmenityFeaturesBlock
-          headline={t('subHeadlines.outdoorArea')}
-          featureTypes={amenities.outdoorArea}
-        />
-        <AmenityFeaturesBlock
-          headline={t('subHeadlines.bedroom')}
-          featureTypes={amenities.bedroom}
-        />
-        <AmenityFeaturesBlock
-          headline={t('subHeadlines.baby')}
-          featureTypes={amenities.baby}
-        />
+        {groups.map((group) => (
+          <AmenityFeaturesBlock
+            key={group.category}
+            headline={t(`subHeadlines.${group.category}`)}
+            featureTypes={group.keys}
+          />
+        ))}
       </div>
     </Section>
   )
