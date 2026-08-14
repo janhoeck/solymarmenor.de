@@ -45,3 +45,24 @@ test('no property carries a calendar url in its data', () => {
   const match = serialized.match(/https?:\/\/[^"]*airbnb[^"]*/i)
   assert.equal(match, null, `calendar url leaked into the property data: ${match?.[0]}`)
 })
+
+/**
+ * The refactor once dropped this qualifier, so the page asserted an exact
+ * capacity where it had said an upper bound, in three languages on both
+ * properties, and nothing failed. `PropertyDetailItem` falls back to the bare
+ * formatted value whenever `caption` is absent, which is precisely why the
+ * regression was invisible — the page still rendered, just claiming something
+ * different.
+ */
+test('the guest capacity still reads as an upper bound, not an exact number', () => {
+  for (const property of properties) {
+    const guests = property.highlights.find((highlight) => highlight.key === 'guests')
+
+    assert.ok(guests, `${property.id}: no guests highlight`)
+    assert.ok(
+      guests.caption && guests.caption.de.trim().length > 0,
+      `${property.id}: the guests highlight lost its caption, so the page now claims exactly ` +
+        `${guests.value} guests instead of "up to ${guests.value}"`,
+    )
+  }
+})

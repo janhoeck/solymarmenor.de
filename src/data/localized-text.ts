@@ -22,7 +22,12 @@ const ALLOWED_INLINE_MARKUP = /<(?:\/?(?:strong|em)|br\s*\/?)>/g
 
 /**
  * A `<` that opens something tag-shaped: followed by a letter (`<script`), a
- * slash (`</div`), or `!` (`<!--`, `<!DOCTYPE`).
+ * slash (`</div`), `!` (`<!--`, `<!DOCTYPE`) or `?` (`<?php`, `<?bogus`).
+ *
+ * `!` and `?` are included because an HTML parser treats both `<!` and `<?` as
+ * a bogus comment, swallowing everything up to the next `>`. Neither is an XSS
+ * vector, but either can hide the remainder of a paragraph — the content
+ * integrity this guard exists to protect — and neither appears in prose.
  *
  * A `<` followed by a space, a digit or the end of the string is ordinary
  * punctuation and must pass — these are marketing texts about prices, distances
@@ -34,7 +39,7 @@ const ALLOWED_INLINE_MARKUP = /<(?:\/?(?:strong|em)|br\s*\/?)>/g
  * across calls via `lastIndex`, which would make this return alternating
  * answers for the same input.
  */
-const TAG_LIKE = /<[a-zA-Z/!]/
+const TAG_LIKE = /<[a-zA-Z/!?]/
 
 /**
  * Whether a string carries no markup beyond `ALLOWED_INLINE_MARKUP`. Removing
@@ -50,7 +55,7 @@ const markupSafeString = z
   .min(1)
   .refine(hasOnlyAllowedMarkup, {
     message:
-      'only <strong>, <em> and <br> markup is allowed, without attributes; a literal "<" is fine when not followed by a letter, "/" or "!"',
+      'only <strong>, <em> and <br> markup is allowed, without attributes; a literal "<" is fine when not followed by a letter, "/", "!" or "?"',
   })
 
 /**

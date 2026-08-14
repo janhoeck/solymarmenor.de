@@ -86,3 +86,14 @@ test('rejects an html comment and a doctype', () => {
   assert.throws(() => localizedTextSchema.parse({ de: 'Text <!-- versteckt --> Ende' }))
   assert.throws(() => localizedTextSchema.parse({ de: '<!DOCTYPE html>' }))
 })
+
+// An HTML parser treats `<?` as a bogus comment exactly like `<!--`, swallowing
+// everything up to the next `>`, so it hides content the same way.
+test('rejects a processing instruction', () => {
+  assert.throws(() => localizedTextSchema.parse({ de: '<?php echo 1; ?>' }))
+  assert.throws(() => localizedTextSchema.parse({ de: '<?bogus>' }))
+})
+
+test('still accepts a question mark that does not follow a less-than sign', () => {
+  assert.doesNotThrow(() => localizedTextSchema.parse({ de: 'Noch Fragen? Preis < 100 €' }))
+})
