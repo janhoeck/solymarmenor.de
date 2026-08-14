@@ -1,6 +1,6 @@
 import { getTranslation } from '@/components/property/utils'
 import { GoogleMapsAPIProvider } from '@/components/shared/GoogleMapsAPIProvider/GoogleMapsAPIProvider'
-import { loadPropertyConfig } from '@/lib/load-property-configs'
+import { getPropertyBySlug } from '@/lib/properties/repository'
 import { generateCanonicalMetadata } from '@/lib/metadata'
 import { Metadata } from 'next'
 import { PropsWithChildren } from 'react'
@@ -13,7 +13,7 @@ type MetadataProps = {
 
 export async function generateMetadata(props: MetadataProps): Promise<Metadata> {
   const { locale, slug } = await props.params
-  const propertyConfiguration = loadPropertyConfig(slug)
+  const propertyConfiguration = await getPropertyBySlug(slug)
 
   if (!propertyConfiguration) {
     return {}
