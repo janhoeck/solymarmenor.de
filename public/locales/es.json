@@ -208,6 +208,10 @@
           "group": "máx. Personas"
         }
       },
+      "highlights": {
+        "value": "{value}",
+        "valueSqm": "{value} m²"
+      },
       "bookIt": {
         "night": "Noche",
         "currentPrice": "Precio actual",

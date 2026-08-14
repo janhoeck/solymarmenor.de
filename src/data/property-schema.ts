@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
 import { ICON_TYPES } from '../types/IconType.ts'
+import { HIGHLIGHT_KEYS } from './highlight-keys.ts'
 import { localizedTextSchema } from './localized-text.ts'
 
 export { type LocalizedText, localizedTextSchema, LOCALES, type Locale } from './localized-text.ts'
@@ -62,14 +63,27 @@ const locationSchema = z
   })
   .strict()
 
-const propertyDetailSchema = z
+const highlightSchema = z
   .object({
-    type: iconTypeSchema,
-    amount: z.number().int().positive(),
-    title: localizedTextSchema,
-    subtitle: localizedTextSchema,
+    /** Carries the meaning; `icon` only carries the presentation. */
+    key: z.enum(HIGHLIGHT_KEYS),
+    icon: iconTypeSchema,
+    value: z.number().int().positive(),
+    unit: z.enum(['sqm']).optional(),
+    label: localizedTextSchema,
+    /** Only for values the UI cannot derive from `value` and `unit`. */
+    caption: localizedTextSchema.optional(),
   })
   .strict()
+
+export type PropertyHighlight = z.infer<typeof highlightSchema>
+
+export const highlightsSchema = z
+  .array(highlightSchema)
+  .min(1)
+  .refine((highlights) => new Set(highlights.map((highlight) => highlight.key)).size === highlights.length, {
+    message: 'each highlight key may appear only once',
+  })
 
 const amenitiesSchema = z
   .object({
@@ -154,7 +168,7 @@ export const propertySchema = z
     price: priceSchema,
     location: locationSchema,
     images: imagesSchema,
-    propertyDetails: z.array(propertyDetailSchema),
+    highlights: highlightsSchema,
     amenities: amenitiesSchema,
     houseRules: houseRulesSchema,
   })

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
 
-import { contentBlockSchema, imagesSchema, propertySchema } from './property-schema.ts'
+import { contentBlockSchema, highlightsSchema, imagesSchema, propertySchema } from './property-schema.ts'
 
 const validTranslation = { de: 'Titel', en: 'Title', es: 'Título' }
 const validImage = { src: '/images/apartment/coverPhoto.webp', width: 1600, height: 1067 }
@@ -31,7 +31,7 @@ const validProperty = {
     description: [{ type: 'paragraph', text: validTranslation }],
   },
   images: { cover: validImage, gallery: Array.from({ length: 4 }, () => validImage) },
-  propertyDetails: [{ type: 'bed', amount: 4, title: validTranslation, subtitle: validTranslation }],
+  highlights: [{ key: 'guests', icon: 'group', value: 4, label: validTranslation }],
   amenities: { general: ['parking'], kitchen: ['oven'] },
   houseRules: {
     checkIn: validTranslation,
@@ -158,4 +158,28 @@ test('accepts an optional alt text and category', () => {
       })),
     }),
   )
+})
+
+const guests = { key: 'guests', icon: 'group', value: 4, label: { de: 'Gäste' } }
+
+test('accepts a highlight', () => {
+  assert.equal(highlightsSchema.parse([guests])[0]?.value, 4)
+})
+
+test('accepts a highlight with a unit', () => {
+  assert.doesNotThrow(() =>
+    highlightsSchema.parse([{ key: 'area', icon: 'area_size', value: 95, unit: 'sqm', label: { de: 'Fläche' } }]),
+  )
+})
+
+test('rejects an unknown highlight key', () => {
+  assert.throws(() => highlightsSchema.parse([{ ...guests, key: 'sauna' }]))
+})
+
+test('rejects a duplicated highlight key', () => {
+  assert.throws(() => highlightsSchema.parse([guests, guests]))
+})
+
+test('rejects a zero value', () => {
+  assert.throws(() => highlightsSchema.parse([{ ...guests, value: 0 }]))
 })

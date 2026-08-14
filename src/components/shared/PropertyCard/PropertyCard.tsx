@@ -19,8 +19,8 @@ export const PropertyCard = (props: PropertyCardProps) => {
   const t = useTranslations('pages.home.properties.card')
   const locale = useLocale()
 
-  const groupPropertySummary = propertyConfiguration.propertyDetails.find((item) => item.type === 'group')
-  const bedPropertySummary = propertyConfiguration.propertyDetails.find((item) => item.type === 'bed')
+  const guests = propertyConfiguration.highlights.find((highlight) => highlight.key === 'guests')
+  const beds = propertyConfiguration.highlights.find((highlight) => highlight.key === 'beds')
 
   return (
     <Card className='overflow-hidden transition-all duration-500 hover:shadow-lg hover:-translate-y-2 py-0 pb-6'>
@@ -45,16 +45,16 @@ export const PropertyCard = (props: PropertyCardProps) => {
         <H3 className='line-clamp-2'>{resolveText(propertyConfiguration.title, locale)}</H3>
         <Muted>{resolveText(propertyConfiguration.subtitle, locale)}</Muted>
         <div className='flex items-center gap-6 text-muted-foreground mb-6 mt-6'>
-          {bedPropertySummary && (
+          {beds && (
             <PropertyStatisticItem
               icon={LuBed}
-              text={t('beds', { amount: bedPropertySummary.amount })}
+              text={t('beds', { amount: beds.value })}
             />
           )}
-          {groupPropertySummary && (
+          {guests && (
             <PropertyStatisticItem
               icon={GrGroup}
-              text={t('guests', { amount: groupPropertySummary.amount })}
+              text={t('guests', { amount: guests.value })}
             />
           )}
         </div>

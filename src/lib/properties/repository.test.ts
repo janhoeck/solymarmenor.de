@@ -42,7 +42,7 @@ const propertyFixture: Property = {
       { src: '/images/fixture/e.webp', width: 1600, height: 1067 },
     ],
   },
-  propertyDetails: [],
+  highlights: [{ key: 'guests', icon: 'group', value: 4, label: translation }],
   amenities: {},
   houseRules: { checkIn: translation, checkOut: translation, rules: [] },
 }

@@ -78,64 +78,6 @@
       }
     }
   ],
-  "propertyDetails": [
-    {
-      "type": "bed",
-      "amount": 4,
-      "title": {
-        "de": "Schlafzimmer",
-        "en": "Bedroom",
-        "es": "Dormitorio"
-      },
-      "subtitle": {
-        "de": "4 Betten",
-        "en": "4 beds",
-        "es": "4 camas"
-      }
-    },
-    {
-      "type": "bathtub",
-      "amount": 1,
-      "title": {
-        "de": "Badezimmer",
-        "en": "Bathroom",
-        "es": "Baño"
-      },
-      "subtitle": {
-        "de": "1 Bad",
-        "en": "1 bathroom",
-        "es": "1 baño"
-      }
-    },
-    {
-      "type": "group",
-      "amount": 4,
-      "title": {
-        "de": "Gäste",
-        "en": "Guests",
-        "es": "Huéspedes"
-      },
-      "subtitle": {
-        "de": "Bis zu 4",
-        "en": "Up to 4",
-        "es": "Hasta 4"
-      }
-    },
-    {
-      "type": "area_size",
-      "amount": 95,
-      "title": {
-        "de": "Fläche",
-        "en": "Area",
-        "es": "Superficie"
-      },
-      "subtitle": {
-        "de": "95m²",
-        "en": "95m²",
-        "es": "95m²"
-      }
-    }
-  ],
   "amenities": {
     "general": [
       "parking",
@@ -639,5 +581,48 @@
         "height": 859
       }
     ]
-  }
+  },
+  "highlights": [
+    {
+      "key": "guests",
+      "icon": "group",
+      "value": 4,
+      "label": {
+        "de": "Gäste",
+        "en": "Guests",
+        "es": "Huéspedes"
+      }
+    },
+    {
+      "key": "beds",
+      "icon": "bed",
+      "value": 4,
+      "label": {
+        "de": "Betten",
+        "en": "Beds",
+        "es": "Camas"
+      }
+    },
+    {
+      "key": "bathrooms",
+      "icon": "bathtub",
+      "value": 1,
+      "label": {
+        "de": "Badezimmer",
+        "en": "Bathrooms",
+        "es": "Baños"
+      }
+    },
+    {
+      "key": "area",
+      "icon": "area_size",
+      "value": 95,
+      "unit": "sqm",
+      "label": {
+        "de": "Fläche",
+        "en": "Area",
+        "es": "Superficie"
+      }
+    }
+  ]
 }

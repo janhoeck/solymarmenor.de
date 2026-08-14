@@ -11,7 +11,7 @@ export type PropertyDetailsSectionProps = {
 
 export const PropertyDetailsSection = (props: PropertyDetailsSectionProps) => {
   const { propertyConfig } = props
-  const { location, propertyDetails, title, subtitle } = propertyConfig
+  const { location, highlights, title, subtitle } = propertyConfig
 
   const locale = useLocale()
 
@@ -26,10 +26,10 @@ export const PropertyDetailsSection = (props: PropertyDetailsSectionProps) => {
       </H1>
       <P className='text-muted-foreground'>{resolveText(subtitle, locale)}</P>
       <div className='flex flex-wrap gap-6 mt-4'>
-        {propertyDetails.map((detail) => (
+        {highlights.map((highlight) => (
           <PropertyDetailItem
-            key={detail.type}
-            detail={detail}
+            key={highlight.key}
+            highlight={highlight}
           />
         ))}
       </div>
