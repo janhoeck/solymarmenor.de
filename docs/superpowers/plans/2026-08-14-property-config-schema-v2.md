@@ -147,7 +147,7 @@ const validProperty = {
   status: 'published',
   kind: 'apartment',
   updatedAt: '2026-08-14',
-  calendar: { provider: 'airbnb', secretRef: 'ICAL_APARTMENT' },
+  icalUrl: 'https://www.airbnb.de/calendar/ical/123.ics?t=abc',
   title: validTranslation,
   subtitle: validTranslation,
   description: [validTranslation],
@@ -181,7 +181,7 @@ test('accepts a complete property', () => {
 })
 
 test('rejects an unknown top-level key', () => {
-  assert.throws(() => propertySchema.parse({ ...validProperty, icalUrl: 'https://example.com' }))
+  assert.throws(() => propertySchema.parse({ ...validProperty, sauna: true }))
 })
 
 test('rejects a schemaVersion other than 2', () => {
@@ -330,17 +330,6 @@ const priceSchema = z
   })
   .strict()
 
-/**
- * Points at the name of an environment variable, never at its value, so the
- * calendar token never enters the data files or the client bundle.
- */
-const calendarSchema = z
-  .object({
-    provider: z.literal('airbnb'),
-    secretRef: z.string().regex(/^[A-Z][A-Z0-9_]*$/),
-  })
-  .strict()
-
 export const propertySchema = z
   .object({
     schemaVersion: z.literal(2),
@@ -349,7 +338,8 @@ export const propertySchema = z
     status: z.enum(['published', 'draft']),
     kind: z.enum(['apartment', 'house']),
     updatedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-    calendar: calendarSchema.optional(),
+    /** Replaced by `calendar.secretRef` in task 5, together with the route and the component. */
+    icalUrl: z.url().optional(),
     title: translationMapSchema,
     subtitle: translationMapSchema,
     description: descriptionSchema,
@@ -365,8 +355,11 @@ export const propertySchema = z
 export type Property = z.infer<typeof propertySchema>
 ```
 
-`.strict()` auf jeder Ebene ist der Grund, warum `icalUrl` in Task 2 zwingend aus den Daten
-verschwinden muss — ein übrig gebliebenes Feld bricht den Build.
+`.strict()` auf jeder Ebene bedeutet: jedes Feld, das in den Daten steht, muss im Schema stehen.
+Deshalb bildet dieses Schema `icalUrl` noch ab — die Daten enthalten das Feld bis Task 5, und
+`CalendarCard.tsx:23,39` liest es. Schema, Daten, Route und Komponente wechseln in Task 5
+gemeinsam auf `calendar.secretRef`; ein früherer Teilschritt würde entweder den Typcheck brechen
+oder den Kalender bis Task 5 stillegen.
 
 `imageSources` verlangt mindestens 5 Einträge, weil `PropertyImageGrid.tsx:62` fest auf
 `imageSources[1]` bis `imageSources[4]` zugreift.
@@ -393,7 +386,7 @@ und die Typverwendung `PropertyConfiguration` → `Property`. Betroffen sind:
 `BookItCard.tsx` (nutzt `PriceConfig` → wird `Property['price']`),
 `src/components/property/utils.ts`, `src/lib/load-property-configs.ts`.
 
-Nachschlagen mit: `pnpm exec grep -rl "types/PropertyConfiguration" src`
+Nachschlagen mit: `rg -l "types/PropertyConfiguration" src`
 
 - [ ] **Step 8: Typen und Lint prüfen**
 
@@ -454,19 +447,12 @@ const TARGET_DIR = path.join(process.cwd(), 'src/data/properties')
 const UPDATED_AT = '2026-08-14'
 
 const KIND_BY_ID = { apartment: 'apartment', house: 'house' }
-const SECRET_REF_BY_ID = { apartment: 'ICAL_APARTMENT', house: 'ICAL_HOUSE' }
 
 mkdirSync(TARGET_DIR, { recursive: true })
 
-const extractedTokens = []
-
 for (const id of Object.keys(KIND_BY_ID)) {
   const source = JSON.parse(readFileSync(path.join(SOURCE_DIR, `${id}.json`), 'utf-8'))
-  const { icalUrl, location, ...rest } = source
-
-  if (icalUrl) {
-    extractedTokens.push(`${SECRET_REF_BY_ID[id]}=${icalUrl}`)
-  }
+  const { location, ...rest } = source
 
   // v1 stored the country as free text and the map hint under `address.description`.
   const { description: addressNote, country, ...address } = location.address
@@ -478,7 +464,6 @@ for (const id of Object.keys(KIND_BY_ID)) {
     status: 'published',
     kind: KIND_BY_ID[id],
     updatedAt: UPDATED_AT,
-    ...(icalUrl ? { calendar: { provider: 'airbnb', secretRef: SECRET_REF_BY_ID[id] } } : {}),
     ...rest,
     location: {
       ...location,
@@ -493,26 +478,17 @@ for (const id of Object.keys(KIND_BY_ID)) {
   writeFileSync(path.join(TARGET_DIR, `${id}.json`), `${JSON.stringify(migrated, null, 2)}\n`, 'utf-8')
   console.log(`migrated ${id}`)
 }
-
-console.log('\nAdd these to .env.local (values are the OLD tokens and must be rotated, see task 6):')
-for (const line of extractedTokens) console.log(`  ${line}`)
 ```
+
+`icalUrl` bleibt hier bewusst in den Daten. Es wandert in Task 5 zusammen mit Route und Komponente
+nach `.env` — siehe die Begründung unter Task 1, Schritt 5.
 
 - [ ] **Step 2: Skript ausführen**
 
 Run: `node scripts/migrations/2026-08-14-stage1-head-fields.mjs`
-Expected: zwei `migrated …`-Zeilen und zwei `ICAL_*=…`-Zeilen auf der Konsole.
+Expected: zwei `migrated …`-Zeilen.
 
-- [ ] **Step 3: Ausgegebene Werte nach `.env.local` übernehmen**
-
-Die beiden ausgegebenen `ICAL_APARTMENT=…` / `ICAL_HOUSE=…` Zeilen an `.env.local` anhängen.
-Prüfen, dass `.env.local` in `.gitignore` steht:
-
-Run: `git check-ignore -v .env.local`
-Expected: eine Trefferzeile. Falls nicht: `.env.local` in `.gitignore` ergänzen, **bevor** committet
-wird.
-
-- [ ] **Step 4: Altes Verzeichnis entfernen und Loader-Pfad umbiegen**
+- [ ] **Step 3: Altes Verzeichnis entfernen und Loader-Pfad umbiegen**
 
 ```bash
 git rm -r public/propertyConfigs
@@ -522,7 +498,7 @@ In `src/lib/load-property-configs.ts` beide Vorkommen von `'public/propertyConfi
 durch `'src/data/properties'` ersetzen. Das ist eine Zwischenlösung — die Datei verschwindet in
 Task 4.
 
-- [ ] **Step 5: Verifizieren, dass die Daten das Schema erfüllen**
+- [ ] **Step 4: Verifizieren, dass die Daten das Schema erfüllen**
 
 Run:
 
@@ -541,13 +517,16 @@ import('./src/data/property-schema.ts').then(async (m) => {
 Expected: `apartment ok` und `house ok`. Bei einem Zod-Fehler die gemeldeten Pfade in den JSONs
 korrigieren — nicht das Schema aufweichen.
 
-- [ ] **Step 6: Build prüfen und committen**
+- [ ] **Step 5: Build prüfen und committen**
 
-Run: `pnpm check-types && pnpm build`
-Expected: erfolgreich, Objektseiten rendern unverändert.
+Run: `pnpm check-types && pnpm lint && pnpm build`
+Expected: erfolgreich, Objektseiten rendern unverändert. Der Kalender funktioniert weiterhin, weil
+`icalUrl` bis Task 5 in den Daten bleibt.
+
+Das `git rm -r public/propertyConfigs` aus Schritt 3 hat die Löschung bereits gestaged.
 
 ```bash
-git add src/data/properties scripts/migrations src/lib/load-property-configs.ts .gitignore
+git add src/data/properties scripts/migrations src/lib/load-property-configs.ts
 git commit -m "refactor: move property configs out of the public directory"
 ```
 
@@ -803,7 +782,7 @@ nur für Komponenten, die selbst `await` benutzen.
 
 - [ ] **Step 4: Falls `PropertyListSection` in einer Client-Komponente gerendert wird, prüfen**
 
-Run: `pnpm exec grep -rn "PropertyListSection" src --include=*.tsx`
+Run: `rg -n "PropertyListSection" src -g "*.tsx"`
 Expected: nur die Definition und ein Aufruf aus einer Server-Komponente. Erscheint der Aufruf in
 einer Datei mit `'use client'` am Anfang, muss stattdessen der Aufrufer die Daten laden und als Prop
 durchreichen — dann in dieser Task melden statt improvisieren.
@@ -814,7 +793,7 @@ durchreichen — dann in dieser Task melden statt improvisieren.
 git rm src/lib/load-property-configs.ts
 ```
 
-Run: `pnpm exec grep -rn "load-property-configs" src`
+Run: `rg -n "load-property-configs" src`
 Expected: keine Treffer.
 
 - [ ] **Step 6: Typen, Lint, Build und Tests prüfen**
@@ -845,17 +824,120 @@ im ausgelieferten HTML. Zusätzlich prüft `route.ts:14` nur `icalUrl.includes('
 jede URL zutrifft, die den String irgendwo enthält — der Endpunkt lädt derzeit beliebige Adressen
 serverseitig und gibt den Rumpf zurück.
 
+Diese Task wechselt Schema, Daten, Route und Komponente **gemeinsam** von `icalUrl` auf
+`calendar.secretRef`. Der Zuschnitt ist Absicht: jeder Teilschritt für sich würde entweder den
+Typcheck brechen (Feld weg, Komponente liest es noch) oder den Kalender stilllegen (Daten weg,
+Route kennt die neue Quelle noch nicht).
+
 **Files:**
+- Create: `scripts/migrations/2026-08-14-stage1-ical-secrets.mjs`
+- Modify: `src/data/property-schema.ts` (`icalUrl` → `calendar`)
+- Modify: `src/data/property-schema.test.ts`
+- Modify: `src/data/properties/*.json` (per Skript)
 - Modify: `src/app/api/ics/route.ts` (komplett)
 - Modify: `src/components/property/calendar/CalendarCard.tsx:19-40`
 - Modify: `src/components/property/PropertyView.tsx:39`
+- Modify: `.env.local` (nicht committet)
 
 **Interfaces:**
-- Consumes: `getPropertyById` aus `src/lib/properties/repository.ts` (Task 3);
-  `calendar.secretRef` aus dem Schema (Task 1).
-- Produces: `CalendarCard` nimmt künftig `propertyId: string` statt `propertyConfig: Property`.
+- Consumes: `getPropertyById` aus `src/lib/properties/repository.ts` (Task 3).
+- Produces:
+  - `calendar?: { provider: 'airbnb'; secretRef: string }` im Schema, `icalUrl` entfällt
+  - `CalendarCard` nimmt `propertyId: string` und `hasCalendar: boolean` statt `propertyConfig`
 
-- [ ] **Step 1: Route umschreiben**
+- [ ] **Step 1: Schema umstellen**
+
+In `src/data/property-schema.ts` vor `propertySchema` ergänzen:
+
+```ts
+/**
+ * Points at the name of an environment variable, never at its value, so the
+ * calendar token never enters the data files or the client bundle.
+ */
+const calendarSchema = z
+  .object({
+    provider: z.literal('airbnb'),
+    secretRef: z.string().regex(/^[A-Z][A-Z0-9_]*$/),
+  })
+  .strict()
+```
+
+In `propertySchema` die Zeile `icalUrl: z.url().optional(),` samt Kommentar ersetzen durch:
+
+```ts
+    calendar: calendarSchema.optional(),
+```
+
+In `src/data/property-schema.test.ts` in `validProperty` das Feld `icalUrl` ersetzen durch
+`calendar: { provider: 'airbnb', secretRef: 'ICAL_APARTMENT' },` und diese beiden Tests anhängen:
+
+```ts
+test('rejects a calendar that carries a url instead of a variable name', () => {
+  assert.throws(() =>
+    propertySchema.parse({
+      ...validProperty,
+      calendar: { provider: 'airbnb', secretRef: 'https://www.airbnb.de/calendar/ical/1.ics' },
+    }),
+  )
+})
+
+test('rejects a leftover icalUrl field', () => {
+  assert.throws(() => propertySchema.parse({ ...validProperty, icalUrl: 'https://example.com' }))
+})
+```
+
+Der zweite Test ist die Absicherung gegen ein Zurückrutschen: `.strict()` lässt das alte Feld nicht
+mehr durch.
+
+- [ ] **Step 2: Daten migrieren und Token nach `.env.local` holen**
+
+Create `scripts/migrations/2026-08-14-stage1-ical-secrets.mjs`:
+
+```js
+// One-off: replaces the inline iCal url with a reference to an environment
+// variable and prints the extracted values for .env.local.
+import { readFileSync, writeFileSync } from 'node:fs'
+import path from 'node:path'
+
+const DIR = path.join(process.cwd(), 'src/data/properties')
+const SECRET_REF_BY_ID = { apartment: 'ICAL_APARTMENT', house: 'ICAL_HOUSE' }
+
+const extracted = []
+
+for (const [id, secretRef] of Object.entries(SECRET_REF_BY_ID)) {
+  const file = path.join(DIR, `${id}.json`)
+  const data = JSON.parse(readFileSync(file, 'utf-8'))
+
+  if (!data.icalUrl) {
+    console.log(`${id}: no icalUrl, skipping`)
+    continue
+  }
+
+  extracted.push(`${secretRef}=${data.icalUrl}`)
+  delete data.icalUrl
+  data.calendar = { provider: 'airbnb', secretRef }
+
+  writeFileSync(file, `${JSON.stringify(data, null, 2)}\n`, 'utf-8')
+  console.log(`${id}: icalUrl -> ${secretRef}`)
+}
+
+console.log('\nAdd to .env.local — these are the OLD tokens and must be rotated (task 6):')
+for (const line of extracted) console.log(`  ${line}`)
+```
+
+Run: `node scripts/migrations/2026-08-14-stage1-ical-secrets.mjs`
+Expected: zwei `icalUrl -> ICAL_*`-Zeilen und die zwei Werte.
+
+Die beiden ausgegebenen Zeilen an `.env.local` anhängen. Vorher prüfen, dass die Datei ignoriert ist:
+
+Run: `git check-ignore -v .env.local`
+Expected: eine Trefferzeile. Ohne Treffer **nicht** fortfahren, sondern `.env.local` in `.gitignore`
+ergänzen.
+
+Run: `pnpm test`
+Expected: PASS — die Datentests parsen beide Dateien gegen das neue Schema.
+
+- [ ] **Step 3: Route umschreiben**
 
 Replace `src/app/api/ics/route.ts` entirely:
 
@@ -917,7 +999,7 @@ export async function GET(request: NextRequest) {
 Client-Bundles statisch; in einer Route Handler läuft der Zugriff serverseitig zur Laufzeit und
 funktioniert. Das wird in Schritt 4 geprüft.
 
-- [ ] **Step 2: `CalendarCard` auf die Objekt-ID umstellen**
+- [ ] **Step 4: `CalendarCard` auf die Objekt-ID umstellen**
 
 In `src/components/property/calendar/CalendarCard.tsx` die Zeilen 15–40 ersetzen:
 
@@ -952,7 +1034,7 @@ export const CalendarCard = (props: CalendarCardProps) => {
 
 Den Import von `Property` bzw. `PropertyConfiguration` in Zeile 3 entfernen.
 
-- [ ] **Step 3: Aufrufer anpassen**
+- [ ] **Step 5: Aufrufer anpassen**
 
 In `src/components/property/PropertyView.tsx` Zeile 39 ersetzen:
 
@@ -963,7 +1045,7 @@ In `src/components/property/PropertyView.tsx` Zeile 39 ersetzen:
 />
 ```
 
-- [ ] **Step 4: Manuell prüfen**
+- [ ] **Step 6: Manuell prüfen**
 
 Run: `pnpm dev`
 
@@ -973,15 +1055,17 @@ Run: `pnpm dev`
 4. `http://localhost:3000/api/ics?url=https://example.com/airbnb` → `400` mit
    `{"error":"Property parameter is missing"}`.
 
-- [ ] **Step 5: Typen, Lint, Tests und Build prüfen**
+- [ ] **Step 7: Typen, Lint, Tests und Build prüfen**
 
 Run: `pnpm check-types && pnpm lint && pnpm test && pnpm build`
 Expected: alles fehlerfrei.
 
-- [ ] **Step 6: Commit**
+- [ ] **Step 8: Commit**
+
+`.env.local` ist ignoriert und wird nicht committet.
 
 ```bash
-git add src/app/api/ics/route.ts src/components/property/calendar/CalendarCard.tsx src/components/property/PropertyView.tsx
+git add src/data src/app/api/ics/route.ts src/components/property/calendar/CalendarCard.tsx src/components/property/PropertyView.tsx scripts/migrations
 git commit -m "fix: resolve calendar urls server-side instead of proxying client input"
 ```
 
@@ -1171,7 +1255,7 @@ jetzt in `localized-text.test.ts`.
 
 - [ ] **Step 6: `getTranslation` ersetzen**
 
-Run: `pnpm exec grep -rn "getTranslation" src`
+Run: `rg -n "getTranslation" src`
 
 Jeden Treffer auf `resolveText` umstellen. Die Argumentreihenfolge dreht sich:
 `getTranslation(locale, text)` → `resolveText(text, locale)`. Betroffen sind `PropertyCard.tsx:45,46`,
@@ -1492,7 +1576,7 @@ wird:
 
 - [ ] **Step 2: Aufrufer umstellen**
 
-Run: `pnpm exec grep -rn "convertDescription\|<ContentBlock" src`
+Run: `rg -n "convertDescription|<ContentBlock" src`
 
 Jeden Treffer der Form
 
@@ -1516,7 +1600,7 @@ Wo `useLocale()` danach ungenutzt ist, den Aufruf und den Import entfernen.
 git rm src/types/ContentBlock.ts src/components/property/utils.ts
 ```
 
-Run: `pnpm exec grep -rn "types/ContentBlock\|property/utils" src`
+Run: `rg -n "types/ContentBlock|property/utils" src`
 Expected: keine Treffer.
 
 - [ ] **Step 4: Prüfen**
