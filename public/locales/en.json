@@ -193,6 +193,8 @@
           "party": "Events",
           "smoking": "Smoking"
         },
+        "checkinTime": "from {time}",
+        "checkoutTime": "before {time}",
         "descriptions": {
           "pet": "No pets allowed",
           "party": "Events are not permitted",
@@ -208,17 +210,22 @@
           "group": "max. Persons"
         }
       },
+      "highlights": {
+        "value": "{value}",
+        "valueSqm": "{value} m²"
+      },
+      "content": {
+        "noteLabel": "Important note"
+      },
       "bookIt": {
         "night": "Night",
         "currentPrice": "Current price",
         "mwst": "incl. VAT",
         "mainSeason": {
-          "title": "Main season",
-          "range": "April - September"
+          "title": "Main season"
         },
         "offSeason": {
-          "title": "Off season",
-          "range": "October - March"
+          "title": "Off season"
         },
         "cleaning": {
           "text": "Final cleaning: {cleaning} €",

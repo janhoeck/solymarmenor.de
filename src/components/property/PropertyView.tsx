@@ -1,8 +1,10 @@
 import { BookItCard } from '@/components/property/bookIt/BookItCard'
 import { CalendarCard } from '@/components/property/calendar/CalendarCard'
 import { PropertyImageGrid } from '@/components/property/images/PropertyImageGrid'
-import { PropertyConfiguration } from '@/types/PropertyConfiguration'
+import type { Property } from '@/data/property-schema'
+import { resolveText } from '@/data/localized-text'
 import { Separator } from '@/components/ui'
+import { useLocale } from 'next-intl'
 
 import { ContentContainer } from '../shared/Container/ContentContainer'
 import { AmenitiesSection } from './sections/amenitiesSection/AmenitiesSection'
@@ -12,16 +14,20 @@ import { LocationDescriptionSection } from './sections/locationDescriptionSectio
 import { PropertyDetailsSection } from './sections/propertyDetailsSection/PropertyDetailsSection'
 
 export type PropertyViewProps = {
-  configuration: PropertyConfiguration
+  configuration: Property
 }
 
 export const PropertyView = (props: PropertyViewProps) => {
   const { configuration } = props
+  const locale = useLocale()
 
   return (
     <div>
       <ContentContainer>
-        <PropertyImageGrid imageSources={configuration.imageSources} />
+        <PropertyImageGrid
+          images={configuration.images}
+          fallbackAlt={resolveText(configuration.title, locale)}
+        />
         <div className='grid lg:grid-cols-3 gap-8 md:gap-12 mt-10'>
           <div className='lg:col-span-2 space-y-8'>
             <div className='flex flex-col gap-12'>
@@ -35,8 +41,11 @@ export const PropertyView = (props: PropertyViewProps) => {
           </div>
           <div className='lg:col-span-1'>
             <div className='sticky top-24 space-y-6'>
-              <BookItCard price={configuration.price} />
-              <CalendarCard propertyConfig={configuration} />
+              <BookItCard pricing={configuration.pricing} />
+              <CalendarCard
+                propertyId={configuration.id}
+                hasCalendar={Boolean(configuration.calendar)}
+              />
             </div>
           </div>
         </div>

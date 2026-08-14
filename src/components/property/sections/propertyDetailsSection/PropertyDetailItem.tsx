@@ -1,24 +1,29 @@
 import { IconWithText } from '@/components/property/components/IconWithText'
 import { iconMapping } from '@/components/property/iconMapping'
-import { getTranslation } from '@/components/property/utils'
-import { PropertyDetailItem as PropertyDetailItemType } from '@/types/PropertyConfiguration'
-import { useLocale } from 'next-intl'
+import { resolveText } from '@/data/localized-text'
+import type { PropertyHighlight } from '@/data/property-schema'
+import { useLocale, useTranslations } from 'next-intl'
 
 export type PropertyDetailItemProps = {
-  detail: PropertyDetailItemType
+  highlight: PropertyHighlight
 }
 
 export const PropertyDetailItem = (props: PropertyDetailItemProps) => {
-  const { detail } = props
+  const { highlight } = props
 
   const locale = useLocale()
-  const Icon = iconMapping[detail.type]
+  const t = useTranslations('pages.property.highlights')
+  const Icon = iconMapping[highlight.icon]
+
+  const description = highlight.caption
+    ? resolveText(highlight.caption, locale)
+    : t(highlight.unit === 'sqm' ? 'valueSqm' : 'value', { value: highlight.value })
 
   return (
     <IconWithText
       icon={Icon}
-      label={getTranslation(locale, detail.title)}
-      description={getTranslation(locale, detail.subtitle)}
+      label={resolveText(highlight.label, locale)}
+      description={description}
     />
   )
 }

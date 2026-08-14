@@ -6,7 +6,8 @@ type SeasonType = 'main' | 'off'
 
 export type SeasonPriceProps = {
   title: string
-  seasonRange: string
+  /** Derived from the rate's periods. Empty when the rate has none. */
+  seasonRange?: string
   price: number
   currency?: string
   seasonType?: SeasonType
@@ -34,7 +35,7 @@ export const SeasonPrice = ({
     <div className={twMerge('border rounded-md relative', isActive && 'ring-2 ring-primary', className)}>
       <div className={twMerge('p-4 flex flex-col items-center gap-1', SEASON_STYLES[seasonType])}>
         <P className='font-semibold'>{title}</P>
-        <Muted>{seasonRange}</Muted>
+        {seasonRange && <Muted>{seasonRange}</Muted>}
         {isActive && <Badge className='absolute -top-4 -right-2'>{t('currentPrice')}</Badge>}
       </div>
 

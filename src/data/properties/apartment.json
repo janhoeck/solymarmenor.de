@@ -1,0 +1,545 @@
+{
+  "schemaVersion": 2,
+  "id": "apartment",
+  "slug": "apartment",
+  "status": "published",
+  "kind": "apartment",
+  "updatedAt": "2026-08-14",
+  "title": {
+    "de": "Ferienwohnung Los Alcázares Mar Menor",
+    "en": "Holiday Apartment Los Alcázares Mar Menor",
+    "es": "Apartamento Vacacional Los Alcázares Mar Menor"
+  },
+  "subtitle": {
+    "de": "Modern ausgestattete Ferienwohnung mit Balkon, Pools und zentraler Lage nahe Strand und Restaurants.",
+    "en": "Modern holiday flat with balcony, swimming pools and central location near the beach and restaurants.",
+    "es": "Apartamento vacacional con equipamiento moderno, balcón, piscinas y ubicación céntrica cerca de la playa y los restaurantes."
+  },
+  "description": [
+    {
+      "type": "paragraph",
+      "text": {
+        "de": "Das Apartment bietet Platz für bis zu vier Personen. Es verfügt über drei Zimmer, zwei Schlafräume, ein Wohnzimmer, ein Badezimmer und eine Küche im amerikanischen Stil. Ein Highlight ist der Balkon, auf dem man ab 18:00 Uhr die Abendsonne genießen kann. Das Apartment ist mit Küchenutensilien, Handtüchern und Bettwäsche voll ausgestattet. Es verfügt über deutsches Fernsehen und einen Amazon Fire TV Stick. Es liegt im ersten Stock und ist auch mit dem Aufzug erreichbar.",
+        "en": "The apartment accommodates up to four people. It has three rooms, two bedrooms, a living room, a bathroom and an American-style kitchen. A highlight is the balcony where you can enjoy the evening sun from 6:00 PM. The apartment is fully equipped with kitchen utensils, towels and bed linen. It has German television and an Amazon Fire TV Stick. It is located on the first floor and is also accessible by elevator.",
+        "es": "El apartamento tiene capacidad para hasta cuatro personas. Cuenta con tres habitaciones, dos dormitorios, una sala de estar, un baño y una cocina de estilo americano. Un punto destacado es el balcón donde puedes disfrutar del sol de la tarde desde las 18:00. El apartamento está completamente equipado con utensilios de cocina, toallas y ropa de cama. Tiene televisión alemana y un Amazon Fire TV Stick. Está ubicado en el primer piso y también es accesible por ascensor."
+      }
+    },
+    {
+      "type": "paragraph",
+      "text": {
+        "de": "Die Anlage verfügt über einen wunderschönen Innenbereich mit drei Pools, von denen zwei behindertengerecht sind. Palmen umrahmen die Anlage und sorgen für Karibikflair. Der ideale Ort zum Entspannen.",
+        "en": "The complex features a beautiful interior area with three pools, two of which are disabled-accessible. Palm trees frame the complex and create a Caribbean atmosphere. The ideal place to relax.",
+        "es": "El complejo cuenta con una hermosa área interior con tres piscinas, dos de las cuales son accesibles para discapacitados. Las palmeras enmarcan el complejo y crean un ambiente caribeño. El lugar ideal para relajarse."
+      }
+    },
+    {
+      "type": "paragraph",
+      "text": {
+        "de": "Wir stellen unseren Gästen Sonnenliegen für die Nutzung des Pools zur Verfügung. Wir bitten Sie lediglich darum, die Liegen am Ende des Tages wieder aus dem Poolbereich in die Wohnung zurückzubringen. Bitte beachten Sie außerdem, dass Glas in jeglicher Form nicht in die Poolbereiche mitgenommen werden darf.",
+        "en": "We provide our guests with sun loungers for pool use. We only ask that you return the loungers to the apartment from the pool area at the end of the day. Please also note that glass in any form is not allowed in the pool areas.",
+        "es": "Proporcionamos a nuestros huéspedes tumbonas para el uso de la piscina. Solo pedimos que devuelvan las tumbonas al apartamento desde el área de la piscina al final del día. También ten en cuenta que el vidrio en cualquier forma no está permitido en las áreas de la piscina."
+      }
+    },
+    {
+      "type": "paragraph",
+      "text": {
+        "de": "Die Wohnanlage besticht durch ihre zentrale und dennoch ruhige Lage. Als geschlossene, sichere und private Residenz befindet sie sich nur wenige Gehminuten von Strand, Einkaufsmöglichkeiten, Bars und Restaurants entfernt – ein Auto ist daher nicht erforderlich, falls Sie lieber zu Fuß unterwegs sind.",
+        "en": "The residential complex impresses with its central yet quiet location. As a closed, secure and private residence, it is only a few minutes' walk from the beach, shopping, bars and restaurants - a car is therefore not necessary if you prefer to walk.",
+        "es": "El complejo residencial impresiona con su ubicación central pero tranquila. Como una residencia cerrada, segura y privada, está a solo unos minutos a pie de la playa, tiendas, bares y restaurantes - por lo tanto, no es necesario un coche si prefieres caminar."
+      }
+    },
+    {
+      "type": "list",
+      "intro": {
+        "de": "Perfekte Infrastruktur in unmittelbarer Nähe:",
+        "en": "Perfect infrastructure in the immediate vicinity:",
+        "es": "Infraestructura perfecta en las inmediaciones:"
+      },
+      "items": [
+        {
+          "de": "Supermärkte (Lidl, Aldi, Mercadona): nur 150 m entfernt",
+          "en": "Supermarkets (Lidl, Aldi, Mercadona): only 150 m away",
+          "es": "Supermercados (Lidl, Aldi, Mercadona): a solo 150 m"
+        },
+        {
+          "de": "Berühmte Fußgängerzone von Los Alcázares mit der 525 Plaza: 120 m – hier erwarten Sie Restaurants, abendliche Tanzbars, Live-Musik sowie zahlreiche Hippie- und Verkaufsstände",
+          "en": "Famous pedestrian zone of Los Alcázares with the 525 Plaza: 120 m - here you can expect restaurants, evening dance bars, live music and numerous hippie and vendor stalls",
+          "es": "Famosa zona peatonal de Los Alcázares con la Plaza 525: 120 m - aquí puedes esperar restaurantes, bares de baile nocturnos, música en vivo y numerosos puestos hippies y de vendedores"
+        },
+        {
+          "de": "Meer mit der malerischen Strandpromenade und vielfältigen Restaurants: 950 m",
+          "en": "Sea with the picturesque beach promenade and diverse restaurants: 950 m",
+          "es": "Mar con el pintoresco paseo marítimo y diversos restaurantes: 950 m"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": {
+        "de": "Unsere Ferienwohnung bietet Ihnen den idealen Ausgangspunkt für einen unvergesslichen Urlaub zu einem attraktiven Preis-Leistungs-Verhältnis.",
+        "en": "Our holiday apartment offers you the ideal starting point for an unforgettable holiday at an attractive price-performance ratio.",
+        "es": "Nuestro apartamento vacacional te ofrece el punto de partida ideal para unas vacaciones inolvidables con una atractiva relación calidad-precio."
+      }
+    },
+    {
+      "type": "note",
+      "variant": "warning",
+      "text": {
+        "de": "Haustiere sind in der Wohnanlage nicht gestattet.",
+        "en": "Pets are not allowed in the residential complex.",
+        "es": "No se permiten mascotas en el complejo residencial."
+      }
+    }
+  ],
+  "amenities": [
+    "parking",
+    "air_conditioner",
+    "wlan",
+    "tv",
+    "barrier_free",
+    "elevator",
+    "fire_extinguisher",
+    "smoke_detector",
+    "vacuum",
+    "washing_rack",
+    "washing_machine",
+    "pool",
+    "balcony",
+    "cooker",
+    "oven",
+    "dishes",
+    "coffee_machine",
+    "microwave",
+    "freezer",
+    "refrigerator",
+    "kettle",
+    "bed_linen",
+    "hairdryer",
+    "towels",
+    "shower",
+    "bathtub",
+    "baby_bed",
+    "high_chair"
+  ],
+  "houseRules": {
+    "checkInFrom": "15:00",
+    "checkOutUntil": "11:00",
+    "rules": [
+      "party",
+      "pet",
+      "smoking"
+    ],
+    "notes": [
+      {
+        "type": "paragraph",
+        "text": {
+          "de": "Gemäß der Hausordnung der Puerto-Marina-Anlage ist es nicht gestattet, Handtücher auf dem Balkon zu trocknen. Bitte verwenden Sie stattdessen den verfügbaren Wäscheständer.",
+          "en": "According to the house rules of the Puerto Marina complex, it is not permitted to dry towels on the balcony. Please use the available drying rack instead.",
+          "es": "Según las normas de la casa del complejo Puerto Marina, no está permitido secar toallas en el balcón. Por favor, usa el tendedero disponible en su lugar."
+        }
+      }
+    ]
+  },
+  "location": {
+    "lat": 37.75631326446151,
+    "lng": -0.8499044215669385,
+    "address": {
+      "building": "Puerto Marina",
+      "street": "Calle Isla de Ibiza",
+      "houseNumber": "13",
+      "floorApartment": "1° A17",
+      "postalCode": "30710",
+      "city": "Los Alcázares",
+      "country": "ES"
+    },
+    "description": [
+      {
+        "type": "paragraph",
+        "text": {
+          "de": "Los Alcázares ist ein beliebter Ferienort an der sonnigen Costa Cálida in der spanischen Region Murcia. Direkt gelegen am traumhaften Mar Menor, der größten Salzwasserlagune Europas, bietet der Ort perfekte Bedingungen für einen erholsamen und gleichzeitig aktiven Urlaub in Spanien.",
+          "en": "Los Alcázares is a popular holiday resort on the sunny Costa Cálida in the Spanish region of Murcia. Located directly on the beautiful Mar Menor, Europe's largest saltwater lagoon, the resort offers perfect conditions for a relaxing and active holiday in Spain.",
+          "es": "Los Alcázares es un popular resort vacacional en la soleada Costa Cálida en la región española de Murcia. Ubicado directamente en el hermoso Mar Menor, la laguna de agua salada más grande de Europa, el resort ofrece condiciones perfectas para unas vacaciones relajantes y activas en España."
+        }
+      },
+      {
+        "type": "paragraph",
+        "text": {
+          "de": "Mit rund 7 Kilometern feinem Sandstrand, ruhigem, flachem Wasser und ganzjährig mildem Klima (durchschnittlich 20 °C) ist Los Alcázares das ideale Reiseziel für Familien, Paare und Aktivurlauber. Besonders beliebt ist das baden im Mar Menor, dessen jodhaltiges Salzwasser für seine therapeutischen Wirkungen bekannt ist – ideal bei Haut-, Atemwegs- und Gelenkproblemen. Ein natürliches Spa direkt vor der Haustür!",
+          "en": "With around 7 kilometers of fine sandy beach, calm, shallow water and a mild climate all year round (average 20°C), Los Alcázares is the ideal travel destination for families, couples and active holidaymakers. Particularly popular is bathing in the Mar Menor, whose iodine-rich saltwater is known for its therapeutic effects - ideal for skin, respiratory and joint problems. A natural spa right on your doorstep!",
+          "es": "Con alrededor de 7 kilómetros de playa de arena fina, agua tranquila y poco profunda y un clima suave durante todo el año (promedio de 20°C), Los Alcázares es el destino de viaje ideal para familias, parejas y vacacionistas activos. Particularmente popular es bañarse en el Mar Menor, cuya agua salada rica en yodo es conocida por sus efectos terapéuticos - ideal para problemas de piel, respiratorios y articulares. ¡Un spa natural justo en tu puerta!"
+        }
+      },
+      {
+        "type": "paragraph",
+        "text": {
+          "de": "Unsere Ferienwohnung in Los Alcázares liegt nur wenige Meter vom Strand entfernt und ist hervorragend erreichbar: Der Flughafen Murcia-San Javier ist nur wenige Kilometer entfernt, der Flughafen Alicante ist in etwa 50 Minuten mit dem Auto erreichbar.",
+          "en": "Our holiday apartment in Los Alcázares is located just a few meters from the beach and is excellently accessible: Murcia-San Javier Airport is only a few kilometers away, Alicante Airport can be reached in about 50 minutes by car.",
+          "es": "Nuestro apartamento vacacional en Los Alcázares está ubicado a solo unos metros de la playa y es excelentemente accesible: el Aeropuerto Murcia-San Javier está a solo unos kilómetros, el Aeropuerto de Alicante se puede alcanzar en aproximadamente 50 minutos en coche."
+        }
+      },
+      {
+        "type": "list",
+        "intro": {
+          "de": "Erleben Sie in Los Alcázares eine perfekte Kombination aus Erholung, Sport und spanischem Lebensgefühl:",
+          "en": "Experience a perfect combination of relaxation, sport and Spanish lifestyle in Los Alcázares:",
+          "es": "Experimenta una combinación perfecta de relajación, deporte y estilo de vida español en Los Alcázares:"
+        },
+        "items": [
+          {
+            "de": "Wassersportmöglichkeiten wie Segeln, Windsurfen, Kitesurfen, Kajakfahren, Stand-up-Paddling",
+            "en": "Water sports opportunities such as sailing, windsurfing, kitesurfing, kayaking, stand-up paddling",
+            "es": "Oportunidades de deportes acuáticos como vela, windsurf, kitesurf, kayak, stand-up paddle"
+          },
+          {
+            "de": "Moderne Sportzentren mit Tennis, Volleyball, Squash, Fitness, Fußball u.v.m.",
+            "en": "Modern sports centers with tennis, volleyball, squash, fitness, football and much more",
+            "es": "Centros deportivos modernos con tenis, voleibol, squash, fitness, fútbol y mucho más"
+          },
+          {
+            "de": "Lokale Spezialitäten aus der murcianischen Küche in zahlreichen Restaurants und Tapas-Bars",
+            "en": "Local specialties from Murcian cuisine in numerous restaurants and tapas bars",
+            "es": "Especialidades locales de la cocina murciana en numerosos restaurantes y bares de tapas"
+          },
+          {
+            "de": "Historische Sehenswürdigkeiten und spannende Ausflugsziele in der Umgebung",
+            "en": "Historical sights and exciting excursion destinations in the area",
+            "es": "Sitios históricos y emocionantes destinos de excursión en la zona"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": {
+          "de": "Die Stadt bietet eine sehr gute Infrastruktur mit Supermärkten, Apotheken, internationalen Schulen, medizinischer Versorgung, Golfplätzen und einem zuverlässigen Busservice entlang der Küste.",
+          "en": "The city offers excellent infrastructure with supermarkets, pharmacies, international schools, medical care, golf courses and a reliable bus service along the coast.",
+          "es": "La ciudad ofrece excelente infraestructura con supermercados, farmacias, colegios internacionales, atención médica, campos de golf y un servicio de autobús confiable a lo largo de la costa."
+        }
+      },
+      {
+        "type": "paragraph",
+        "text": {
+          "de": "Für Golfspieler ist die Region ein Paradies: In der Nähe finden sich über 15 Golfplätze, darunter der bekannte La Manga Club, einer der besten Golfresorts Europas.",
+          "en": "For golfers, the region is a paradise: nearby there are over 15 golf courses, including the well-known La Manga Club, one of Europe's best golf resorts.",
+          "es": "Para los golfistas, la región es un paraíso: cerca hay más de 15 campos de golf, incluyendo el conocido La Manga Club, uno de los mejores resorts de golf de Europa."
+        }
+      },
+      {
+        "type": "paragraph",
+        "text": {
+          "de": "Ob Sie einen Strandurlaub in Spanien, einen aktiven Golfurlaub an der Costa Cálida oder einfach nur Erholung mit der Familie suchen – Los Alcázares bietet beste Voraussetzungen für einen unvergesslichen Aufenthalt.",
+          "en": "Whether you are looking for a beach holiday in Spain, an active golf holiday on the Costa Cálida or simply relaxation with the family - Los Alcázares offers the best conditions for an unforgettable stay.",
+          "es": "Ya sea que busques unas vacaciones de playa en España, unas vacaciones de golf activas en la Costa Cálida o simplemente relajación con la familia - Los Alcázares ofrece las mejores condiciones para una estancia inolvidable."
+        }
+      }
+    ]
+  },
+  "calendar": {
+    "provider": "airbnb",
+    "secretRef": "ICAL_APARTMENT"
+  },
+  "images": {
+    "cover": {
+      "src": "/images/apartment/coverPhoto.webp",
+      "width": 1156,
+      "height": 874
+    },
+    "gallery": [
+      {
+        "src": "/images/apartment/IMG_9806.webp",
+        "width": 1170,
+        "height": 862
+      },
+      {
+        "src": "/images/apartment/IMG_9808.webp",
+        "width": 1170,
+        "height": 1549
+      },
+      {
+        "src": "/images/apartment/IMG_9809.webp",
+        "width": 1170,
+        "height": 1509
+      },
+      {
+        "src": "/images/apartment/IMG_9810.webp",
+        "width": 1170,
+        "height": 1502
+      },
+      {
+        "src": "/images/apartment/IMG_9812.webp",
+        "width": 1162,
+        "height": 1526
+      },
+      {
+        "src": "/images/apartment/IMG_9813.webp",
+        "width": 1170,
+        "height": 1531
+      },
+      {
+        "src": "/images/apartment/IMG_9814.webp",
+        "width": 1170,
+        "height": 1535
+      },
+      {
+        "src": "/images/apartment/IMG_9815.webp",
+        "width": 1170,
+        "height": 1517
+      },
+      {
+        "src": "/images/apartment/IMG_9816.webp",
+        "width": 1170,
+        "height": 880
+      },
+      {
+        "src": "/images/apartment/IMG_9817.webp",
+        "width": 1170,
+        "height": 863
+      },
+      {
+        "src": "/images/apartment/IMG_9818.webp",
+        "width": 1170,
+        "height": 1526
+      },
+      {
+        "src": "/images/apartment/IMG_9819.webp",
+        "width": 1170,
+        "height": 1550
+      },
+      {
+        "src": "/images/apartment/IMG_9820.webp",
+        "width": 1170,
+        "height": 1511
+      },
+      {
+        "src": "/images/apartment/IMG_9821.webp",
+        "width": 1170,
+        "height": 873
+      },
+      {
+        "src": "/images/apartment/IMG_9822.webp",
+        "width": 1139,
+        "height": 876
+      },
+      {
+        "src": "/images/apartment/IMG_9823.webp",
+        "width": 1170,
+        "height": 870
+      },
+      {
+        "src": "/images/apartment/IMG_9824.webp",
+        "width": 1170,
+        "height": 1537
+      },
+      {
+        "src": "/images/apartment/IMG_9825.webp",
+        "width": 1170,
+        "height": 1540
+      },
+      {
+        "src": "/images/apartment/IMG_9826.webp",
+        "width": 1170,
+        "height": 1536
+      },
+      {
+        "src": "/images/apartment/IMG_9827.webp",
+        "width": 1108,
+        "height": 1503
+      },
+      {
+        "src": "/images/apartment/IMG_9846.webp",
+        "width": 1170,
+        "height": 1555
+      },
+      {
+        "src": "/images/apartment/IMG_9847.webp",
+        "width": 1170,
+        "height": 1545
+      },
+      {
+        "src": "/images/apartment/IMG_9848.webp",
+        "width": 1170,
+        "height": 873
+      },
+      {
+        "src": "/images/apartment/IMG_9828.webp",
+        "width": 1170,
+        "height": 1522
+      },
+      {
+        "src": "/images/apartment/IMG_9829.webp",
+        "width": 1170,
+        "height": 1537
+      },
+      {
+        "src": "/images/apartment/IMG_9830.webp",
+        "width": 1170,
+        "height": 877
+      },
+      {
+        "src": "/images/apartment/IMG_9831.webp",
+        "width": 1170,
+        "height": 878
+      },
+      {
+        "src": "/images/apartment/IMG_9832.webp",
+        "width": 1170,
+        "height": 885
+      },
+      {
+        "src": "/images/apartment/IMG_9833.webp",
+        "width": 1170,
+        "height": 1549
+      },
+      {
+        "src": "/images/apartment/IMG_9834.webp",
+        "width": 1170,
+        "height": 882
+      },
+      {
+        "src": "/images/apartment/IMG_9835.webp",
+        "width": 1170,
+        "height": 1026
+      },
+      {
+        "src": "/images/apartment/IMG_9836.webp",
+        "width": 1170,
+        "height": 1547
+      },
+      {
+        "src": "/images/apartment/IMG_9837.webp",
+        "width": 1170,
+        "height": 870
+      },
+      {
+        "src": "/images/apartment/IMG_9838.webp",
+        "width": 1170,
+        "height": 873
+      },
+      {
+        "src": "/images/apartment/IMG_9839.webp",
+        "width": 1170,
+        "height": 1562
+      },
+      {
+        "src": "/images/apartment/IMG_9840.webp",
+        "width": 1170,
+        "height": 803
+      },
+      {
+        "src": "/images/apartment/IMG_9841.webp",
+        "width": 1170,
+        "height": 877
+      },
+      {
+        "src": "/images/apartment/IMG_9842.webp",
+        "width": 1170,
+        "height": 501
+      },
+      {
+        "src": "/images/apartment/IMG_9843.webp",
+        "width": 1170,
+        "height": 1542
+      },
+      {
+        "src": "/images/apartment/IMG_9844.webp",
+        "width": 1170,
+        "height": 1545
+      },
+      {
+        "src": "/images/apartment/IMG_9845.webp",
+        "width": 1170,
+        "height": 857
+      }
+    ]
+  },
+  "highlights": [
+    {
+      "key": "guests",
+      "icon": "group",
+      "value": 4,
+      "label": {
+        "de": "Gäste",
+        "en": "Guests",
+        "es": "Huéspedes"
+      },
+      "caption": {
+        "de": "Bis zu 4",
+        "en": "Up to 4",
+        "es": "Hasta 4"
+      }
+    },
+    {
+      "key": "bedrooms",
+      "icon": "bed",
+      "value": 2,
+      "label": {
+        "de": "Schlafzimmer",
+        "en": "Bedrooms",
+        "es": "Dormitorios"
+      }
+    },
+    {
+      "key": "beds",
+      "icon": "bed",
+      "value": 4,
+      "label": {
+        "de": "Betten",
+        "en": "Beds",
+        "es": "Camas"
+      }
+    },
+    {
+      "key": "bathrooms",
+      "icon": "bathtub",
+      "value": 1,
+      "label": {
+        "de": "Badezimmer",
+        "en": "Bathrooms",
+        "es": "Baños"
+      }
+    },
+    {
+      "key": "area",
+      "icon": "area_size",
+      "value": 95,
+      "unit": "sqm",
+      "label": {
+        "de": "Fläche",
+        "en": "Area",
+        "es": "Superficie"
+      }
+    }
+  ],
+  "pricing": {
+    "currency": "EUR",
+    "rates": [
+      {
+        "season": "main",
+        "pricePerNight": 85,
+        "periods": [
+          {
+            "from": "04-01",
+            "to": "09-30"
+          }
+        ]
+      },
+      {
+        "season": "off",
+        "pricePerNight": 70,
+        "periods": [
+          {
+            "from": "10-01",
+            "to": "03-31"
+          }
+        ]
+      }
+    ],
+    "fees": [
+      {
+        "type": "cleaning",
+        "amount": 85,
+        "basis": "perStay"
+      }
+    ],
+    "minNights": null
+  }
+}

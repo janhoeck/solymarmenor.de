@@ -37,5 +37,11 @@ export default [
       'react/react-in-jsx-scope': 'off',
     },
   },
+  {
+    files: ['scripts/**/*.{js,mjs}', '*.config.{js,mjs}'],
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
   { ignores: ['dist/**', '.next/**', 'node_modules/**'] },
 ]

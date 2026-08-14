@@ -1,21 +1,29 @@
 import { IconWithText } from '@/components/property/components/IconWithText'
+import { PropertyContent } from '@/components/property/content/PropertyContent'
 import { iconMapping } from '@/components/property/iconMapping'
-import { convertDescription, getTranslation } from '@/components/property/utils'
-import { ContentBlock } from '@/components/shared/ContentBlock/ContentBlock'
 import { Section } from '@/components/shared/Section/Section'
-import { PropertyConfiguration } from '@/types/PropertyConfiguration'
-import { useLocale, useTranslations } from 'next-intl'
+import type { Property } from '@/data/property-schema'
+import { useFormatter, useTranslations } from 'next-intl'
 import { twMerge } from 'tailwind-merge'
 
 export type HouseRulesSectionProps = {
-  propertyConfig: PropertyConfiguration
+  propertyConfig: Property
 }
 
 export const HouseRulesSection = (props: HouseRulesSectionProps) => {
   const { propertyConfig } = props
   const { houseRules } = propertyConfig
   const t = useTranslations('pages.property.houseRulesSection')
-  const locale = useLocale()
+  const format = useFormatter()
+
+  /** Formats a `HH:MM` value per the active locale (24h for de/es, 12h with AM/PM for en). */
+  const formatTime = (value: string) => {
+    const [hours = 0, minutes = 0] = value.split(':').map(Number)
+    return format.dateTime(new Date(2000, 0, 1, hours, minutes), {
+      hour: 'numeric',
+      minute: '2-digit',
+    })
+  }
 
   return (
     <Section title={t('headline')}>
@@ -25,12 +33,12 @@ export const HouseRulesSection = (props: HouseRulesSectionProps) => {
             <IconWithText
               icon={iconMapping['checkin']}
               label={t('itemHeadlines.checkin')}
-              description={getTranslation(locale, houseRules.checkIn)}
+              description={t('checkinTime', { time: formatTime(houseRules.checkInFrom) })}
             />
             <IconWithText
               icon={iconMapping['checkout']}
               label={t('itemHeadlines.checkout')}
-              description={getTranslation(locale, houseRules.checkOut)}
+              description={t('checkoutTime', { time: formatTime(houseRules.checkOutUntil) })}
             />
           </div>
           <div className='flex flex-1 flex-col gap-4'>
@@ -50,7 +58,7 @@ export const HouseRulesSection = (props: HouseRulesSectionProps) => {
             })}
           </div>
         </div>
-        {houseRules.description && <ContentBlock items={convertDescription(locale, houseRules.description)} />}
+        {houseRules.notes && <PropertyContent blocks={houseRules.notes} />}
       </div>
     </Section>
   )

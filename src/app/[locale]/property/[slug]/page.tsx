@@ -1,17 +1,16 @@
 import { PropertyView } from '@/components/property/PropertyView'
-import { loadPropertyConfig } from '@/lib/load-property-configs'
+import { getPropertyBySlug } from '@/lib/properties/repository'
 import { notFound } from 'next/navigation'
-import { use } from 'react'
 
 type Params = Promise<{ slug: string }>
 
-export default function PropertyPage({ params }: { params: Params }) {
-  const { slug: id } = use(params)
+export default async function PropertyPage({ params }: { params: Params }) {
+  const { slug } = await params
 
-  const propertyConfiguration = loadPropertyConfig(id)
-  if (!propertyConfiguration) {
+  const property = await getPropertyBySlug(slug)
+  if (!property) {
     notFound()
   }
 
-  return <PropertyView configuration={propertyConfiguration} />
+  return <PropertyView configuration={property} />
 }

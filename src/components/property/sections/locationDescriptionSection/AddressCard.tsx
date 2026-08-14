@@ -1,5 +1,5 @@
-import { getTranslation } from '@/components/property/utils'
-import { Location } from '@/types/PropertyConfiguration'
+import type { Property } from '@/data/property-schema'
+import { resolveText } from '@/data/localized-text'
 import { safeJoin } from '@/utils/join'
 import { Card, CardContent, Muted } from '@/components/ui'
 import { useLocale } from 'next-intl'
@@ -10,7 +10,7 @@ import { GoogleMaps } from './GoogleMaps'
 export type AddressCardProps = {
   lat: number
   lng: number
-  address: Location['address']
+  address: Property['location']['address']
 }
 
 export const AddressCard = (props: AddressCardProps) => {
@@ -37,7 +37,7 @@ export const AddressCard = (props: AddressCardProps) => {
             <div className='text-sm text-muted-foreground'>{[address.postalCode, address.city].join(' ')}</div>
           </div>
         </div>
-        {address.description && <Muted>{getTranslation(locale, address.description)}</Muted>}
+        {address.note && <Muted>{resolveText(address.note, locale)}</Muted>}
       </CardContent>
     </Card>
   )

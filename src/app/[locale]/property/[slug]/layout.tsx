@@ -1,6 +1,6 @@
-import { getTranslation } from '@/components/property/utils'
 import { GoogleMapsAPIProvider } from '@/components/shared/GoogleMapsAPIProvider/GoogleMapsAPIProvider'
-import { loadPropertyConfig } from '@/lib/load-property-configs'
+import { resolveText } from '@/data/localized-text'
+import { getPropertyBySlug } from '@/lib/properties/repository'
 import { generateCanonicalMetadata } from '@/lib/metadata'
 import { Metadata } from 'next'
 import { PropsWithChildren } from 'react'
@@ -13,23 +13,23 @@ type MetadataProps = {
 
 export async function generateMetadata(props: MetadataProps): Promise<Metadata> {
   const { locale, slug } = await props.params
-  const propertyConfiguration = loadPropertyConfig(slug)
+  const propertyConfiguration = await getPropertyBySlug(slug)
 
   if (!propertyConfiguration) {
     return {}
   }
 
   return {
-    title: getTranslation(locale, propertyConfiguration.title),
+    title: resolveText(propertyConfiguration.title, locale),
     ...generateCanonicalMetadata(locale, `/property/${slug}`),
     openGraph: {
-      title: getTranslation(locale, propertyConfiguration.title),
-      url: `https://solymarmenor.com/property/${propertyConfiguration.id}`,
+      title: resolveText(propertyConfiguration.title, locale),
+      url: `https://solymarmenor.com/property/${propertyConfiguration.slug}`,
       images: [
         {
-          url: `https://solymarmenor.com/images/${propertyConfiguration.id}/coverPhoto.webp`,
-          width: 400,
-          height: 400,
+          url: `https://solymarmenor.com${propertyConfiguration.images.cover.src}`,
+          width: propertyConfiguration.images.cover.width,
+          height: propertyConfiguration.images.cover.height,
         },
       ],
       locale,

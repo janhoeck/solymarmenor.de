@@ -1,12 +1,12 @@
 import { TextWithHeadline } from '@/components/home/TextWithHeadline'
 import { PropertyCard } from '@/components/shared/PropertyCard/PropertyCard'
-import { loadPropertyConfigs } from '@/lib/load-property-configs'
-import { useTranslations } from 'next-intl'
+import { getProperties } from '@/lib/properties/repository'
+import { getTranslations } from 'next-intl/server'
 import React from 'react'
 
-export const PropertyListSection = () => {
-  const t = useTranslations('pages.home.properties')
-  const propertyConfigurations = loadPropertyConfigs()
+export const PropertyListSection = async () => {
+  const t = await getTranslations('pages.home.properties')
+  const properties = await getProperties()
 
   return (
     <section
@@ -19,10 +19,10 @@ export const PropertyListSection = () => {
           subtitle={t('subtitle')}
         />
         <div className='mx-auto grid max-w-6xl gap-8 md:grid-cols-2 md:gap-10'>
-          {propertyConfigurations.map((propertyConfiguration) => (
+          {properties.map((property) => (
             <PropertyCard
-              key={propertyConfiguration.id}
-              propertyConfiguration={propertyConfiguration}
+              key={property.id}
+              propertyConfiguration={property}
             />
           ))}
         </div>

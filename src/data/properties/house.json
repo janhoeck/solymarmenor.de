@@ -1,0 +1,639 @@
+{
+  "schemaVersion": 2,
+  "id": "house",
+  "slug": "house",
+  "status": "published",
+  "kind": "house",
+  "updatedAt": "2026-08-14",
+  "title": {
+    "de": "Luxuriöses Ferienhaus in Estrella del Mar, Los Urrutias",
+    "en": "Luxurious Holiday Home in Estrella del Mar, Los Urrutias ",
+    "es": "Casa de Vacaciones de Lujo en Estrella del Mar, Los Urrutias"
+  },
+  "subtitle": {
+    "de": "Charmantes Ferienhaus mit privatem Pool und Garten. Ruhige Lage, perfekt für Familien und Paare.",
+    "en": "Charming holiday home with private pool and garden. Quiet location, perfect for families and couples.",
+    "es": "Encantadora casa de vacaciones con piscina privada y jardín. Ubicación tranquila, perfecta para familias y parejas.s"
+  },
+  "description": [
+    {
+      "type": "paragraph",
+      "text": {
+        "de": "Dieses stilvolle Ferienhaus bietet Platz für 4 Personen und verfügt über drei Zimmer: zwei gemütliche Schlafzimmer (mit zwei Einzelbetten und einem Doppelbett), ein helles Wohnzimmer, ein modernes Badezimmer sowie eine großzügig ausgestattete Küche.",
+        "en": "This stylish holiday home accommodates 4 people and has three rooms: two cozy bedrooms (with two single beds and one double bed), a bright living room, a modern bathroom and a spacious kitchen.",
+        "es": "Esta elegante casa de vacaciones tiene capacidad para 4 personas y cuenta con tres habitaciones: dos acogedores dormitorios (con dos camas individuales y una cama doble), una luminosa sala de estar, un baño moderno y una cocina ampliamente equipada."
+      }
+    },
+    {
+      "type": "paragraph",
+      "text": {
+        "de": "Das Haus überzeugt mit drei großen Terrassen – eine vor dem Haus, eine hinter dem Haus und eine Dachterrasse mit herrlichem Blick auf das Mar Menor. Ob Sonne oder Schatten – hier genießen Sie den ganzen Tag über pure Entspannung. Ein besonderes Highlight ist der private Pool auf der vorderen Terrasse.",
+        "en": "The house impresses with three large terraces - one in front of the house, one behind the house and a roof terrace with a magnificent view of the Mar Menor. Whether sun or shade - here you can enjoy pure relaxation all day long. A special highlight is the private pool on the front terrace.",
+        "es": "La casa impresiona con tres grandes terrazas: una delante de la casa, otra detrás y una terraza en la azotea con una magnífica vista del Mar Menor. Ya sea sol o sombra, aquí podrás disfrutar de pura relajación durante todo el día. Un punto destacado especial es la piscina privada en la terraza delantera."
+      }
+    },
+    {
+      "type": "list",
+      "intro": {
+        "de": "Das Ferienhaus ist vollständig eingerichtet und bietet alles, was Sie für einen komfortablen Aufenthalt benötigen:",
+        "en": "The holiday home is fully furnished and offers everything you need for a comfortable stay:",
+        "es": "La casa de vacaciones está completamente amueblada y ofrece todo lo que necesitas para una estancia confortable:"
+      },
+      "items": [
+        {
+          "de": "Küche mit Herd, Mikrowelle, Kühlschrank und Gefrierschrank",
+          "en": "Kitchen with stove, microwave, refrigerator and freezer",
+          "es": "Cocina con estufa, microondas, refrigerador y congelador"
+        },
+        {
+          "de": "Waschmaschine, Staubsauger, Klimaanlage und Deckenventilatoren",
+          "en": "Washing machine, vacuum cleaner, air conditioning and ceiling fans",
+          "es": "Lavadora, aspiradora, aire acondicionado y ventiladores de techo"
+        },
+        {
+          "de": "Fernseher mit Amazon Fire TV Stick, Fön, Feuerlöscher und Rauchmelder",
+          "en": "Television with Amazon Fire TV Stick, hair dryer, fire extinguisher and smoke detector",
+          "es": "Televisión con Amazon Fire TV Stick, secador de pelo, extintor y detector de humo"
+        },
+        {
+          "de": "Handtücher und Bettwäsche sind selbstverständlich vorhanden",
+          "en": "Towels and bed linen are of course provided",
+          "es": "Por supuesto, se proporcionan toallas y ropa de cama"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": {
+        "de": "Die Lage ist unschlagbar: Das Haus befindet sich in unmittelbarer Nähe zum Mar Menor, nur eine Gehminute vom Strand entfernt – perfekt für erholsame Tage am Meer.",
+        "en": "The location is unbeatable: The house is located in the immediate vicinity of the Mar Menor, just a one-minute walk from the beach - perfect for relaxing days by the sea.",
+        "es": "La ubicación es inmejorable: la casa está situada en las inmediaciones del Mar Menor, a solo un minuto a pie de la playa, perfecta para días relajantes junto al mar."
+      }
+    }
+  ],
+  "amenities": [
+    "parking",
+    "air_conditioner",
+    "wlan",
+    "tv",
+    "barrier_free",
+    "fire_extinguisher",
+    "smoke_detector",
+    "vacuum",
+    "washing_rack",
+    "washing_machine",
+    "pool",
+    "terrace",
+    "cooker",
+    "oven",
+    "dishes",
+    "pots_pans",
+    "coffee_machine",
+    "microwave",
+    "freezer",
+    "refrigerator",
+    "kettle",
+    "bed_linen",
+    "hairdryer",
+    "towels",
+    "shower",
+    "high_chair"
+  ],
+  "houseRules": {
+    "checkInFrom": "15:00",
+    "checkOutUntil": "11:00",
+    "rules": [
+      "party",
+      "pet",
+      "smoking"
+    ],
+    "notes": [
+      {
+        "type": "paragraph",
+        "text": {
+          "de": "Gerne ermöglichen wir Ihnen flexible Check-in und Check-out Zeiten nach Absprache.",
+          "en": "We are happy to offer you flexible check-in and check-out times by arrangement.",
+          "es": "Estaremos encantados de ofrecerle horarios flexibles de check-in y check-out previa consulta."
+        }
+      }
+    ]
+  },
+  "location": {
+    "lat": 37.673871,
+    "lng": -0.826053,
+    "address": {
+      "street": "Calle los Rosales",
+      "houseNumber": "3",
+      "postalCode": "30368",
+      "city": "Los Urrutias",
+      "country": "ES",
+      "note": {
+        "de": "Bitte beachten Sie: Google Maps zeigt die Adresse gelegentlich nicht korrekt an, wenn sie manuell eingegeben wird. Vergewissern Sie sich daher, dass der Zielort richtig angezeigt wird – oder verwenden Sie alternativ Apple Karten für eine zuverlässige Navigation.",
+        "en": "Please note: Google Maps occasionally displays the address incorrectly when entered manually. Therefore, please ensure that the destination is displayed correctly—or alternatively, use Apple Maps for reliable navigation.",
+        "es": "Tenga en cuenta que Google Maps a veces no muestra correctamente la dirección cuando se introduce manualmente. Por lo tanto, asegúrese de que el destino se muestra correctamente o, como alternativa, utilice Apple Maps para una navegación fiable."
+      }
+    },
+    "description": [
+      {
+        "type": "paragraph",
+        "text": {
+          "de": "Das Haus liegt in Estrella de Mar, einer ruhigen Urbanisation des kleinen Fischerdorfs Los Urrutias im Süden von Cartagena – nur eine Gehminute vom Mar Menor entfernt. Die Lage bietet eine perfekte Mischung aus Erholung und Nähe zu allen wichtigen Annehmlichkeiten. In wenigen Minuten erreichen Sie Strände, Restaurants, kleine Geschäfte, Apotheken, Arztzentrum, Bodega und gemütliche Strandbars.",
+          "en": "The house is located in Estrella de Mar, a quiet residential area of the small fishing village Los Urrutias in the south of Cartagena – just a one-minute walk from the Mar Menor. The location offers a perfect combination of relaxation and proximity to all essential amenities. Within minutes, you can reach beaches, restaurants, small shops, pharmacies, a medical center, a bodega, and cozy beach bars.",
+          "es": "La casa está situada en Estrella de Mar, una tranquila urbanización del pequeño pueblo pesquero de Los Urrutias, al sur de Cartagena, a solo un minuto a pie del Mar Menor. La ubicación ofrece una combinación perfecta de relax y cercanía a todos los servicios esenciales. En pocos minutos se puede llegar a playas, restaurantes, pequeñas tiendas, farmacias, centro médico, bodega y acogedores chiringuitos."
+        }
+      },
+      {
+        "type": "paragraph",
+        "text": {
+          "de": "Die Urbanisation verfügt über Kinderspielplätze, Tennisplätze, Minigolf, Basketballkörbe, Tischtennisplatten, Außenfitnessgeräte und ein öffentliches Schwimmbad.",
+          "en": "The residential area offers children's playgrounds, tennis courts, mini-golf, basketball hoops, table tennis, outdoor fitness equipment, and a public swimming pool.",
+          "es": "La urbanización cuenta con parques infantiles, pistas de tenis, minigolf, canastas de baloncesto, mesas de ping-pong, equipos de ejercicio al aire libre y una piscina pública."
+        }
+      },
+      {
+        "type": "paragraph",
+        "text": {
+          "de": "Das Mar Menor mit seinem flachen, warmen Wasser ist ideal zum Baden, Spazierengehen oder für Wassersport. Die Umgebung besticht durch mediterranes Flair, Palmen und gepflegte Wege entlang der Küste. Je nach Jahreszeit lassen sich Flamingos am Strand beobachten, und wilde Papageien fliegen durch das Dorf.",
+          "en": "The Mar Menor, with its shallow and warm waters, is perfect for swimming, walking, or water sports. The surroundings feature Mediterranean charm, palm trees, and well-kept coastal paths. Depending on the season, you can spot flamingos near the beach, and wild parrots flying through the village.",
+          "es": "El Mar Menor, con sus aguas poco profundas y cálidas, es ideal para nadar, pasear o practicar deportes acuáticos. Los alrededores destacan por su encanto mediterráneo, palmeras y caminos costeros bien cuidados. Según la temporada, se pueden observar flamencos cerca de la playa y loros salvajes que vuelan por el pueblo."
+        }
+      },
+      {
+        "type": "paragraph",
+        "text": {
+          "de": "Ein Highlight für Naturliebhaber ist der nahegelegene erloschene Vulkan El Carmolí, der zu herrlichen Wandertouren einlädt.",
+          "en": "A highlight for nature lovers is the nearby extinct volcano El Carmolí, which offers beautiful hiking opportunities.",
+          "es": "Un punto destacado para los amantes de la naturaleza es el volcán extinto El Carmolí, situado cerca y perfecto para realizar hermosas rutas de senderismo."
+        }
+      },
+      {
+        "type": "paragraph",
+        "text": {
+          "de": "Das Dorf bietet eine sehr gute Infrastruktur mit Supermärkten, medizinischer Versorgung, Sportanlagen, Golfplätzen und einem zuverlässigen Busservice entlang der Küste. Golfer finden in der Umgebung über 15 Plätze, darunter den renommierten La Manga Club, einen der besten Golfresorts Europas.",
+          "en": "The village offers excellent infrastructure with supermarkets, medical services, sports facilities, golf courses, and a reliable bus service along the coast. Golf enthusiasts will find over 15 courses nearby, including the renowned La Manga Club, one of Europe’s top golf resorts.",
+          "es": "El pueblo ofrece una excelente infraestructura con supermercados, servicios médicos, instalaciones deportivas, campos de golf y un servicio de autobús fiable a lo largo de la costa. Los amantes del golf encontrarán más de 15 campos cercanos, incluido el prestigioso La Manga Club, uno de los mejores complejos de golf de Europa."
+        }
+      },
+      {
+        "type": "paragraph",
+        "text": {
+          "de": "Dank der guten Anbindung an Cartagena und die Hauptverkehrsstraßen eignet sich der Standort ideal für Ausflüge in die Altstadt, nach La Manga oder in die umliegenden Naturparks.",
+          "en": "Thanks to its good connections to Cartagena and the main roads, the location is ideal for excursions to the old town, La Manga, or the surrounding natural parks.",
+          "es": "Gracias a su buena conexión con Cartagena y las principales carreteras, la ubicación es ideal para excursiones al casco antiguo, La Manga o los parques naturales de los alrededores."
+        }
+      },
+      {
+        "type": "paragraph",
+        "text": {
+          "de": "Ob Strandurlaub, Golfreise oder entspannte Tage mit der Familie – Estrella de Mar bietet beste Voraussetzungen für einen unvergesslichen Aufenthalt.",
+          "en": "Whether you're looking for a beach holiday, a golf getaway, or relaxing days with your family – Estrella de Mar offers the perfect setting for an unforgettable stay.",
+          "es": "Ya sea unas vacaciones de playa, una escapada de golf o días de relax en familia, Estrella de Mar ofrece el entorno perfecto para una estancia inolvidable."
+        }
+      }
+    ]
+  },
+  "calendar": {
+    "provider": "airbnb",
+    "secretRef": "ICAL_HOUSE"
+  },
+  "images": {
+    "cover": {
+      "src": "/images/house/coverPhoto.webp",
+      "width": 1600,
+      "height": 1200
+    },
+    "gallery": [
+      {
+        "src": "/images/house/IMG_1671.webp",
+        "width": 3917,
+        "height": 2937
+      },
+      {
+        "src": "/images/house/IMG_1672.webp",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "/images/house/IMG_1673.webp",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "/images/house/IMG_1674.webp",
+        "width": 4032,
+        "height": 3024
+      },
+      {
+        "src": "/images/house/IMG_1675.webp",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "/images/house/IMG_1677.webp",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "/images/house/IMG_1678.webp",
+        "width": 1142,
+        "height": 879
+      },
+      {
+        "src": "/images/house/IMG_1679.webp",
+        "width": 1145,
+        "height": 876
+      },
+      {
+        "src": "/images/house/IMG_1681.webp",
+        "width": 1170,
+        "height": 872
+      },
+      {
+        "src": "/images/house/IMG_1680.webp",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "/images/house/IMG_1682.webp",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "/images/house/IMG_1683.webp",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "/images/house/IMG_1684.webp",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "/images/house/IMG_1685.webp",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "/images/house/IMG_1686.webp",
+        "width": 2790,
+        "height": 3720
+      },
+      {
+        "src": "/images/house/IMG_1687.webp",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "/images/house/IMG_1688.webp",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "/images/house/IMG_1688_1.webp",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "/images/house/IMG_1689.webp",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "/images/house/IMG_1690.webp",
+        "width": 4032,
+        "height": 3024
+      },
+      {
+        "src": "/images/house/IMG_1692.webp",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "/images/house/IMG_1695.webp",
+        "width": 3904,
+        "height": 2928
+      },
+      {
+        "src": "/images/house/IMG_1699.webp",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "/images/house/IMG_1702.webp",
+        "width": 3912,
+        "height": 2934
+      },
+      {
+        "src": "/images/house/IMG_1704.webp",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "/images/house/IMG_1707.webp",
+        "width": 3902,
+        "height": 2926
+      },
+      {
+        "src": "/images/house/IMG_1708.webp",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "/images/house/IMG_1709.webp",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "/images/house/IMG_1711.webp",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "/images/house/IMG_1713.webp",
+        "width": 4032,
+        "height": 3024
+      },
+      {
+        "src": "/images/house/IMG_1713_1.webp",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "/images/house/IMG_1717.webp",
+        "width": 4032,
+        "height": 3024
+      },
+      {
+        "src": "/images/house/IMG_1718.webp",
+        "width": 3827,
+        "height": 2870
+      },
+      {
+        "src": "/images/house/IMG_1719.webp",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "/images/house/IMG_2170.webp",
+        "width": 2675,
+        "height": 4032
+      },
+      {
+        "src": "/images/house/IMG_2174.webp",
+        "width": 4032,
+        "height": 3024
+      },
+      {
+        "src": "/images/house/IMG_2175.webp",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "/images/house/IMG_2065.webp",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "/images/house/IMG_2066.webp",
+        "width": 4032,
+        "height": 3024
+      },
+      {
+        "src": "/images/house/IMG_2080.webp",
+        "width": 4032,
+        "height": 3024
+      },
+      {
+        "src": "/images/house/IMG_2081.webp",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "/images/house/IMG_2126.webp",
+        "width": 3904,
+        "height": 2928
+      },
+      {
+        "src": "/images/house/IMG_2132.webp",
+        "width": 3501,
+        "height": 2557
+      },
+      {
+        "src": "/images/house/IMG_2133.webp",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "/images/house/IMG_2138.webp",
+        "width": 4032,
+        "height": 3024
+      },
+      {
+        "src": "/images/house/IMG_2139.webp",
+        "width": 3024,
+        "height": 4032
+      },
+      {
+        "src": "/images/house/IMG_2140.webp",
+        "width": 2922,
+        "height": 2561
+      },
+      {
+        "src": "/images/house/IMG_2143.webp",
+        "width": 4032,
+        "height": 3024
+      },
+      {
+        "src": "/images/house/IMG_2147.webp",
+        "width": 1170,
+        "height": 1509
+      },
+      {
+        "src": "/images/house/IMG_2150.webp",
+        "width": 3726,
+        "height": 2909
+      },
+      {
+        "src": "/images/house/IMG_2151.webp",
+        "width": 4032,
+        "height": 3024
+      },
+      {
+        "src": "/images/house/IMG_2152.webp",
+        "width": 4032,
+        "height": 3024
+      },
+      {
+        "src": "/images/house/IMG_2154.webp",
+        "width": 3296,
+        "height": 2566
+      },
+      {
+        "src": "/images/house/IMG_2160.webp",
+        "width": 4032,
+        "height": 3024
+      },
+      {
+        "src": "/images/house/IMG_2161.webp",
+        "width": 3087,
+        "height": 2191
+      },
+      {
+        "src": "/images/house/IMG_2163.webp",
+        "width": 2343,
+        "height": 2994
+      },
+      {
+        "src": "/images/house/IMG_2167.webp",
+        "width": 3904,
+        "height": 2928
+      },
+      {
+        "src": "/images/house/IMG_2169.webp",
+        "width": 2596,
+        "height": 2190
+      },
+      {
+        "src": "/images/house/IMG_2176.webp",
+        "width": 3954,
+        "height": 2221
+      },
+      {
+        "src": "/images/house/IMG_2177.webp",
+        "width": 4030,
+        "height": 2336
+      },
+      {
+        "src": "/images/house/IMG_2178.webp",
+        "width": 4030,
+        "height": 2482
+      },
+      {
+        "src": "/images/house/IMG_2179.webp",
+        "width": 4032,
+        "height": 3024
+      },
+      {
+        "src": "/images/house/IMG_2180.webp",
+        "width": 4032,
+        "height": 3024
+      },
+      {
+        "src": "/images/house/IMG_2198.webp",
+        "width": 1169,
+        "height": 666
+      },
+      {
+        "src": "/images/house/IMG_2199.webp",
+        "width": 1170,
+        "height": 901
+      },
+      {
+        "src": "/images/house/IMG_2202.webp",
+        "width": 1170,
+        "height": 877
+      },
+      {
+        "src": "/images/house/IMG_2203.webp",
+        "width": 1170,
+        "height": 875
+      },
+      {
+        "src": "/images/house/IMG_2204.webp",
+        "width": 1170,
+        "height": 864
+      },
+      {
+        "src": "/images/house/IMG_2208.webp",
+        "width": 1168,
+        "height": 867
+      },
+      {
+        "src": "/images/house/IMG_2215.webp",
+        "width": 1170,
+        "height": 859
+      }
+    ]
+  },
+  "highlights": [
+    {
+      "key": "guests",
+      "icon": "group",
+      "value": 4,
+      "label": {
+        "de": "Gäste",
+        "en": "Guests",
+        "es": "Huéspedes"
+      },
+      "caption": {
+        "de": "Bis zu 4",
+        "en": "Up to 4",
+        "es": "Hasta 4"
+      }
+    },
+    {
+      "key": "beds",
+      "icon": "bed",
+      "value": 4,
+      "label": {
+        "de": "Betten",
+        "en": "Beds",
+        "es": "Camas"
+      }
+    },
+    {
+      "key": "bathrooms",
+      "icon": "bathtub",
+      "value": 1,
+      "label": {
+        "de": "Badezimmer",
+        "en": "Bathrooms",
+        "es": "Baños"
+      }
+    },
+    {
+      "key": "area",
+      "icon": "area_size",
+      "value": 95,
+      "unit": "sqm",
+      "label": {
+        "de": "Fläche",
+        "en": "Area",
+        "es": "Superficie"
+      }
+    }
+  ],
+  "pricing": {
+    "currency": "EUR",
+    "rates": [
+      {
+        "season": "main",
+        "pricePerNight": 110,
+        "periods": [
+          {
+            "from": "04-01",
+            "to": "09-30"
+          }
+        ]
+      },
+      {
+        "season": "off",
+        "pricePerNight": 60,
+        "periods": [
+          {
+            "from": "10-01",
+            "to": "03-31"
+          }
+        ]
+      }
+    ],
+    "fees": [
+      {
+        "type": "cleaning",
+        "amount": 85,
+        "basis": "perStay"
+      }
+    ],
+    "minNights": null
+  }
+}

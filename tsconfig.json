@@ -22,8 +22,12 @@
     "allowJs": true,
     "jsx": "react-jsx",
     "noEmit": true,
+    "allowImportingTsExtensions": true,
     "baseUrl": "./src",
     "paths": {
+      "@/data/*": [
+        "data/*"
+      ],
       "@/components/*": [
         "components/*"
       ],

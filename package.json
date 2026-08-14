@@ -2,12 +2,16 @@
   "name": "holiday_apartment",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "homepage": "https://janhoeck.github.io/jan_hoeck",
   "scripts": {
     "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
+    "test": "node --test --experimental-strip-types \"src/**/*.test.ts\"",
+    "images:sync": "node scripts/images-sync.mjs",
+    "validate:content": "node --experimental-strip-types scripts/validate-content.mjs",
     "check-types": "tsc --noEmit",
     "analyze": "next experimental-analyze",
     "format": "prettier --write \"src/**/*.{ts,tsx,md,css}\""
