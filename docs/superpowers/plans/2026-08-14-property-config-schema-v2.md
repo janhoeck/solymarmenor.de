@@ -1340,6 +1340,14 @@ git commit -m "refactor: resolve localized text through an explicit fallback cha
 
 ### Task 8: Content-Blöcke mit Diskriminator
 
+> **Task 8 und Task 9 werden gemeinsam ausgeführt und gemeinsam abgenommen.** Task 8 ersetzt
+> `descriptionSchema` durch `contentBlocksSchema` und entfernt den Typ `Description`. Genau darauf
+> arbeitet aber `src/components/property/utils.ts:8-24` (`'bulletpoints' in item`, `item.text`), und
+> die Sections rufen `convertDescription` auf. Task 8 allein bricht deshalb `pnpm check-types`;
+> repariert wird es erst durch Task 9. Es ist derselbe Zuschnittfehler wie beim iCal-Feld: Schema,
+> Daten und lesende Komponente müssen zusammen wechseln. Die Schrittfolge unten bleibt gültig,
+> Task 9 schließt direkt an, und erst am Ende von Task 9 müssen Typcheck, Tests und Build grün sein.
+
 **Files:**
 - Create: `scripts/migrations/2026-08-14-stage2-content-blocks.mjs`
 - Modify: `src/data/property-schema.ts` (`descriptionSchema` ersetzen)
