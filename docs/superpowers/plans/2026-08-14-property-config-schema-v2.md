@@ -473,13 +473,15 @@ for (const id of Object.keys(KIND_BY_ID)) {
   const { description: addressNote, country, ...address } = location.address
 
   const migrated = {
+    // `rest` still carries the source `id`, so the head fields go AFTER the spread —
+    // otherwise the later spread silently wins and the explicit values are dead code.
+    ...rest,
     schemaVersion: 2,
     id,
     slug: id,
     status: 'published',
     kind: KIND_BY_ID[id],
     updatedAt: UPDATED_AT,
-    ...rest,
     location: {
       ...location,
       address: {
@@ -527,7 +529,8 @@ In `src/components/property/sections/locationDescriptionSection/AddressCard.tsx:
 Zugriffe auf `address.description` auf `address.note` umstellen. Prüfen mit:
 
 Run: `rg -n "address\.description" src`
-Expected: keine Treffer.
+Expected: genau ein Treffer, und zwar die Zeile im negativen Test oben. Jeder weitere Treffer ist
+Produktionscode, der noch das alte Feld liest.
 
 - [ ] **Step 3: Skript ausführen**
 
@@ -1903,13 +1906,31 @@ Expected: `apartment: 1 cover + 41 gallery images`, `house: 1 cover + 70 gallery
 festhalten und der nutzenden Person melden — nicht automatisch anhängen, die Reihenfolge ist
 redaktionell.
 
-- [ ] **Step 7: `package.json` ergänzen**
+- [ ] **Step 7: `package.json` und ESLint ergänzen**
 
 In `scripts` nach `"test"` einfügen:
 
 ```json
 "images:sync": "node scripts/images-sync.mjs",
 ```
+
+`images-sync.mjs` ist das erste Skript, das dauerhaft im Repo bleibt. ESLint kennt für `scripts/`
+bislang keine Node-Globals, weshalb jedes `process`, `console` und `URL` dort eine
+`no-undef`-Warnung erzeugt. In `eslint.config.js` einen Override ergänzen — `globals` ist bereits
+als devDependency vorhanden:
+
+```js
+{
+  files: ['scripts/**/*.{js,mjs}', '*.config.{js,mjs}'],
+  languageOptions: {
+    globals: globals.node,
+  },
+},
+```
+
+Run: `pnpm lint`
+Expected: 0 Fehler und weniger Warnungen als vorher — die `no-undef`-Warnungen aus `scripts/` und
+`postcss.config.js` sind verschwunden.
 
 - [ ] **Step 8: Prüfen und committen**
 
