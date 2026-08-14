@@ -146,7 +146,7 @@ export type PropertyPricing = z.infer<typeof pricingSchema>
 const calendarSchema = z
   .object({
     provider: z.literal('airbnb'),
-    secretRef: z.string().regex(/^[A-Z][A-Z0-9_]*$/),
+    secretRef: z.string().regex(/^ICAL_[A-Z0-9_]+$/),
   })
   .strict()
 

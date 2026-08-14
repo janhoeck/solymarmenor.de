@@ -40,9 +40,13 @@ function sizeOf(src) {
   return readWebpSize(readFileSync(file))
 }
 
+const PROPERTY_IDS = readdirSync(DATA_DIR)
+  .filter((name) => name.endsWith('.json'))
+  .map((name) => name.replace(/\.json$/, ''))
+
 let problems = 0
 
-for (const id of ['apartment', 'house']) {
+for (const id of PROPERTY_IDS) {
   const file = path.join(DATA_DIR, `${id}.json`)
   const data = JSON.parse(readFileSync(file, 'utf-8'))
   const entries = [data.images.cover, ...data.images.gallery]

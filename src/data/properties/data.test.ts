@@ -19,5 +19,6 @@ test('every slug is unique', () => {
 
 test('no property carries a calendar url in its data', () => {
   const serialized = JSON.stringify(properties)
-  assert.ok(!serialized.includes('airbnb.de/calendar'))
+  const match = serialized.match(/https?:\/\/[^"]*airbnb[^"]*/i)
+  assert.equal(match, null, `calendar url leaked into the property data: ${match?.[0]}`)
 })

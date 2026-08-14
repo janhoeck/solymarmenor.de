@@ -101,6 +101,15 @@ test('rejects a calendar that carries a url instead of a variable name', () => {
   )
 })
 
+test('rejects a secretRef that points at an unrelated environment variable', () => {
+  assert.throws(() =>
+    propertySchema.parse({
+      ...validProperty,
+      calendar: { provider: 'airbnb', secretRef: 'DATABASE_URL' },
+    }),
+  )
+})
+
 test('rejects a leftover icalUrl field', () => {
   assert.throws(() => propertySchema.parse({ ...validProperty, icalUrl: 'https://example.com' }))
 })
