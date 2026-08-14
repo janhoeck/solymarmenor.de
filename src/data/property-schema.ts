@@ -103,10 +103,36 @@ export const houseRulesSchema = z
   })
   .strict()
 
-const seasonPeriodSchema = z
+/**
+ * Days per month for `MM-DD` validation. February allows 29 because these
+ * periods recur yearly and must stay valid in a leap year.
+ */
+const DAYS_PER_MONTH = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31] as const
+
+/**
+ * A yearly recurring `MM-DD` boundary. The regex alone accepts `99-99` and the
+ * day-month-swapped typo `31-10`, so the calendar validity is checked as well —
+ * a swapped period silently matches every day of the year (see
+ * `isDateInPeriod`), which nothing downstream would report.
+ */
+const monthDaySchema = z
+  .string()
+  .regex(/^\d{2}-\d{2}$/)
+  .refine(
+    (value) => {
+      const month = Number(value.slice(0, 2))
+      const day = Number(value.slice(3, 5))
+      const daysInMonth = DAYS_PER_MONTH[month - 1]
+
+      return daysInMonth !== undefined && day >= 1 && day <= daysInMonth
+    },
+    { message: 'must be a real MM-DD date, month 01-12 and a day that exists in that month' },
+  )
+
+export const seasonPeriodSchema = z
   .object({
-    from: z.string().regex(/^\d{2}-\d{2}$/),
-    to: z.string().regex(/^\d{2}-\d{2}$/),
+    from: monthDaySchema,
+    to: monthDaySchema,
   })
   .strict()
 

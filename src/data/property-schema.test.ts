@@ -7,6 +7,7 @@ import {
   houseRulesSchema,
   imagesSchema,
   propertySchema,
+  seasonPeriodSchema,
 } from './property-schema.ts'
 
 const validTranslation = { de: 'Titel', en: 'Title', es: 'Título' }
@@ -158,12 +159,25 @@ test('accepts images with a cover and a gallery', () => {
   assert.equal(parsed.cover.width, 1600)
 })
 
+// Both negative tests below carry a valid four-image gallery. With an empty one
+// they passed on the `min(4)` violation instead of the rule they name, and kept
+// passing with that rule deleted from the schema.
 test('rejects a source outside the images directory', () => {
-  assert.throws(() => imagesSchema.parse({ cover: { ...validImage, src: '/other/x.webp' }, gallery: [] }))
+  assert.throws(() =>
+    imagesSchema.parse({
+      cover: { ...validImage, src: '/other/x.webp' },
+      gallery: Array.from({ length: 4 }, () => validImage),
+    }),
+  )
 })
 
 test('rejects a non-positive dimension', () => {
-  assert.throws(() => imagesSchema.parse({ cover: { ...validImage, width: 0 }, gallery: [] }))
+  assert.throws(() =>
+    imagesSchema.parse({
+      cover: { ...validImage, width: 0 },
+      gallery: Array.from({ length: 4 }, () => validImage),
+    }),
+  )
 })
 
 test('requires at least four gallery images for the grid', () => {
@@ -225,4 +239,39 @@ test('accepts optional notes', () => {
   assert.doesNotThrow(() =>
     houseRulesSchema.parse({ ...validRules, notes: [{ type: 'paragraph', text: { de: 'Hinweis' } }] }),
   )
+})
+
+test('accepts a season period with real dates', () => {
+  assert.doesNotThrow(() => seasonPeriodSchema.parse({ from: '04-01', to: '09-30' }))
+})
+
+test('accepts a period that wraps the year end', () => {
+  assert.doesNotThrow(() => seasonPeriodSchema.parse({ from: '10-01', to: '03-31' }))
+})
+
+test('accepts 02-29 so a period stays valid in a leap year', () => {
+  assert.doesNotThrow(() => seasonPeriodSchema.parse({ from: '02-01', to: '02-29' }))
+})
+
+test('rejects a day-month-swapped boundary', () => {
+  // The realistic typo: 31-10 for the 31st of October. It parses the regex, and
+  // as a `from` it makes the period match every day of the year.
+  assert.throws(() => seasonPeriodSchema.parse({ from: '31-10', to: '30-09' }))
+})
+
+test('rejects a month above 12', () => {
+  assert.throws(() => seasonPeriodSchema.parse({ from: '13-01', to: '09-30' }))
+})
+
+test('rejects a day that does not exist in its month', () => {
+  assert.throws(() => seasonPeriodSchema.parse({ from: '02-30', to: '09-30' }))
+})
+
+test('rejects a zero month and a zero day', () => {
+  assert.throws(() => seasonPeriodSchema.parse({ from: '00-15', to: '09-30' }))
+  assert.throws(() => seasonPeriodSchema.parse({ from: '04-00', to: '09-30' }))
+})
+
+test('rejects an out-of-range boundary in either position', () => {
+  assert.throws(() => seasonPeriodSchema.parse({ from: '04-01', to: '99-99' }))
 })
