@@ -1,8 +1,7 @@
-import { convertDescription } from '@/components/property/utils'
-import { ContentBlock } from '@/components/shared/ContentBlock/ContentBlock'
+import { PropertyContent } from '@/components/property/content/PropertyContent'
 import { Section } from '@/components/shared/Section/Section'
 import type { Property } from '@/data/property-schema'
-import { useLocale, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 
 export type DescriptionSectionProps = {
   propertyConfig: Property
@@ -10,12 +9,11 @@ export type DescriptionSectionProps = {
 
 export const DescriptionSection = (props: DescriptionSectionProps) => {
   const { propertyConfig } = props
-  const locale = useLocale()
   const t = useTranslations('pages.property.descriptionSection')
 
   return (
     <Section title={t('headline')}>
-      <ContentBlock items={convertDescription(locale, propertyConfig.description)} />
+      <PropertyContent blocks={propertyConfig.description} />
     </Section>
   )
 }

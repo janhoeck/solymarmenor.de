@@ -1,7 +1,6 @@
 import { IconWithText } from '@/components/property/components/IconWithText'
+import { PropertyContent } from '@/components/property/content/PropertyContent'
 import { iconMapping } from '@/components/property/iconMapping'
-import { convertDescription } from '@/components/property/utils'
-import { ContentBlock } from '@/components/shared/ContentBlock/ContentBlock'
 import { Section } from '@/components/shared/Section/Section'
 import type { Property } from '@/data/property-schema'
 import { resolveText } from '@/data/localized-text'
@@ -51,7 +50,7 @@ export const HouseRulesSection = (props: HouseRulesSectionProps) => {
             })}
           </div>
         </div>
-        {houseRules.description && <ContentBlock items={convertDescription(locale, houseRules.description)} />}
+        {houseRules.description && <PropertyContent blocks={houseRules.description} />}
       </div>
     </Section>
   )

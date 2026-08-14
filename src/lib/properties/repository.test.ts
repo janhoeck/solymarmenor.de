@@ -19,7 +19,7 @@ const propertyFixture: Property = {
   updatedAt: '2026-08-14',
   title: translation,
   subtitle: translation,
-  description: [translation],
+  description: [{ type: 'paragraph', text: translation }],
   price: { perNight: { offSeason: 1, mainSeason: 1 } },
   location: {
     lat: 0,
@@ -31,7 +31,7 @@ const propertyFixture: Property = {
       city: 'City',
       country: 'ES',
     },
-    description: [translation],
+    description: [{ type: 'paragraph', text: translation }],
   },
   imageSources: [
     '/images/fixture/a.webp',
