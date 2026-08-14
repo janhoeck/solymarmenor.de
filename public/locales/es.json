@@ -214,6 +214,9 @@
         "value": "{value}",
         "valueSqm": "{value} m²"
       },
+      "content": {
+        "noteLabel": "Nota importante"
+      },
       "bookIt": {
         "night": "Noche",
         "currentPrice": "Precio actual",

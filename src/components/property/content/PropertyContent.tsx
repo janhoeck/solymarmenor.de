@@ -1,7 +1,7 @@
 import { List, P } from '@/components/ui'
 import { resolveText } from '@/data/localized-text'
 import type { PropertyContentBlock } from '@/data/property-schema'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { twMerge } from 'tailwind-merge'
 
 export type PropertyContentProps = {
@@ -20,6 +20,7 @@ export type PropertyContentProps = {
 export const PropertyContent = (props: PropertyContentProps) => {
   const { blocks } = props
   const locale = useLocale()
+  const t = useTranslations('pages.property.content')
 
   return (
     <div className='flex flex-col gap-4 prose max-w-none'>
@@ -52,8 +53,14 @@ export const PropertyContent = (props: PropertyContentProps) => {
 
           case 'note':
             return (
+              // The block's meaning is carried by a coloured left border alone,
+              // which a screen reader and any plain-text extraction cannot see.
+              // `role`/`aria-label` restore that signal without putting the
+              // prefix back into the visible text.
               <div
                 key={index}
+                role='note'
+                aria-label={t('noteLabel')}
                 className={twMerge([
                   'rounded-md border-l-4 px-4 py-3',
                   block.variant === 'warning'
