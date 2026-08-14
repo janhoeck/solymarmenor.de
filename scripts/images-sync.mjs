@@ -44,7 +44,13 @@ const PROPERTY_IDS = readdirSync(DATA_DIR)
   .filter((name) => name.endsWith('.json'))
   .map((name) => name.replace(/\.json$/, ''))
 
+// Two severities, deliberately. A referenced image that is missing, unreadable
+// or stale is a broken page and fails the run. An image on disk that the data
+// does not reference is only unused: the data still renders correctly, and
+// whether such a file should be published or deleted is an editorial decision.
+// Failing on it would keep this gate red on arrival and out of CI forever.
 let problems = 0
+let warnings = 0
 
 for (const id of PROPERTY_IDS) {
   const file = path.join(DATA_DIR, `${id}.json`)
@@ -55,13 +61,15 @@ for (const id of PROPERTY_IDS) {
     try {
       const { width, height } = sizeOf(entry.src)
       if (CHECK_ONLY && (entry.width !== width || entry.height !== height)) {
-        console.error(`  stale dimensions: ${entry.src} (data ${entry.width}x${entry.height}, file ${width}x${height})`)
+        console.error(
+          `  error: stale dimensions for ${entry.src} (data ${entry.width}x${entry.height}, file ${width}x${height})`,
+        )
         problems += 1
       }
       entry.width = width
       entry.height = height
     } catch (error) {
-      console.error(`  missing or unreadable: ${entry.src} — ${error.message}`)
+      console.error(`  error: referenced image missing or unreadable: ${entry.src} — ${error.message}`)
       problems += 1
     }
   }
@@ -73,8 +81,8 @@ for (const id of PROPERTY_IDS) {
 
   for (const src of onDisk) {
     if (!referenced.has(src)) {
-      console.error(`  on disk but not in the data: ${src}`)
-      problems += 1
+      console.warn(`  warning: unused file, on disk but not referenced by the data: ${src}`)
+      warnings += 1
     }
   }
 
@@ -85,8 +93,13 @@ for (const id of PROPERTY_IDS) {
   console.log(`${id}: ${entries.length} images`)
 }
 
+if (warnings > 0) {
+  console.warn(`\n${warnings} warning(s): unused image file(s). Not a failure — remove them or reference them.`)
+}
+
 if (problems > 0) {
-  console.error(`\n${problems} problem(s) found`)
+  console.error(`\n${problems} error(s) found`)
   process.exit(1)
 }
-console.log('\nall images consistent')
+
+console.log(`\nall referenced images consistent${warnings > 0 ? ` (${warnings} warning(s) above)` : ''}`)
