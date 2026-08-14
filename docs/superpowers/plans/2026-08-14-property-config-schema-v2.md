@@ -621,12 +621,10 @@ test('every slug is unique', () => {
   const slugs = properties.map((property) => property.slug)
   assert.equal(new Set(slugs).size, slugs.length)
 })
-
-test('no property carries a calendar url in its data', () => {
-  const serialized = JSON.stringify(properties)
-  assert.ok(!serialized.includes('airbnb.de/calendar'))
-})
 ```
+
+Der Test, der prüft, dass keine Kalender-URL in den Daten steht, gehört **nicht** hierher: die Daten
+tragen `icalUrl` planmäßig bis Task 5. Er wird dort ergänzt, wo er zum ersten Mal zutrifft.
 
 - [ ] **Step 2: Den fehlschlagenden Test für das Repository schreiben**
 
@@ -983,8 +981,19 @@ Run: `git check-ignore -v .env.local`
 Expected: eine Trefferzeile. Ohne Treffer **nicht** fortfahren, sondern `.env.local` in `.gitignore`
 ergänzen.
 
+Zusätzlich an `src/data/properties/data.test.ts` anhängen — ab jetzt trifft die Aussage zu und wird
+zur Regressionssicherung:
+
+```ts
+test('no property carries a calendar url in its data', () => {
+  const serialized = JSON.stringify(properties)
+  assert.ok(!serialized.includes('airbnb.de/calendar'))
+})
+```
+
 Run: `pnpm test`
-Expected: PASS — die Datentests parsen beide Dateien gegen das neue Schema.
+Expected: PASS — die Datentests parsen beide Dateien gegen das neue Schema, und die Kalender-URL
+ist aus den Daten verschwunden.
 
 - [ ] **Step 3: Route umschreiben**
 
