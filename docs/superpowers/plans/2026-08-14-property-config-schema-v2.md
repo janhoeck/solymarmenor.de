@@ -37,6 +37,14 @@ Zod 4, next-intl 4, pnpm 11, Node 22.16.
   Konvention). Diese Plandatei und die Spec sind Deutsch.
 - **Commit-Format:** Conventional Commits (`feat:`, `refactor:`, `fix:`, `chore:`, `docs:`).
 - **Nach jeder Task müssen `pnpm check-types` und `pnpm lint` fehlerfrei durchlaufen.**
+- **Ein grünes `pnpm test` sagt nichts über Typen.** Nodes `--experimental-strip-types` entfernt
+  Typannotationen, ohne sie zu prüfen. Typfehler — insbesondere veraltete `Property`-Fixtures in
+  Testdateien — fallen ausschließlich bei `pnpm check-types` und `pnpm build` auf. Beide sind nach
+  jeder Task zu laufen, nicht nur die Tests.
+- **Jede Schemaänderung erfordert eine Suche nach Fixtures.** `src/lib/properties/repository.test.ts`
+  und `src/data/property-schema.test.ts` bauen `Property`-Objekte von Hand. Sie stehen nicht in den
+  Dateilisten der einzelnen Tasks, müssen aber bei jeder Feldänderung mitgezogen werden. Das ist in
+  diesem Plan bereits dreimal aufgelaufen.
 
 ## Abweichungen von der Spec
 
@@ -1740,8 +1748,10 @@ import { imagesSchema } from './property-schema.ts'
 
 const validImage = { src: '/images/apartment/coverPhoto.webp', width: 1600, height: 1067 }
 
+const validGallery = Array.from({ length: 4 }, () => validImage)
+
 test('accepts images with a cover and a gallery', () => {
-  const parsed = imagesSchema.parse({ cover: validImage, gallery: [validImage] })
+  const parsed = imagesSchema.parse({ cover: validImage, gallery: validGallery })
   assert.equal(parsed.cover.width, 1600)
 })
 
