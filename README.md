@@ -18,13 +18,30 @@ pnpm install
 pnpm dev
 ```
 
+## Environment
+
+Copy `.env.example` to `.env.local` and fill in. All three are deployment
+prerequisites — without them the affected page renders empty and the only signal
+is a server-side log.
+
+| Variable | Purpose |
+|---|---|
+| `DATABASE_URL` | Postgres connection string for the guestbook. Required at build time, because the guestbook page is prerendered. |
+| `ICAL_APARTMENT` | Airbnb iCalendar export URL for the apartment, read by `/api/ics`. |
+| `ICAL_HOUSE` | Airbnb iCalendar export URL for the house, read by `/api/ics`. |
+
+The `ICAL_*` values contain an access token in the URL and must never be
+committed. The property data does not hold them: `calendar.secretRef` in
+`src/data/properties/*.json` names the variable (`"ICAL_APARTMENT"`), and the
+route resolves it server-side, so the token never reaches the client bundle.
+Rotating a calendar URL therefore means changing the environment only, not the
+data.
+
 ## Build
 
 ```bash
 pnpm build
 ```
-
-Requires `DATABASE_URL` to be set at build time for the guestbook page.
 
 ## Objektdaten
 

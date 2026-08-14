@@ -8,11 +8,10 @@ node_modules
 .pnp
 .pnp.js
 
-# Local env files
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+# Env files. Ignore every variant and re-include only the committed template,
+# so a new one such as `.env.production` cannot slip in unnoticed.
+.env*
+!.env.example
 
 # Testing
 coverage
