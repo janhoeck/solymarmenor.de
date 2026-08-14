@@ -193,6 +193,8 @@
           "party": "Eventos",
           "smoking": "Fumar"
         },
+        "checkinTime": "desde las {time}",
+        "checkoutTime": "antes de las {time}",
         "descriptions": {
           "pet": "No se permiten mascotas",
           "party": "No se permiten eventos",

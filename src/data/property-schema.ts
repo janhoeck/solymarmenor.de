@@ -91,12 +91,15 @@ const amenitiesSchema = z
   .min(1)
   .refine((keys) => new Set(keys).size === keys.length, { message: 'duplicate amenity key' })
 
-const houseRulesSchema = z
+/** 24-hour clock time, `HH:MM`. The UI formats the localized sentence around it. */
+const timeOfDaySchema = z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/)
+
+export const houseRulesSchema = z
   .object({
-    checkIn: localizedTextSchema,
-    checkOut: localizedTextSchema,
+    checkInFrom: timeOfDaySchema,
+    checkOutUntil: timeOfDaySchema,
     rules: z.array(z.enum(['pet', 'party', 'smoking'])),
-    description: contentBlocksSchema.optional(),
+    notes: contentBlocksSchema.optional(),
   })
   .strict()
 

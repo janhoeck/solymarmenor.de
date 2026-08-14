@@ -52,7 +52,7 @@ const propertyFixture: Property = {
   },
   highlights: [{ key: 'guests', icon: 'group', value: 4, label: translation }],
   amenities: ['parking'],
-  houseRules: { checkIn: translation, checkOut: translation, rules: [] },
+  houseRules: { checkInFrom: '15:00', checkOutUntil: '11:00', rules: [] },
 }
 
 test('returns every published property', async () => {

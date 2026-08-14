@@ -193,6 +193,8 @@
           "party": "Events",
           "smoking": "Smoking"
         },
+        "checkinTime": "from {time}",
+        "checkoutTime": "before {time}",
         "descriptions": {
           "pet": "No pets allowed",
           "party": "Events are not permitted",

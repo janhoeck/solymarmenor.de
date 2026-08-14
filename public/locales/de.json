@@ -193,6 +193,8 @@
           "party": "Veranstalltungen",
           "smoking": "Rauchen"
         },
+        "checkinTime": "ab {time} Uhr",
+        "checkoutTime": "vor {time} Uhr",
         "descriptions": {
           "pet": "Keine Haustiere erlaubt",
           "party": "Veranstalltungen sind nicht gestattet",

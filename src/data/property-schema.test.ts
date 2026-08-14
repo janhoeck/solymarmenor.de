@@ -1,7 +1,13 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
 
-import { contentBlockSchema, highlightsSchema, imagesSchema, propertySchema } from './property-schema.ts'
+import {
+  contentBlockSchema,
+  highlightsSchema,
+  houseRulesSchema,
+  imagesSchema,
+  propertySchema,
+} from './property-schema.ts'
 
 const validTranslation = { de: 'Titel', en: 'Title', es: 'Título' }
 const validImage = { src: '/images/apartment/coverPhoto.webp', width: 1600, height: 1067 }
@@ -42,8 +48,8 @@ const validProperty = {
   highlights: [{ key: 'guests', icon: 'group', value: 4, label: validTranslation }],
   amenities: ['parking', 'oven'],
   houseRules: {
-    checkIn: validTranslation,
-    checkOut: validTranslation,
+    checkInFrom: '15:00',
+    checkOutUntil: '11:00',
     rules: ['party', 'pet', 'smoking'],
   },
 }
@@ -190,4 +196,24 @@ test('rejects a duplicated highlight key', () => {
 
 test('rejects a zero value', () => {
   assert.throws(() => highlightsSchema.parse([{ ...guests, value: 0 }]))
+})
+
+const validRules = { checkInFrom: '15:00', checkOutUntil: '11:00', rules: ['party'] }
+
+test('accepts house rules with times', () => {
+  assert.equal(houseRulesSchema.parse(validRules).checkInFrom, '15:00')
+})
+
+test('rejects a time that is not HH:MM', () => {
+  assert.throws(() => houseRulesSchema.parse({ ...validRules, checkInFrom: '15 Uhr' }))
+})
+
+test('rejects an impossible hour', () => {
+  assert.throws(() => houseRulesSchema.parse({ ...validRules, checkInFrom: '25:00' }))
+})
+
+test('accepts optional notes', () => {
+  assert.doesNotThrow(() =>
+    houseRulesSchema.parse({ ...validRules, notes: [{ type: 'paragraph', text: { de: 'Hinweis' } }] }),
+  )
 })

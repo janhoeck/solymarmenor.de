@@ -122,22 +122,14 @@
     "high_chair"
   ],
   "houseRules": {
-    "checkIn": {
-      "de": "Check-in ab 15:00 Uhr",
-      "en": "Check-in from 3:00 PM",
-      "es": "Check-in desde las 15:00"
-    },
-    "checkOut": {
-      "de": "Check-out vor 11:00 Uhr",
-      "en": "Check-out before 11:00 AM",
-      "es": "Check-out antes de las 11:00"
-    },
+    "checkInFrom": "15:00",
+    "checkOutUntil": "11:00",
     "rules": [
       "party",
       "pet",
       "smoking"
     ],
-    "description": [
+    "notes": [
       {
         "type": "paragraph",
         "text": {
