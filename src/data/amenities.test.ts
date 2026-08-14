@@ -16,7 +16,16 @@ test('groups amenities in category order', () => {
   const grouped = groupAmenitiesByCategory(['oven', 'parking', 'pool'])
   assert.deepEqual(
     grouped.map((group) => group.category),
-    ['general', 'outdoorArea', 'kitchen'],
+    ['general', 'kitchen', 'outdoorArea'],
+  )
+})
+
+// The rendered order changed silently once already. Pinning it here means any
+// further reordering has to be a deliberate edit to this assertion.
+test('renders the categories in the established order', () => {
+  assert.deepEqual(
+    [...AMENITY_CATEGORY_ORDER],
+    ['general', 'kitchen', 'bathroom', 'outdoorArea', 'bedroom', 'baby'],
   )
 })
 

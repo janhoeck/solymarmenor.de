@@ -1,13 +1,9 @@
-import type { IconType } from '../types/IconType.ts'
-
-/** The facts shown as the summary row on a property page. */
+/**
+ * The facts shown as the summary row on a property page. `propertySchema`
+ * builds its `highlights[].key` enum from this array, so it is the only list.
+ *
+ * There is deliberately no default key-to-icon mapping here: `icon` is
+ * mandatory on every highlight, so a default could never apply, and a second
+ * copy of the mapping would only be able to drift from the data.
+ */
 export const HIGHLIGHT_KEYS = ['guests', 'bedrooms', 'beds', 'bathrooms', 'area'] as const
-export type HighlightKey = (typeof HIGHLIGHT_KEYS)[number]
-
-export const DEFAULT_HIGHLIGHT_ICONS = {
-  guests: 'group',
-  bedrooms: 'bed',
-  beds: 'bed',
-  bathrooms: 'bathtub',
-  area: 'area_size',
-} as const satisfies Record<HighlightKey, IconType>

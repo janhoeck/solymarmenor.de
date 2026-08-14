@@ -6,48 +6,56 @@ import type { IconType } from '../types/IconType.ts'
  */
 export const AMENITY_CATEGORY_ORDER = [
   'general',
-  'outdoorArea',
   'kitchen',
-  'bedroom',
   'bathroom',
+  'outdoorArea',
+  'bedroom',
   'baby',
 ] as const
 
 export type AmenityCategory = (typeof AMENITY_CATEGORY_ORDER)[number]
 
-/** Adding an amenity means one entry here plus one message key per locale. */
+/**
+ * Adding an amenity means one entry here plus one message key per locale.
+ *
+ * The keys double as icon identifiers: they are passed straight into
+ * `iconMapping`, so every key must be an `IconType`. `Partial<Record<IconType,
+ * …>>` states exactly that at compile time — a key that is not an icon fails
+ * `pnpm check-types` — without demanding that every icon be an amenity. There
+ * is no `icon` field, because it would only ever repeat the key.
+ */
 export const AMENITIES = {
-  parking: { category: 'general', icon: 'parking' },
-  air_conditioner: { category: 'general', icon: 'air_conditioner' },
-  wlan: { category: 'general', icon: 'wlan' },
-  tv: { category: 'general', icon: 'tv' },
-  barrier_free: { category: 'general', icon: 'barrier_free' },
-  elevator: { category: 'general', icon: 'elevator' },
-  fire_extinguisher: { category: 'general', icon: 'fire_extinguisher' },
-  smoke_detector: { category: 'general', icon: 'smoke_detector' },
-  vacuum: { category: 'general', icon: 'vacuum' },
-  washing_rack: { category: 'general', icon: 'washing_rack' },
-  washing_machine: { category: 'general', icon: 'washing_machine' },
-  pool: { category: 'outdoorArea', icon: 'pool' },
-  balcony: { category: 'outdoorArea', icon: 'balcony' },
-  terrace: { category: 'outdoorArea', icon: 'terrace' },
-  cooker: { category: 'kitchen', icon: 'cooker' },
-  oven: { category: 'kitchen', icon: 'oven' },
-  dishes: { category: 'kitchen', icon: 'dishes' },
-  pots_pans: { category: 'kitchen', icon: 'pots_pans' },
-  coffee_machine: { category: 'kitchen', icon: 'coffee_machine' },
-  microwave: { category: 'kitchen', icon: 'microwave' },
-  freezer: { category: 'kitchen', icon: 'freezer' },
-  refrigerator: { category: 'kitchen', icon: 'refrigerator' },
-  kettle: { category: 'kitchen', icon: 'kettle' },
-  bed_linen: { category: 'bedroom', icon: 'bed_linen' },
-  hairdryer: { category: 'bathroom', icon: 'hairdryer' },
-  towels: { category: 'bathroom', icon: 'towels' },
-  shower: { category: 'bathroom', icon: 'shower' },
-  bathtub: { category: 'bathroom', icon: 'bathtub' },
-  baby_bed: { category: 'baby', icon: 'baby_bed' },
-  high_chair: { category: 'baby', icon: 'high_chair' },
-} as const satisfies Record<string, { category: AmenityCategory; icon: IconType }>
+  parking: { category: 'general' },
+  air_conditioner: { category: 'general' },
+  wlan: { category: 'general' },
+  tv: { category: 'general' },
+  barrier_free: { category: 'general' },
+  elevator: { category: 'general' },
+  fire_extinguisher: { category: 'general' },
+  smoke_detector: { category: 'general' },
+  vacuum: { category: 'general' },
+  washing_rack: { category: 'general' },
+  washing_machine: { category: 'general' },
+  pool: { category: 'outdoorArea' },
+  balcony: { category: 'outdoorArea' },
+  terrace: { category: 'outdoorArea' },
+  cooker: { category: 'kitchen' },
+  oven: { category: 'kitchen' },
+  dishes: { category: 'kitchen' },
+  pots_pans: { category: 'kitchen' },
+  coffee_machine: { category: 'kitchen' },
+  microwave: { category: 'kitchen' },
+  freezer: { category: 'kitchen' },
+  refrigerator: { category: 'kitchen' },
+  kettle: { category: 'kitchen' },
+  bed_linen: { category: 'bedroom' },
+  hairdryer: { category: 'bathroom' },
+  towels: { category: 'bathroom' },
+  shower: { category: 'bathroom' },
+  bathtub: { category: 'bathroom' },
+  baby_bed: { category: 'baby' },
+  high_chair: { category: 'baby' },
+} as const satisfies Partial<Record<IconType, { category: AmenityCategory }>>
 
 export type AmenityKey = keyof typeof AMENITIES
 
