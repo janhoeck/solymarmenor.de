@@ -56,3 +56,33 @@ test('rejects an attribute-bearing variant of an allowed tag', () => {
 test('rejects disallowed markup in a non-german locale', () => {
   assert.throws(() => localizedTextSchema.parse({ de: 'Hallo', en: '<script>alert(1)</script>' }))
 })
+
+// The guard blocks markup, not punctuation. These are marketing texts about
+// prices, distances and sizes, so a bare less-than sign is ordinary prose and
+// must not force the author to discover `&lt;` inside a JSON file.
+test('accepts a less-than sign used as punctuation', () => {
+  assert.doesNotThrow(() => localizedTextSchema.parse({ de: 'Preis < 100 €' }))
+  assert.doesNotThrow(() => localizedTextSchema.parse({ de: '< 5 Minuten zum Strand' }))
+})
+
+test('accepts a less-than sign directly before a digit or at the end', () => {
+  assert.doesNotThrow(() => localizedTextSchema.parse({ de: 'Kinder <12 Jahre' }))
+  assert.doesNotThrow(() => localizedTextSchema.parse({ de: 'Zeichen am Ende <' }))
+})
+
+test('accepts punctuation and allowed markup in the same string', () => {
+  assert.doesNotThrow(() =>
+    localizedTextSchema.parse({ de: '<strong>Preis < 100 €</strong><br />Nur diese Woche.' }),
+  )
+})
+
+test('still rejects a tag-shaped less-than sign', () => {
+  assert.throws(() => localizedTextSchema.parse({ de: '<script>' }))
+  assert.throws(() => localizedTextSchema.parse({ de: '<img src=x>' }))
+  assert.throws(() => localizedTextSchema.parse({ de: '</div>' }))
+})
+
+test('rejects an html comment and a doctype', () => {
+  assert.throws(() => localizedTextSchema.parse({ de: 'Text <!-- versteckt --> Ende' }))
+  assert.throws(() => localizedTextSchema.parse({ de: '<!DOCTYPE html>' }))
+})

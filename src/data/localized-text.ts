@@ -21,19 +21,36 @@ const FALLBACK_LOCALE = 'de' as const satisfies Locale
 const ALLOWED_INLINE_MARKUP = /<(?:\/?(?:strong|em)|br\s*\/?)>/g
 
 /**
+ * A `<` that opens something tag-shaped: followed by a letter (`<script`), a
+ * slash (`</div`), or `!` (`<!--`, `<!DOCTYPE`).
+ *
+ * A `<` followed by a space, a digit or the end of the string is ordinary
+ * punctuation and must pass — these are marketing texts about prices, distances
+ * and sizes, so "Preis < 100 €" and "< 5 Minuten zum Strand" are things the
+ * owner may well write. Forbidding those, or demanding they be escaped as
+ * `&lt;` inside a JSON file, would be worse than the problem this guard solves.
+ *
+ * Deliberately not a `/g` regex: `.test()` on a global pattern is stateful
+ * across calls via `lastIndex`, which would make this return alternating
+ * answers for the same input.
+ */
+const TAG_LIKE = /<[a-zA-Z/!]/
+
+/**
  * Whether a string carries no markup beyond `ALLOWED_INLINE_MARKUP`. Removing
- * the allowed tags must leave no `<` behind — anything else, including
- * `<script>`, `<img …>` and `<a href …>`, is rejected.
+ * the allowed tags must leave nothing tag-shaped behind, so `<script>`,
+ * `<img …>`, `<a href …>` and `</div>` are rejected while a literal `<` is not.
  */
 function hasOnlyAllowedMarkup(value: string): boolean {
-  return !value.replace(ALLOWED_INLINE_MARKUP, '').includes('<')
+  return !TAG_LIKE.test(value.replace(ALLOWED_INLINE_MARKUP, ''))
 }
 
 const markupSafeString = z
   .string()
   .min(1)
   .refine(hasOnlyAllowedMarkup, {
-    message: 'only <strong>, <em> and <br> markup is allowed, without attributes',
+    message:
+      'only <strong>, <em> and <br> markup is allowed, without attributes; a literal "<" is fine when not followed by a letter, "/" or "!"',
   })
 
 /**
