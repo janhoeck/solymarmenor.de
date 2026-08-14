@@ -1541,21 +1541,28 @@ git commit -m "refactor: model editorial content as discriminated blocks"
 
 ### Task 9: Content-Blöcke rendern
 
+**Die geteilte `ContentBlock`-Komponente bleibt unangetastet.** Sie rendert einfache Strings und
+wird außerhalb des Objektbereichs an zwölf Stellen genutzt: `src/app/[locale]/privacy/page.tsx`
+(acht), `src/app/[locale]/imprint/page.tsx` (drei) und `src/components/shared/RichText/RichText.tsx`
+(eine) — alle übergeben `t()`-Ergebnisse, keine `LocalizedText`. Sie umzuwidmen würde drei
+unbeteiligte Seiten brechen. Der Objekt-Renderer bekommt deshalb eine eigene Komponente; die beiden
+haben unterschiedliche Eingaben und gehören getrennt. Aus demselben Grund bleibt auch
+`src/types/ContentBlock.ts` bestehen — die geteilte Komponente braucht ihn.
+
 **Files:**
-- Modify: `src/components/shared/ContentBlock/ContentBlock.tsx` (komplett)
+- Create: `src/components/property/content/PropertyContent.tsx`
 - Modify: `src/components/property/sections/descriptionSection/DescriptionSection.tsx`
 - Modify: `src/components/property/sections/locationDescriptionSection/LocationDescriptionSection.tsx`
 - Modify: `src/components/property/sections/houseRulesSection/HouseRulesSection.tsx:53`
-- Delete: `src/types/ContentBlock.ts`
 - Delete: `src/components/property/utils.ts`
 
 **Interfaces:**
 - Consumes: `PropertyContentBlock` (Task 8), `resolveText` (Task 7).
-- Produces: `ContentBlock` nimmt künftig `blocks: PropertyContentBlock[]` statt `items: ContentBlockType`.
+- Produces: `PropertyContent` mit `blocks: PropertyContentBlock[]`.
 
-- [ ] **Step 1: Renderer umschreiben**
+- [ ] **Step 1: Objekt-Renderer anlegen**
 
-Replace `src/components/shared/ContentBlock/ContentBlock.tsx` entirely:
+Create `src/components/property/content/PropertyContent.tsx`:
 
 ```tsx
 import { List, P } from '@/components/ui'
@@ -1564,11 +1571,15 @@ import type { PropertyContentBlock } from '@/data/property-schema'
 import { useLocale } from 'next-intl'
 import { twMerge } from 'tailwind-merge'
 
-export type ContentBlockProps = {
+export type PropertyContentProps = {
   blocks: PropertyContentBlock[]
 }
 
-export const ContentBlock = (props: ContentBlockProps) => {
+/**
+ * Renders the editorial blocks of a property. Distinct from the shared
+ * ContentBlock component, which renders plain strings for the legal pages.
+ */
+export const PropertyContent = (props: PropertyContentProps) => {
   const { blocks } = props
   const locale = useLocale()
 
@@ -1642,9 +1653,9 @@ wird:
 
 - [ ] **Step 2: Aufrufer umstellen**
 
-Run: `rg -n "convertDescription|<ContentBlock" src`
+Run: `rg -n "convertDescription" src`
 
-Jeden Treffer der Form
+Genau drei Dateien im Objektbereich rufen es auf. Jeden Treffer der Form
 
 ```tsx
 <ContentBlock items={convertDescription(locale, propertyConfig.description)} />
@@ -1653,21 +1664,30 @@ Jeden Treffer der Form
 ersetzen durch
 
 ```tsx
-<ContentBlock blocks={propertyConfig.description} />
+<PropertyContent blocks={propertyConfig.description} />
 ```
 
 Betroffen: `DescriptionSection.tsx`, `LocationDescriptionSection.tsx`,
-`HouseRulesSection.tsx:53` (dort `blocks={houseRules.description}`).
-Wo `useLocale()` danach ungenutzt ist, den Aufruf und den Import entfernen.
+`HouseRulesSection.tsx:53` (dort `blocks={houseRules.description}`). Dabei den Import von
+`@/components/shared/ContentBlock/ContentBlock` durch
+`@/components/property/content/PropertyContent` ersetzen. Wo `useLocale()` danach ungenutzt ist,
+den Aufruf und den Import entfernen.
 
-- [ ] **Step 3: Tote Dateien löschen**
+**Nicht anfassen:** `privacy/page.tsx`, `imprint/page.tsx` und `RichText.tsx` verwenden weiterhin
+die geteilte `ContentBlock`-Komponente mit `items`. Sie bleiben unverändert.
+
+- [ ] **Step 3: Tote Datei löschen**
 
 ```bash
-git rm src/types/ContentBlock.ts src/components/property/utils.ts
+git rm src/components/property/utils.ts
 ```
 
-Run: `rg -n "types/ContentBlock|property/utils" src`
+Run: `rg -n "property/utils" src`
 Expected: keine Treffer.
+
+Run: `rg -n "ContentBlock" src -g '!*.test.ts'`
+Expected: nur noch die geteilte Komponente selbst, `src/types/ContentBlock.ts`, `RichText.tsx`,
+`privacy/page.tsx` und `imprint/page.tsx` — keine Treffer mehr unter `src/components/property/`.
 
 - [ ] **Step 4: Prüfen**
 
@@ -1680,9 +1700,10 @@ hervorgehobener Block mit linkem Rahmen und ohne das Präfix „Wichtiger Hinwei
 
 - [ ] **Step 5: Commit**
 
+Das `git rm` aus Schritt 3 hat die Löschung bereits gestaged.
+
 ```bash
 git add src/components
-git rm src/types/ContentBlock.ts src/components/property/utils.ts
 git commit -m "feat: render content blocks by type and highlight notes"
 ```
 
