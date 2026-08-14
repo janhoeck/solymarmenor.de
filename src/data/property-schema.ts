@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import type { IconType } from '../types/IconType.ts'
+import { ICON_TYPES } from '../types/IconType.ts'
 
 /** Locales the site is translated into. `de` is the editorial language. */
 export const LOCALES = ['de', 'en', 'es'] as const
@@ -35,16 +35,9 @@ export type Description = z.infer<typeof descriptionSchema>
 
 /**
  * Icon identifiers rendered by `src/components/property/iconMapping.ts`.
- * Kept in sync with `IconType`; the satisfies clause fails the build on drift.
+ * `ICON_TYPES` is imported from `IconType.ts`, which is its source of truth, so
+ * there is no second list that could drift out of sync with `IconType`.
  */
-const ICON_TYPES = [
-  'area_size', 'group', 'pool', 'parking', 'air_conditioner', 'wlan', 'tv', 'barrier_free',
-  'elevator', 'refrigerator', 'freezer', 'cooker', 'oven', 'microwave', 'coffee_machine',
-  'pots_pans', 'dishes', 'bed_linen', 'shower', 'bathtub', 'hairdryer', 'towels', 'vacuum',
-  'washing_machine', 'washing_rack', 'baby_bed', 'bed', 'high_chair', 'terrace', 'balcony',
-  'fire_extinguisher', 'smoke_detector', 'kettle', 'pet', 'party', 'smoking', 'checkin', 'checkout',
-] as const satisfies readonly IconType[]
-
 const iconTypeSchema = z.enum(ICON_TYPES)
 
 const addressSchema = z
