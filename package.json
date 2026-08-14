@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "eslint .",
     "test": "node --test --experimental-strip-types \"src/**/*.test.ts\"",
+    "images:sync": "node scripts/images-sync.mjs",
     "check-types": "tsc --noEmit",
     "analyze": "next experimental-analyze",
     "format": "prettier --write \"src/**/*.{ts,tsx,md,css}\""

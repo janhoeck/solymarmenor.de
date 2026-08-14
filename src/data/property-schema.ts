@@ -109,6 +109,36 @@ const calendarSchema = z
   })
   .strict()
 
+const imageCategorySchema = z.enum([
+  'exterior',
+  'living',
+  'bedroom',
+  'kitchen',
+  'bathroom',
+  'outdoor',
+  'pool',
+  'surroundings',
+])
+
+const imageSchema = z
+  .object({
+    src: z.string().startsWith('/images/'),
+    width: z.number().int().positive(),
+    height: z.number().int().positive(),
+    /** Optional; the UI falls back to the property title. */
+    alt: localizedTextSchema.optional(),
+    category: imageCategorySchema.optional(),
+  })
+  .strict()
+
+export const imagesSchema = z
+  .object({
+    cover: imageSchema,
+    /** At least four, because PropertyImageGrid renders four thumbnails next to the cover. */
+    gallery: z.array(imageSchema).min(4),
+  })
+  .strict()
+
 export const propertySchema = z
   .object({
     schemaVersion: z.literal(2),
@@ -123,7 +153,7 @@ export const propertySchema = z
     description: contentBlocksSchema,
     price: priceSchema,
     location: locationSchema,
-    imageSources: z.array(z.string().startsWith('/images/')).min(5),
+    images: imagesSchema,
     propertyDetails: z.array(propertyDetailSchema),
     amenities: amenitiesSchema,
     houseRules: houseRulesSchema,

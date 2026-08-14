@@ -1,9 +1,10 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
 
-import { contentBlockSchema, propertySchema } from './property-schema.ts'
+import { contentBlockSchema, imagesSchema, propertySchema } from './property-schema.ts'
 
 const validTranslation = { de: 'Titel', en: 'Title', es: 'Título' }
+const validImage = { src: '/images/apartment/coverPhoto.webp', width: 1600, height: 1067 }
 
 const validProperty = {
   schemaVersion: 2,
@@ -29,13 +30,7 @@ const validProperty = {
     },
     description: [{ type: 'paragraph', text: validTranslation }],
   },
-  imageSources: [
-    '/images/apartment/coverPhoto.webp',
-    '/images/apartment/photo1.webp',
-    '/images/apartment/photo2.webp',
-    '/images/apartment/photo3.webp',
-    '/images/apartment/photo4.webp',
-  ],
+  images: { cover: validImage, gallery: Array.from({ length: 4 }, () => validImage) },
   propertyDetails: [{ type: 'bed', amount: 4, title: validTranslation, subtitle: validTranslation }],
   amenities: { general: ['parking'], kitchen: ['oven'] },
   houseRules: {
@@ -133,4 +128,34 @@ test('rejects a block without a type', () => {
 
 test('rejects an unknown block type', () => {
   assert.throws(() => contentBlockSchema.parse({ type: 'video', text: { de: 'Text' } }))
+})
+
+test('accepts images with a cover and a gallery', () => {
+  const parsed = imagesSchema.parse({ cover: validImage, gallery: Array.from({ length: 4 }, () => validImage) })
+  assert.equal(parsed.cover.width, 1600)
+})
+
+test('rejects a source outside the images directory', () => {
+  assert.throws(() => imagesSchema.parse({ cover: { ...validImage, src: '/other/x.webp' }, gallery: [] }))
+})
+
+test('rejects a non-positive dimension', () => {
+  assert.throws(() => imagesSchema.parse({ cover: { ...validImage, width: 0 }, gallery: [] }))
+})
+
+test('requires at least four gallery images for the grid', () => {
+  assert.throws(() => imagesSchema.parse({ cover: validImage, gallery: [validImage] }))
+})
+
+test('accepts an optional alt text and category', () => {
+  assert.doesNotThrow(() =>
+    imagesSchema.parse({
+      cover: validImage,
+      gallery: Array.from({ length: 4 }, () => ({
+        ...validImage,
+        alt: { de: 'Wohnzimmer' },
+        category: 'living',
+      })),
+    }),
+  )
 })

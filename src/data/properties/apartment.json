@@ -5,50 +5,6 @@
   "status": "published",
   "kind": "apartment",
   "updatedAt": "2026-08-14",
-  "imageSources": [
-    "/images/apartment/coverPhoto.webp",
-    "/images/apartment/IMG_9806.webp",
-    "/images/apartment/IMG_9808.webp",
-    "/images/apartment/IMG_9809.webp",
-    "/images/apartment/IMG_9810.webp",
-    "/images/apartment/IMG_9812.webp",
-    "/images/apartment/IMG_9813.webp",
-    "/images/apartment/IMG_9814.webp",
-    "/images/apartment/IMG_9815.webp",
-    "/images/apartment/IMG_9816.webp",
-    "/images/apartment/IMG_9817.webp",
-    "/images/apartment/IMG_9818.webp",
-    "/images/apartment/IMG_9819.webp",
-    "/images/apartment/IMG_9820.webp",
-    "/images/apartment/IMG_9821.webp",
-    "/images/apartment/IMG_9822.webp",
-    "/images/apartment/IMG_9823.webp",
-    "/images/apartment/IMG_9824.webp",
-    "/images/apartment/IMG_9825.webp",
-    "/images/apartment/IMG_9826.webp",
-    "/images/apartment/IMG_9827.webp",
-    "/images/apartment/IMG_9846.webp",
-    "/images/apartment/IMG_9847.webp",
-    "/images/apartment/IMG_9848.webp",
-    "/images/apartment/IMG_9828.webp",
-    "/images/apartment/IMG_9829.webp",
-    "/images/apartment/IMG_9830.webp",
-    "/images/apartment/IMG_9831.webp",
-    "/images/apartment/IMG_9832.webp",
-    "/images/apartment/IMG_9833.webp",
-    "/images/apartment/IMG_9834.webp",
-    "/images/apartment/IMG_9835.webp",
-    "/images/apartment/IMG_9836.webp",
-    "/images/apartment/IMG_9837.webp",
-    "/images/apartment/IMG_9838.webp",
-    "/images/apartment/IMG_9839.webp",
-    "/images/apartment/IMG_9840.webp",
-    "/images/apartment/IMG_9841.webp",
-    "/images/apartment/IMG_9842.webp",
-    "/images/apartment/IMG_9843.webp",
-    "/images/apartment/IMG_9844.webp",
-    "/images/apartment/IMG_9845.webp"
-  ],
   "title": {
     "de": "Ferienwohnung Los Alcázares Mar Menor",
     "en": "Holiday Apartment Los Alcázares Mar Menor",
@@ -365,5 +321,219 @@
   "calendar": {
     "provider": "airbnb",
     "secretRef": "ICAL_APARTMENT"
+  },
+  "images": {
+    "cover": {
+      "src": "/images/apartment/coverPhoto.webp",
+      "width": 1156,
+      "height": 874
+    },
+    "gallery": [
+      {
+        "src": "/images/apartment/IMG_9806.webp",
+        "width": 1170,
+        "height": 862
+      },
+      {
+        "src": "/images/apartment/IMG_9808.webp",
+        "width": 1170,
+        "height": 1549
+      },
+      {
+        "src": "/images/apartment/IMG_9809.webp",
+        "width": 1170,
+        "height": 1509
+      },
+      {
+        "src": "/images/apartment/IMG_9810.webp",
+        "width": 1170,
+        "height": 1502
+      },
+      {
+        "src": "/images/apartment/IMG_9812.webp",
+        "width": 1162,
+        "height": 1526
+      },
+      {
+        "src": "/images/apartment/IMG_9813.webp",
+        "width": 1170,
+        "height": 1531
+      },
+      {
+        "src": "/images/apartment/IMG_9814.webp",
+        "width": 1170,
+        "height": 1535
+      },
+      {
+        "src": "/images/apartment/IMG_9815.webp",
+        "width": 1170,
+        "height": 1517
+      },
+      {
+        "src": "/images/apartment/IMG_9816.webp",
+        "width": 1170,
+        "height": 880
+      },
+      {
+        "src": "/images/apartment/IMG_9817.webp",
+        "width": 1170,
+        "height": 863
+      },
+      {
+        "src": "/images/apartment/IMG_9818.webp",
+        "width": 1170,
+        "height": 1526
+      },
+      {
+        "src": "/images/apartment/IMG_9819.webp",
+        "width": 1170,
+        "height": 1550
+      },
+      {
+        "src": "/images/apartment/IMG_9820.webp",
+        "width": 1170,
+        "height": 1511
+      },
+      {
+        "src": "/images/apartment/IMG_9821.webp",
+        "width": 1170,
+        "height": 873
+      },
+      {
+        "src": "/images/apartment/IMG_9822.webp",
+        "width": 1139,
+        "height": 876
+      },
+      {
+        "src": "/images/apartment/IMG_9823.webp",
+        "width": 1170,
+        "height": 870
+      },
+      {
+        "src": "/images/apartment/IMG_9824.webp",
+        "width": 1170,
+        "height": 1537
+      },
+      {
+        "src": "/images/apartment/IMG_9825.webp",
+        "width": 1170,
+        "height": 1540
+      },
+      {
+        "src": "/images/apartment/IMG_9826.webp",
+        "width": 1170,
+        "height": 1536
+      },
+      {
+        "src": "/images/apartment/IMG_9827.webp",
+        "width": 1108,
+        "height": 1503
+      },
+      {
+        "src": "/images/apartment/IMG_9846.webp",
+        "width": 1170,
+        "height": 1555
+      },
+      {
+        "src": "/images/apartment/IMG_9847.webp",
+        "width": 1170,
+        "height": 1545
+      },
+      {
+        "src": "/images/apartment/IMG_9848.webp",
+        "width": 1170,
+        "height": 873
+      },
+      {
+        "src": "/images/apartment/IMG_9828.webp",
+        "width": 1170,
+        "height": 1522
+      },
+      {
+        "src": "/images/apartment/IMG_9829.webp",
+        "width": 1170,
+        "height": 1537
+      },
+      {
+        "src": "/images/apartment/IMG_9830.webp",
+        "width": 1170,
+        "height": 877
+      },
+      {
+        "src": "/images/apartment/IMG_9831.webp",
+        "width": 1170,
+        "height": 878
+      },
+      {
+        "src": "/images/apartment/IMG_9832.webp",
+        "width": 1170,
+        "height": 885
+      },
+      {
+        "src": "/images/apartment/IMG_9833.webp",
+        "width": 1170,
+        "height": 1549
+      },
+      {
+        "src": "/images/apartment/IMG_9834.webp",
+        "width": 1170,
+        "height": 882
+      },
+      {
+        "src": "/images/apartment/IMG_9835.webp",
+        "width": 1170,
+        "height": 1026
+      },
+      {
+        "src": "/images/apartment/IMG_9836.webp",
+        "width": 1170,
+        "height": 1547
+      },
+      {
+        "src": "/images/apartment/IMG_9837.webp",
+        "width": 1170,
+        "height": 870
+      },
+      {
+        "src": "/images/apartment/IMG_9838.webp",
+        "width": 1170,
+        "height": 873
+      },
+      {
+        "src": "/images/apartment/IMG_9839.webp",
+        "width": 1170,
+        "height": 1562
+      },
+      {
+        "src": "/images/apartment/IMG_9840.webp",
+        "width": 1170,
+        "height": 803
+      },
+      {
+        "src": "/images/apartment/IMG_9841.webp",
+        "width": 1170,
+        "height": 877
+      },
+      {
+        "src": "/images/apartment/IMG_9842.webp",
+        "width": 1170,
+        "height": 501
+      },
+      {
+        "src": "/images/apartment/IMG_9843.webp",
+        "width": 1170,
+        "height": 1542
+      },
+      {
+        "src": "/images/apartment/IMG_9844.webp",
+        "width": 1170,
+        "height": 1545
+      },
+      {
+        "src": "/images/apartment/IMG_9845.webp",
+        "width": 1170,
+        "height": 857
+      }
+    ]
   }
 }
