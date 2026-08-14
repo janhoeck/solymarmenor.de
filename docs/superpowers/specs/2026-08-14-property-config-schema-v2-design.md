@@ -380,8 +380,15 @@ Jeder v2-Block hat bereits die Form einer Tabelle. Drizzle ist eingerichtet (`dr
 | `description`, `location.description`, `houseRules.notes` | `property_content_blocks (property_id, section, position, type, payload jsonb)` |
 | `images` | `property_images (position, src, width, height, category, is_cover)`, Alt-Texte je Locale |
 | `amenities` | `property_amenities (property_id, amenity_key)` → Referenztabelle `amenities` |
-| `highlights` | `property_highlights (key, icon, value, unit, position)` |
+| `highlights` | `property_highlights (key, icon, value, unit, position)`, Labels je Locale |
+| `houseRules.rules` | `property_rules (property_id, rule_key)` |
+| `calendar` | zwei Spalten in `properties` (`calendar_provider`, `calendar_secret_ref`) |
 | `pricing.rates` / `.fees` | `property_rates` / `property_fees` |
+
+Drei Felder tragen übersetzten Text, obwohl die Tabelle sie in eine sprachneutrale Zeile legt:
+`highlights[].label`, `highlights[].caption` und `address.note`. Sie brauchen entweder eine
+`property_translations`-Zeile oder eine `jsonb`-Spalte — welches von beidem, entscheidet sich
+danach, ob Übersetzungen einzeln abfragbar sein müssen. Für zwei Objekte reicht `jsonb`.
 
 Da sämtliche Zugriffe über `getProperties()` / `getPropertyBySlug()` laufen, ist der Umzug eine
 Änderung an `repository.ts`. Die JSONs können danach als Seed-Daten weiterleben.
