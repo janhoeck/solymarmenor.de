@@ -66,6 +66,11 @@ export const PropertyContent = (props: PropertyContentProps) => {
                 />
               </div>
             )
+
+          default:
+            // Exhaustiveness guard: a new `contentBlockSchema` variant that isn't handled
+            // above fails `pnpm check-types` here instead of silently rendering nothing.
+            return block satisfies never
         }
       })}
     </div>
