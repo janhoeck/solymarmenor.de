@@ -3261,7 +3261,25 @@ test('no property carries a calendar url in its data', () => {
 Run: `pnpm test`
 Expected: PASS.
 
-- [ ] **Step 6: Migrationsskripte entfernen**
+- [ ] **Step 6: `images-sync.mjs` die Objektliste selbst ermitteln lassen**
+
+Das Skript trägt `['apartment', 'house']` fest im Code. Ein drittes Objekt würde damit stillschweigend
+nicht geprüft — kein Fehler, nur eine Lücke, und genau die Art von leisem Ausfall, die dieser Umbau
+beseitigen soll. Die Liste stattdessen aus dem Datenverzeichnis lesen:
+
+```js
+const PROPERTY_IDS = readdirSync(DATA_DIR)
+  .filter((name) => name.endsWith('.json'))
+  .map((name) => name.replace(/\.json$/, ''))
+```
+
+`readdirSync` ist bereits importiert. Die Schleife `for (const id of ['apartment', 'house'])` durch
+`for (const id of PROPERTY_IDS)` ersetzen.
+
+Run: `pnpm images:sync --check`
+Expected: dieselbe Ausgabe wie zuvor, weiterhin die Meldung zu `IMG_2209.webp` und Exit-Code 1.
+
+- [ ] **Step 7: Migrationsskripte entfernen**
 
 ```bash
 git rm -r scripts/migrations
@@ -3270,12 +3288,12 @@ git rm -r scripts/migrations
 Sie haben ihren Zweck erfüllt; ihre Wirkung liegt in den committeten JSON-Dateien und ihr Ablauf in
 der Git-Historie.
 
-- [ ] **Step 7: Gesamtdurchlauf**
+- [ ] **Step 8: Gesamtdurchlauf**
 
 Run: `pnpm test && pnpm check-types && pnpm lint && pnpm validate:content && pnpm images:sync --check && pnpm build`
 Expected: alles fehlerfrei.
 
-- [ ] **Step 8: README um die Datenpflege ergänzen**
+- [ ] **Step 9: README um die Datenpflege ergänzen**
 
 An `README.md` anhängen:
 
@@ -3297,9 +3315,9 @@ Ein neues Objekt: JSON-Datei in `src/data/properties/` anlegen und in
 `src/lib/properties/repository.ts`.
 ```
 
-- [ ] **Step 9: Commit**
+- [ ] **Step 10: Commit**
 
-Das `git rm -r scripts/migrations` aus Schritt 6 hat die Löschung bereits gestaged.
+Das `git rm -r scripts/migrations` aus Schritt 7 hat die Löschung bereits gestaged.
 
 ```bash
 git add scripts package.json README.md src/data
