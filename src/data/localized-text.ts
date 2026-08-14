@@ -8,14 +8,43 @@ export type Locale = (typeof LOCALES)[number]
 const FALLBACK_LOCALE: Locale = 'de'
 
 /**
+ * The inline markup a localized string may carry. `PropertyContent` renders
+ * these texts through `dangerouslySetInnerHTML` so the editorial texts can use
+ * emphasis and line breaks, which only holds while the markup is limited to
+ * this set. Attribute-bearing variants are not matched on purpose: `<strong>`
+ * passes, `<strong onclick="…">` does not.
+ */
+const ALLOWED_INLINE_MARKUP = /<(?:\/?(?:strong|em)|br\s*\/?)>/g
+
+/**
+ * Whether a string carries no markup beyond `ALLOWED_INLINE_MARKUP`. Removing
+ * the allowed tags must leave no `<` behind — anything else, including
+ * `<script>`, `<img …>` and `<a href …>`, is rejected.
+ */
+function hasOnlyAllowedMarkup(value: string): boolean {
+  return !value.replace(ALLOWED_INLINE_MARKUP, '').includes('<')
+}
+
+const markupSafeString = z
+  .string()
+  .min(1)
+  .refine(hasOnlyAllowedMarkup, {
+    message: 'only <strong>, <em> and <br> markup is allowed, without attributes',
+  })
+
+/**
  * A translated string. Only `de` is mandatory, so additional locales can be
  * filled in field by field rather than all at once.
+ *
+ * The markup restriction is enforced here rather than at the render site, so it
+ * survives the planned move of this content into Postgres — where the same
+ * database also holds rows written by an unauthenticated public form.
  */
 export const localizedTextSchema = z
   .object({
-    de: z.string().min(1),
-    en: z.string().min(1).optional(),
-    es: z.string().min(1).optional(),
+    de: markupSafeString,
+    en: markupSafeString.optional(),
+    es: markupSafeString.optional(),
   })
   .strict()
 

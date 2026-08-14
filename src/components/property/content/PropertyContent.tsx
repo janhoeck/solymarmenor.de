@@ -12,9 +12,10 @@ export type PropertyContentProps = {
  * Renders the editorial blocks of a property. Distinct from the shared
  * ContentBlock component, which renders plain strings for the legal pages.
  *
- * Content is authored in this repository and never sourced from user input, so
- * inline markup (<strong>, <em>) in the texts is rendered on purpose. Any future
- * path that lets third-party text reach a LocalizedText must sanitize first.
+ * Content is authored in this repository, so inline markup (<strong>, <em>,
+ * <br>) in the texts is rendered on purpose. That premise is not a convention:
+ * `localizedTextSchema` rejects every other tag, and every LocalizedText the app
+ * sees has passed it, so no other markup can reach this renderer.
  */
 export const PropertyContent = (props: PropertyContentProps) => {
   const { blocks } = props
