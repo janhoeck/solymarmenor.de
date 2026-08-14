@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
 
-import { propertySchema, translationMapSchema } from './property-schema.ts'
+import { propertySchema } from './property-schema.ts'
 
 const validTranslation = { de: 'Titel', en: 'Title', es: 'Título' }
 
@@ -73,14 +73,6 @@ test('rejects an amenity that is not a known icon type', () => {
   const property = structuredClone(validProperty)
   property.amenities.general = ['teleporter']
   assert.throws(() => propertySchema.parse(property))
-})
-
-test('requires the german translation', () => {
-  assert.throws(() => translationMapSchema.parse({ en: 'Title', es: 'Título' }))
-})
-
-test('accepts a translation with german only', () => {
-  assert.deepEqual(translationMapSchema.parse({ de: 'Titel' }), { de: 'Titel' })
 })
 
 test('rejects a leftover address description field', () => {

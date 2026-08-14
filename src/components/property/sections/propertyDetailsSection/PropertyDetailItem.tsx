@@ -1,7 +1,7 @@
 import { IconWithText } from '@/components/property/components/IconWithText'
 import { iconMapping } from '@/components/property/iconMapping'
-import { getTranslation } from '@/components/property/utils'
 import type { Property } from '@/data/property-schema'
+import { resolveText } from '@/data/localized-text'
 import { useLocale } from 'next-intl'
 
 export type PropertyDetailItemProps = {
@@ -17,8 +17,8 @@ export const PropertyDetailItem = (props: PropertyDetailItemProps) => {
   return (
     <IconWithText
       icon={Icon}
-      label={getTranslation(locale, detail.title)}
-      description={getTranslation(locale, detail.subtitle)}
+      label={resolveText(detail.title, locale)}
+      description={resolveText(detail.subtitle, locale)}
     />
   )
 }

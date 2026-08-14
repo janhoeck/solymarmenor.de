@@ -1,5 +1,5 @@
-import { getTranslation } from '@/components/property/utils'
 import type { Property } from '@/data/property-schema'
+import { resolveText } from '@/data/localized-text'
 import { safeJoin } from '@/utils/join'
 import { Card, CardContent, Muted } from '@/components/ui'
 import { useLocale } from 'next-intl'
@@ -37,7 +37,7 @@ export const AddressCard = (props: AddressCardProps) => {
             <div className='text-sm text-muted-foreground'>{[address.postalCode, address.city].join(' ')}</div>
           </div>
         </div>
-        {address.note && <Muted>{getTranslation(locale, address.note)}</Muted>}
+        {address.note && <Muted>{resolveText(address.note, locale)}</Muted>}
       </CardContent>
     </Card>
   )

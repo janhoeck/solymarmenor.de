@@ -1,9 +1,10 @@
 import { IconWithText } from '@/components/property/components/IconWithText'
 import { iconMapping } from '@/components/property/iconMapping'
-import { convertDescription, getTranslation } from '@/components/property/utils'
+import { convertDescription } from '@/components/property/utils'
 import { ContentBlock } from '@/components/shared/ContentBlock/ContentBlock'
 import { Section } from '@/components/shared/Section/Section'
 import type { Property } from '@/data/property-schema'
+import { resolveText } from '@/data/localized-text'
 import { useLocale, useTranslations } from 'next-intl'
 import { twMerge } from 'tailwind-merge'
 
@@ -25,12 +26,12 @@ export const HouseRulesSection = (props: HouseRulesSectionProps) => {
             <IconWithText
               icon={iconMapping['checkin']}
               label={t('itemHeadlines.checkin')}
-              description={getTranslation(locale, houseRules.checkIn)}
+              description={resolveText(houseRules.checkIn, locale)}
             />
             <IconWithText
               icon={iconMapping['checkout']}
               label={t('itemHeadlines.checkout')}
-              description={getTranslation(locale, houseRules.checkOut)}
+              description={resolveText(houseRules.checkOut, locale)}
             />
           </div>
           <div className='flex flex-1 flex-col gap-4'>

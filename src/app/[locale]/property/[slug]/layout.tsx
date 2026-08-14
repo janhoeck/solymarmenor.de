@@ -1,5 +1,5 @@
-import { getTranslation } from '@/components/property/utils'
 import { GoogleMapsAPIProvider } from '@/components/shared/GoogleMapsAPIProvider/GoogleMapsAPIProvider'
+import { resolveText } from '@/data/localized-text'
 import { getPropertyBySlug } from '@/lib/properties/repository'
 import { generateCanonicalMetadata } from '@/lib/metadata'
 import { Metadata } from 'next'
@@ -20,10 +20,10 @@ export async function generateMetadata(props: MetadataProps): Promise<Metadata> 
   }
 
   return {
-    title: getTranslation(locale, propertyConfiguration.title),
+    title: resolveText(propertyConfiguration.title, locale),
     ...generateCanonicalMetadata(locale, `/property/${slug}`),
     openGraph: {
-      title: getTranslation(locale, propertyConfiguration.title),
+      title: resolveText(propertyConfiguration.title, locale),
       url: `https://solymarmenor.com/property/${propertyConfiguration.id}`,
       images: [
         {

@@ -1,31 +1,16 @@
 import { z } from 'zod'
 
 import { ICON_TYPES } from '../types/IconType.ts'
+import { localizedTextSchema } from './localized-text.ts'
 
-/** Locales the site is translated into. `de` is the editorial language. */
-export const LOCALES = ['de', 'en', 'es'] as const
-export type Locale = (typeof LOCALES)[number]
-
-/**
- * A translated string. Only `de` is mandatory so that additional locales can be
- * filled in field by field instead of all at once.
- */
-export const translationMapSchema = z
-  .object({
-    de: z.string().min(1),
-    en: z.string().min(1).optional(),
-    es: z.string().min(1).optional(),
-  })
-  .strict()
-
-export type TranslationMap = z.infer<typeof translationMapSchema>
+export { type LocalizedText, localizedTextSchema, LOCALES, type Locale } from './localized-text.ts'
 
 const descriptionItemSchema = z.union([
-  translationMapSchema,
+  localizedTextSchema,
   z
     .object({
-      text: translationMapSchema.optional(),
-      bulletpoints: z.array(translationMapSchema).min(1),
+      text: localizedTextSchema.optional(),
+      bulletpoints: z.array(localizedTextSchema).min(1),
     })
     .strict(),
 ])
@@ -51,7 +36,7 @@ const addressSchema = z
     /** ISO 3166-1 alpha-2, uppercase. Rendered localized by the UI. */
     country: z.string().regex(/^[A-Z]{2}$/),
     /** Free-form hint about finding the address, e.g. a map correction. */
-    note: translationMapSchema.optional(),
+    note: localizedTextSchema.optional(),
   })
   .strict()
 
@@ -68,8 +53,8 @@ const propertyDetailSchema = z
   .object({
     type: iconTypeSchema,
     amount: z.number().int().positive(),
-    title: translationMapSchema,
-    subtitle: translationMapSchema,
+    title: localizedTextSchema,
+    subtitle: localizedTextSchema,
   })
   .strict()
 
@@ -86,8 +71,8 @@ const amenitiesSchema = z
 
 const houseRulesSchema = z
   .object({
-    checkIn: translationMapSchema,
-    checkOut: translationMapSchema,
+    checkIn: localizedTextSchema,
+    checkOut: localizedTextSchema,
     rules: z.array(z.enum(['pet', 'party', 'smoking'])),
     description: descriptionSchema.optional(),
   })
@@ -120,8 +105,8 @@ export const propertySchema = z
     kind: z.enum(['apartment', 'house']),
     updatedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
     calendar: calendarSchema.optional(),
-    title: translationMapSchema,
-    subtitle: translationMapSchema,
+    title: localizedTextSchema,
+    subtitle: localizedTextSchema,
     description: descriptionSchema,
     price: priceSchema,
     location: locationSchema,

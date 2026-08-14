@@ -1,5 +1,5 @@
-import { getTranslation } from '@/components/property/utils'
 import type { Property } from '@/data/property-schema'
+import { resolveText } from '@/data/localized-text'
 import { Badge, Button, Card, CardContent, CardFooter, CardHeader, H3, Muted } from '@/components/ui'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
@@ -42,8 +42,8 @@ export const PropertyCard = (props: PropertyCardProps) => {
       </CardHeader>
 
       <CardContent>
-        <H3 className='line-clamp-2'>{getTranslation(locale, propertyConfiguration.title)}</H3>
-        <Muted>{getTranslation(locale, propertyConfiguration.subtitle)}</Muted>
+        <H3 className='line-clamp-2'>{resolveText(propertyConfiguration.title, locale)}</H3>
+        <Muted>{resolveText(propertyConfiguration.subtitle, locale)}</Muted>
         <div className='flex items-center gap-6 text-muted-foreground mb-6 mt-6'>
           {bedPropertySummary && (
             <PropertyStatisticItem
