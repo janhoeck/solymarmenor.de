@@ -386,6 +386,15 @@ Jeder v2-Block hat bereits die Form einer Tabelle. Drizzle ist eingerichtet (`dr
 Da sämtliche Zugriffe über `getProperties()` / `getPropertyBySlug()` laufen, ist der Umzug eine
 Änderung an `repository.ts`. Die JSONs können danach als Seed-Daten weiterleben.
 
+**Eine Fußangel für genau diesen Schritt**, beim Review von Etappe 1 aufgefallen: Eine Objektseite
+schlägt dasselbe Objekt zweimal nach — einmal in `generateMetadata` (`layout.tsx`), einmal beim
+Rendern (`page.tsx`). Solange das Repository ein Array im Speicher filtert, kostet das nichts. Next
+dedupliziert pro Request aber ausschließlich `fetch()`-Aufrufe, keine beliebigen async-Funktionen.
+Ohne Gegenmaßnahme werden daraus zwei echte Datenbankabfragen pro Seitenaufruf. Beim Umbau von
+`repository.ts` sind die Lesefunktionen deshalb in Reacts `cache()` zu wickeln — dann teilen sich
+beide Aufrufe innerhalb eines Requests ein Ergebnis, und an den Aufrufern ändert sich weiterhin
+nichts.
+
 ## Risiken
 
 - **Ein Datenfehler blockiert den Deploy.** Gewollt — heute erzeugt derselbe Fehler eine 404 in
