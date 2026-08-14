@@ -1711,6 +1711,13 @@ git commit -m "feat: render content blocks by type and highlight notes"
 
 ### Task 10: Bilder als Objekte mit Dimensionen
 
+> **Task 10 und Task 11 werden gemeinsam ausgeführt und gemeinsam abgenommen.** Task 10 ersetzt
+> `imageSources` durch `images` in Schema und Daten. Darauf greifen aber `PropertyImageGrid.tsx`,
+> `PropertyView.tsx:24`, `PropertyCard.tsx` und `layout.tsx` zu; repariert wird das erst in Task 11.
+> Derselbe Zuschnittfehler wie beim iCal-Feld und bei den Content-Blöcken: Schema, Daten und lesende
+> Komponenten müssen zusammen wechseln. Der Typcheck darf zwischen den beiden Hälften rot sein, am
+> Ende von Task 11 muss alles grün sein.
+
 **Files:**
 - Create: `scripts/images-sync.mjs`
 - Create: `scripts/migrations/2026-08-14-stage2-images.mjs`
