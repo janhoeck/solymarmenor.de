@@ -5,7 +5,7 @@ import { Resend } from 'resend'
 import { ContactEmailTemplate } from './ContactMailTemplate'
 import { ContactFormData, FormState, schema } from './types'
 
-const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY)
+const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function sendMail(_prevState: FormState, formData: FormData): Promise<FormState> {
   try {
