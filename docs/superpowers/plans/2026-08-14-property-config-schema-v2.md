@@ -164,7 +164,14 @@ const validProperty = {
     },
     description: [validTranslation],
   },
-  imageSources: ['/images/apartment/coverPhoto.webp'],
+  // Five entries because the schema requires them — PropertyImageGrid indexes [1]..[4].
+  imageSources: [
+    '/images/apartment/coverPhoto.webp',
+    '/images/apartment/IMG_9806.webp',
+    '/images/apartment/IMG_9808.webp',
+    '/images/apartment/IMG_9809.webp',
+    '/images/apartment/IMG_9810.webp',
+  ],
   propertyDetails: [{ type: 'bed', amount: 4, title: validTranslation, subtitle: validTranslation }],
   amenities: { general: ['parking'], kitchen: ['oven'] },
   houseRules: {
@@ -279,9 +286,11 @@ const addressSchema = z
     houseNumber: z.string().min(1),
     floorApartment: z.string().min(1).optional(),
     postalCode: z.string().min(1),
+    city: z.string().min(1),
     /** ISO 3166-1 alpha-2, uppercase. Rendered localized by the UI. */
     country: z.string().regex(/^[A-Z]{2}$/),
-    note: translationMapSchema.optional(),
+    /** Renamed to `note` in task 2, together with the data and AddressCard. */
+    description: translationMapSchema.optional(),
   })
   .strict()
 
@@ -419,18 +428,24 @@ git commit -m "refactor: derive property types from a zod schema"
 
 ### Task 2: Daten aus `public/` herausnehmen und Kopfdaten ergänzen
 
+Neben dem Umzug erledigt diese Task zwei Feldwechsel, die die Daten betreffen: `country` von
+Freitext auf ISO-Code und `address.description` auf `address.note`. Beide ändern Daten, Schema und
+lesende Komponente **gemeinsam** — dieselbe Regel wie beim iCal-Feld in Task 5.
+
 **Files:**
 - Create: `scripts/migrations/2026-08-14-stage1-head-fields.mjs`
 - Create: `src/data/properties/apartment.json` (aus `public/propertyConfigs/apartment.json`)
 - Create: `src/data/properties/house.json` (aus `public/propertyConfigs/house.json`)
 - Delete: `public/propertyConfigs/`
-- Modify: `.env.local`, `.gitignore` prüfen
+- Modify: `src/data/property-schema.ts` (`address.description` → `address.note`)
+- Modify: `src/data/property-schema.test.ts`
+- Modify: `src/components/property/sections/locationDescriptionSection/AddressCard.tsx:40`
 - Modify: `src/lib/load-property-configs.ts:8,19` (Pfad, temporär bis Task 4)
 
 **Interfaces:**
-- Consumes: nichts.
-- Produces: `src/data/properties/{apartment,house}.json` in der von `propertySchema` (Task 1)
-  erwarteten Form.
+- Consumes: `propertySchema` aus `src/data/property-schema.ts` (Task 1).
+- Produces: `src/data/properties/{apartment,house}.json` mit Kopfdaten, ISO-Ländercode und
+  `address.note`; das Schema entsprechend angepasst.
 
 - [ ] **Step 1: Migrationsskript schreiben**
 
@@ -483,12 +498,43 @@ for (const id of Object.keys(KIND_BY_ID)) {
 `icalUrl` bleibt hier bewusst in den Daten. Es wandert in Task 5 zusammen mit Route und Komponente
 nach `.env` — siehe die Begründung unter Task 1, Schritt 5.
 
-- [ ] **Step 2: Skript ausführen**
+- [ ] **Step 2: Schema und `AddressCard` auf `note` umstellen**
+
+Das Skript aus Schritt 1 schreibt `address.note` statt `address.description`. Schema und lesende
+Komponente müssen im selben Schritt nachziehen, sonst bricht der Typcheck.
+
+In `src/data/property-schema.ts` in `addressSchema`:
+
+```ts
+    /** Free-form hint about finding the address, e.g. a map correction. */
+    note: translationMapSchema.optional(),
+```
+
+(ersetzt das Feld `description` samt seinem Übergangskommentar)
+
+In `src/data/property-schema.test.ts` in `validProperty.location.address` das Feld `description`
+— falls dort gesetzt — auf `note` umbenennen, und diesen Test anhängen:
+
+```ts
+test('rejects a leftover address description field', () => {
+  const property = structuredClone(validProperty)
+  property.location.address.description = { de: 'Hinweis' }
+  assert.throws(() => propertySchema.parse(property))
+})
+```
+
+In `src/components/property/sections/locationDescriptionSection/AddressCard.tsx:40` die beiden
+Zugriffe auf `address.description` auf `address.note` umstellen. Prüfen mit:
+
+Run: `rg -n "address\.description" src`
+Expected: keine Treffer.
+
+- [ ] **Step 3: Skript ausführen**
 
 Run: `node scripts/migrations/2026-08-14-stage1-head-fields.mjs`
 Expected: zwei `migrated …`-Zeilen.
 
-- [ ] **Step 3: Altes Verzeichnis entfernen und Loader-Pfad umbiegen**
+- [ ] **Step 4: Altes Verzeichnis entfernen und Loader-Pfad umbiegen**
 
 ```bash
 git rm -r public/propertyConfigs
@@ -498,7 +544,7 @@ In `src/lib/load-property-configs.ts` beide Vorkommen von `'public/propertyConfi
 durch `'src/data/properties'` ersetzen. Das ist eine Zwischenlösung — die Datei verschwindet in
 Task 4.
 
-- [ ] **Step 4: Verifizieren, dass die Daten das Schema erfüllen**
+- [ ] **Step 5: Verifizieren, dass die Daten das Schema erfüllen**
 
 Run:
 
@@ -517,16 +563,16 @@ import('./src/data/property-schema.ts').then(async (m) => {
 Expected: `apartment ok` und `house ok`. Bei einem Zod-Fehler die gemeldeten Pfade in den JSONs
 korrigieren — nicht das Schema aufweichen.
 
-- [ ] **Step 5: Build prüfen und committen**
+- [ ] **Step 6: Build prüfen und committen**
 
-Run: `pnpm check-types && pnpm lint && pnpm build`
+Run: `pnpm test && pnpm check-types && pnpm lint && pnpm build`
 Expected: erfolgreich, Objektseiten rendern unverändert. Der Kalender funktioniert weiterhin, weil
 `icalUrl` bis Task 5 in den Daten bleibt.
 
 Das `git rm -r public/propertyConfigs` aus Schritt 3 hat die Löschung bereits gestaged.
 
 ```bash
-git add src/data/properties scripts/migrations src/lib/load-property-configs.ts
+git add src/data scripts/migrations src/lib/load-property-configs.ts src/components/property/sections/locationDescriptionSection/AddressCard.tsx
 git commit -m "refactor: move property configs out of the public directory"
 ```
 
