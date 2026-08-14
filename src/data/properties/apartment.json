@@ -460,6 +460,11 @@
         "de": "Gäste",
         "en": "Guests",
         "es": "Huéspedes"
+      },
+      "caption": {
+        "de": "Bis zu 4",
+        "en": "Up to 4",
+        "es": "Hasta 4"
       }
     },
     {
