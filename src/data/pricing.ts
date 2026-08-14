@@ -30,7 +30,7 @@ export function isDateInPeriod(period: SeasonPeriod, date: Date): boolean {
 function monthName(monthDay: string, locale: string): string {
   const monthIndex = Number(monthDay.slice(0, 2)) - 1
   const formatted = new Intl.DateTimeFormat(locale, { month: 'long', timeZone: 'UTC' }).format(
-    new Date(Date.UTC(2001, monthIndex, 1)),
+    new Date(Date.UTC(2001, monthIndex, 1))
   )
 
   return formatted.charAt(0).toUpperCase() + formatted.slice(1)

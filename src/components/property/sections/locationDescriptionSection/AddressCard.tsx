@@ -1,7 +1,7 @@
-import type { Property } from '@/data/property-schema'
-import { resolveText } from '@/data/localized-text'
-import { safeJoin } from '@/utils/join'
 import { Card, CardContent, Muted } from '@/components/ui'
+import { resolveText } from '@/data/localized-text'
+import type { Property } from '@/data/property-schema'
+import { safeJoin } from '@/utils/join'
 import { useLocale } from 'next-intl'
 import { LuMapPin } from 'react-icons/lu'
 

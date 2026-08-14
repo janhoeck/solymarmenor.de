@@ -4,14 +4,7 @@ import type { IconType } from '../types/IconType.ts'
  * Display order of amenity categories. The identifiers match the existing
  * next-intl keys under `pages.property.equipmentFeaturesSection.subHeadlines`.
  */
-export const AMENITY_CATEGORY_ORDER = [
-  'general',
-  'kitchen',
-  'bathroom',
-  'outdoorArea',
-  'bedroom',
-  'baby',
-] as const
+export const AMENITY_CATEGORY_ORDER = ['general', 'kitchen', 'bathroom', 'outdoorArea', 'bedroom', 'baby'] as const
 
 export type AmenityCategory = (typeof AMENITY_CATEGORY_ORDER)[number]
 
@@ -67,9 +60,7 @@ export type AmenityKey = keyof typeof AMENITIES
 export const AMENITY_KEYS = Object.keys(AMENITIES) as [AmenityKey, ...AmenityKey[]]
 
 /** Groups amenity keys by category, in display order, skipping empty categories. */
-export function groupAmenitiesByCategory(
-  keys: AmenityKey[],
-): Array<{ category: AmenityCategory; keys: AmenityKey[] }> {
+export function groupAmenitiesByCategory(keys: AmenityKey[]): Array<{ category: AmenityCategory; keys: AmenityKey[] }> {
   return AMENITY_CATEGORY_ORDER.map((category) => ({
     category,
     keys: keys.filter((key) => AMENITIES[key].category === category),

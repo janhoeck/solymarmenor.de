@@ -1,7 +1,7 @@
 import { GoogleMapsAPIProvider } from '@/components/shared/GoogleMapsAPIProvider/GoogleMapsAPIProvider'
 import { resolveText } from '@/data/localized-text'
-import { getPropertyBySlug } from '@/lib/properties/repository'
 import { generateCanonicalMetadata } from '@/lib/metadata'
+import { getPropertyBySlug } from '@/lib/properties/repository'
 import { Metadata } from 'next'
 import { PropsWithChildren } from 'react'
 

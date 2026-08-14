@@ -62,7 +62,7 @@ test('the guest capacity still reads as an upper bound, not an exact number', ()
     assert.ok(
       guests.caption && guests.caption.de.trim().length > 0,
       `${property.id}: the guests highlight lost its caption, so the page now claims exactly ` +
-        `${guests.value} guests instead of "up to ${guests.value}"`,
+        `${guests.value} guests instead of "up to ${guests.value}"`
     )
   }
 })

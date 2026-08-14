@@ -127,7 +127,7 @@ const monthDaySchema = z
 
       return daysInMonth !== undefined && day >= 1 && day <= daysInMonth
     },
-    { message: 'must be a real MM-DD date, month 01-12 and a day that exists in that month' },
+    { message: 'must be a real MM-DD date, month 01-12 and a day that exists in that month' }
   )
 
 export const seasonPeriodSchema = z
@@ -148,7 +148,7 @@ const pricingSchema = z
             pricePerNight: z.number().positive(),
             periods: z.array(seasonPeriodSchema),
           })
-          .strict(),
+          .strict()
       )
       .min(1),
     fees: z.array(
@@ -158,7 +158,7 @@ const pricingSchema = z
           amount: z.number().positive(),
           basis: z.enum(['perStay', 'perNight', 'perPerson']),
         })
-        .strict(),
+        .strict()
     ),
     minNights: z.number().int().min(1).nullable(),
   })

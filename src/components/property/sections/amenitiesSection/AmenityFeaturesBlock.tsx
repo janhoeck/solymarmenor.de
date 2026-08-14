@@ -1,6 +1,6 @@
 import { AmenityFeatureItem } from '@/components/property/sections/amenitiesSection/AmenityFeatureItem'
-import { IconType } from '@/types/IconType'
 import { H4 } from '@/components/ui'
+import { IconType } from '@/types/IconType'
 import { twMerge } from 'tailwind-merge'
 
 export type EquipmentFeaturesBlockProps<T extends IconType> = {

@@ -1,6 +1,6 @@
-import type { Property } from '@/data/property-schema'
-import { resolveText } from '@/data/localized-text'
 import { Badge, Button, Card, CardContent, CardFooter, CardHeader, H3, Muted } from '@/components/ui'
+import { resolveText } from '@/data/localized-text'
+import type { Property } from '@/data/property-schema'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -28,9 +28,7 @@ const CARD_AMENITY_MESSAGE_KEYS = {
 } as const
 
 /** Derived, so the badges and their message keys cannot drift apart. */
-const CARD_AMENITY_KEYS = Object.keys(CARD_AMENITY_MESSAGE_KEYS) as Array<
-  keyof typeof CARD_AMENITY_MESSAGE_KEYS
->
+const CARD_AMENITY_KEYS = Object.keys(CARD_AMENITY_MESSAGE_KEYS) as Array<keyof typeof CARD_AMENITY_MESSAGE_KEYS>
 
 export const PropertyCard = (props: PropertyCardProps) => {
   const { propertyConfiguration } = props
@@ -77,15 +75,14 @@ export const PropertyCard = (props: PropertyCardProps) => {
           )}
         </div>
         <div className='flex flex-wrap gap-2'>
-          {CARD_AMENITY_KEYS.filter((key) => propertyConfiguration.amenities.includes(key))
-            .map((key) => (
-              <Badge
-                key={key}
-                variant='secondary'
-              >
-                {t(CARD_AMENITY_MESSAGE_KEYS[key])}
-              </Badge>
-            ))}
+          {CARD_AMENITY_KEYS.filter((key) => propertyConfiguration.amenities.includes(key)).map((key) => (
+            <Badge
+              key={key}
+              variant='secondary'
+            >
+              {t(CARD_AMENITY_MESSAGE_KEYS[key])}
+            </Badge>
+          ))}
         </div>
       </CardContent>
 

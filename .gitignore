@@ -31,6 +31,10 @@ yarn-error.log*
 # Agent scratch
 .superpowers/
 
+# Camera originals set aside by `pnpm images:downscale`. A local safety net
+# only — the originals are in the git history anyway.
+.image-originals/
+
 # Misc
 .DS_Store
 *.pem

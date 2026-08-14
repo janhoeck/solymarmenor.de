@@ -34,11 +34,7 @@ test('note blocks still announce themselves to a screen reader in every language
   for (const locale of LOCALES) {
     const label = messageAt(readMessages(locale), key)
 
-    assert.equal(
-      typeof label,
-      'string',
-      `${locale}.json is missing ${key}, so note blocks lose their accessible name`,
-    )
+    assert.equal(typeof label, 'string', `${locale}.json is missing ${key}, so note blocks lose their accessible name`)
     assert.ok((label as string).trim().length > 0, `${locale}.json has an empty ${key}`)
   }
 })

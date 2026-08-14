@@ -1,6 +1,6 @@
+import { Button, Card, CardContent, P, Separator, Small } from '@/components/ui'
 import { formatSeasonRange, isDateInPeriod } from '@/data/pricing'
 import type { PropertyPricing } from '@/data/property-schema'
-import { Button, Card, CardContent, P, Separator, Small } from '@/components/ui'
 import { useLocale, useTranslations } from 'next-intl'
 import { PiEnvelopeOpenLight, PiPhoneCallLight } from 'react-icons/pi'
 

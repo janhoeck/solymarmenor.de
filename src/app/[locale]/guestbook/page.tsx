@@ -16,10 +16,12 @@ export default async function GuestbookPage() {
 
   return (
     <GuestbookView
-      entries={data.map((entry) => ({
-        ...entry,
-        created_at: entry.created_at.toISOString(),
-      })) as GuestbookEntry[]}
+      entries={
+        data.map((entry) => ({
+          ...entry,
+          created_at: entry.created_at.toISOString(),
+        })) as GuestbookEntry[]
+      }
     />
   )
 }

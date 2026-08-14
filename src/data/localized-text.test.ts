@@ -33,7 +33,7 @@ test('rejects an unknown locale key', () => {
 
 test('accepts the inline markup the renderer supports', () => {
   assert.doesNotThrow(() =>
-    localizedTextSchema.parse({ de: 'Ein <strong>wichtiger</strong> <em>Hinweis</em>.<br />Danach.' }),
+    localizedTextSchema.parse({ de: 'Ein <strong>wichtiger</strong> <em>Hinweis</em>.<br />Danach.' })
   )
 })
 
@@ -71,9 +71,7 @@ test('accepts a less-than sign directly before a digit or at the end', () => {
 })
 
 test('accepts punctuation and allowed markup in the same string', () => {
-  assert.doesNotThrow(() =>
-    localizedTextSchema.parse({ de: '<strong>Preis < 100 €</strong><br />Nur diese Woche.' }),
-  )
+  assert.doesNotThrow(() => localizedTextSchema.parse({ de: '<strong>Preis < 100 €</strong><br />Nur diese Woche.' }))
 })
 
 test('still rejects a tag-shaped less-than sign', () => {

@@ -50,13 +50,10 @@ function hasOnlyAllowedMarkup(value: string): boolean {
   return !TAG_LIKE.test(value.replace(ALLOWED_INLINE_MARKUP, ''))
 }
 
-const markupSafeString = z
-  .string()
-  .min(1)
-  .refine(hasOnlyAllowedMarkup, {
-    message:
-      'only <strong>, <em> and <br> markup is allowed, without attributes; a literal "<" is fine when not followed by a letter, "/", "!" or "?"',
-  })
+const markupSafeString = z.string().min(1).refine(hasOnlyAllowedMarkup, {
+  message:
+    'only <strong>, <em> and <br> markup is allowed, without attributes; a literal "<" is fine when not followed by a letter, "/", "!" or "?"',
+})
 
 /**
  * A translated string. Only `de` is mandatory, so additional locales can be
@@ -83,9 +80,7 @@ export type LocalizedText = z.infer<typeof localizedTextSchema>
  * is always a non-empty string — no further fallback can ever be reached.
  */
 export function resolveText(text: LocalizedText, locale: string): string {
-  const requested = (LOCALES as readonly string[]).includes(locale)
-    ? text[locale as Locale]
-    : undefined
+  const requested = (LOCALES as readonly string[]).includes(locale) ? text[locale as Locale] : undefined
 
   return requested ?? text[FALLBACK_LOCALE]
 }

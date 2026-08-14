@@ -1,7 +1,7 @@
 import { PropertyDetailItem } from '@/components/property/sections/propertyDetailsSection/PropertyDetailItem'
-import type { Property } from '@/data/property-schema'
-import { resolveText } from '@/data/localized-text'
 import { Badge, H1, P } from '@/components/ui'
+import { resolveText } from '@/data/localized-text'
+import type { Property } from '@/data/property-schema'
 import { useLocale } from 'next-intl'
 import { LuMapPin } from 'react-icons/lu'
 

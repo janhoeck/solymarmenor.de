@@ -98,7 +98,7 @@ test('rejects a calendar that carries a url instead of a variable name', () => {
     propertySchema.parse({
       ...validProperty,
       calendar: { provider: 'airbnb', secretRef: 'https://www.airbnb.de/calendar/ical/1.ics' },
-    }),
+    })
   )
 })
 
@@ -107,7 +107,7 @@ test('rejects a secretRef that points at an unrelated environment variable', () 
     propertySchema.parse({
       ...validProperty,
       calendar: { provider: 'airbnb', secretRef: 'DATABASE_URL' },
-    }),
+    })
   )
 })
 
@@ -167,7 +167,7 @@ test('rejects a source outside the images directory', () => {
     imagesSchema.parse({
       cover: { ...validImage, src: '/other/x.webp' },
       gallery: Array.from({ length: 4 }, () => validImage),
-    }),
+    })
   )
 })
 
@@ -176,7 +176,7 @@ test('rejects a non-positive dimension', () => {
     imagesSchema.parse({
       cover: { ...validImage, width: 0 },
       gallery: Array.from({ length: 4 }, () => validImage),
-    }),
+    })
   )
 })
 
@@ -193,7 +193,7 @@ test('accepts an optional alt text and category', () => {
         alt: { de: 'Wohnzimmer' },
         category: 'living',
       })),
-    }),
+    })
   )
 })
 
@@ -205,7 +205,7 @@ test('accepts a highlight', () => {
 
 test('accepts a highlight with a unit', () => {
   assert.doesNotThrow(() =>
-    highlightsSchema.parse([{ key: 'area', icon: 'area_size', value: 95, unit: 'sqm', label: { de: 'Fläche' } }]),
+    highlightsSchema.parse([{ key: 'area', icon: 'area_size', value: 95, unit: 'sqm', label: { de: 'Fläche' } }])
   )
 })
 
@@ -237,7 +237,7 @@ test('rejects an impossible hour', () => {
 
 test('accepts optional notes', () => {
   assert.doesNotThrow(() =>
-    houseRulesSchema.parse({ ...validRules, notes: [{ type: 'paragraph', text: { de: 'Hinweis' } }] }),
+    houseRulesSchema.parse({ ...validRules, notes: [{ type: 'paragraph', text: { de: 'Hinweis' } }] })
   )
 })
 

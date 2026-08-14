@@ -37,9 +37,7 @@ export const PropertyContent = (props: PropertyContentProps) => {
           case 'list':
             return (
               <div key={index}>
-                {block.intro && (
-                  <P dangerouslySetInnerHTML={{ __html: resolveText(block.intro, locale) }} />
-                )}
+                {block.intro && <P dangerouslySetInnerHTML={{ __html: resolveText(block.intro, locale) }} />}
                 <List>
                   {block.items.map((item, itemIndex) => (
                     <li
@@ -63,9 +61,7 @@ export const PropertyContent = (props: PropertyContentProps) => {
                 aria-label={t('noteLabel')}
                 className={twMerge([
                   'rounded-md border-l-4 px-4 py-3',
-                  block.variant === 'warning'
-                    ? 'border-destructive bg-destructive/5'
-                    : 'border-primary bg-primary/5',
+                  block.variant === 'warning' ? 'border-destructive bg-destructive/5' : 'border-primary bg-primary/5',
                 ])}
               >
                 <P

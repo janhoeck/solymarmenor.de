@@ -57,10 +57,7 @@ test('renders a wrapping off season range in every locale', () => {
 })
 
 test('lists several periods', () => {
-  assert.equal(
-    formatSeasonRange([{ from: '04-01', to: '05-31' }, ...offPeriods], 'de'),
-    'April - Mai, Oktober - März',
-  )
+  assert.equal(formatSeasonRange([{ from: '04-01', to: '05-31' }, ...offPeriods], 'de'), 'April - Mai, Oktober - März')
 })
 
 test('names a single month once instead of repeating it', () => {

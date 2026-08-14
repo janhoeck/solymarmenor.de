@@ -66,7 +66,7 @@ test('returns the same properties across repeated calls', async () => {
   const second = await getProperties()
   assert.deepEqual(
     first.map((property) => property.id),
-    second.map((property) => property.id),
+    second.map((property) => property.id)
   )
 })
 
@@ -99,6 +99,6 @@ test('selectPublished drops drafts and sorts the remainder by id', () => {
   // and an unsorted result would keep insertion order ['zebra', 'mango'].
   assert.deepEqual(
     result.map((property) => property.id),
-    ['mango', 'zebra'],
+    ['mango', 'zebra']
   )
 })

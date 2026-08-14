@@ -1,9 +1,9 @@
 import { BookItCard } from '@/components/property/bookIt/BookItCard'
 import { CalendarCard } from '@/components/property/calendar/CalendarCard'
 import { PropertyImageGrid } from '@/components/property/images/PropertyImageGrid'
-import type { Property } from '@/data/property-schema'
-import { resolveText } from '@/data/localized-text'
 import { Separator } from '@/components/ui'
+import { resolveText } from '@/data/localized-text'
+import type { Property } from '@/data/property-schema'
 import { useLocale } from 'next-intl'
 
 import { ContentContainer } from '../shared/Container/ContentContainer'
