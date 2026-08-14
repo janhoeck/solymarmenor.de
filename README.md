@@ -51,10 +51,11 @@ Die Objektdaten liegen in `src/data/properties/*.json` und werden beim Import ge
 | Befehl | Zweck |
 |---|---|
 | `pnpm test` | Schema- und Repository-Tests |
-| `pnpm validate:content` | JSON- und Schema-Fehler lesbar melden, dazu was Zod nicht sieht: fehlende Bilddateien, Eindeutigkeit von id/slug, doppelte Saisons |
+| `pnpm validate:content` | JSON- und Schema-Fehler lesbar melden, dazu was Zod nicht sieht: fehlende Bilddateien, Eindeutigkeit von id/slug, doppelte Saisons und ob jeder Tag des Jahres von genau einer Rate-Periode abgedeckt ist |
 | `pnpm images:sync` | Bilddimensionen aus den Dateien übernehmen |
-| `pnpm images:sync --check` | nur melden, nichts schreiben |
+| `pnpm images:sync --check` | nur melden, nichts schreiben. Fehlende, unlesbare oder veraltete referenzierte Bilder sind Fehler (Exit 1); eine Datei auf der Platte, die die Daten nicht referenzieren, ist eine Warnung |
 
 Ein neues Objekt: JSON-Datei in `src/data/properties/` anlegen und in
-`src/data/properties/index.ts` importieren. Zugriff ausschließlich über
+`src/data/properties/index.ts` importieren — den vergessenen Import fängt
+`data.test.ts` ab. Zugriff ausschließlich über
 `src/lib/properties/repository.ts`.
