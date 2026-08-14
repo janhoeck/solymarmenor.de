@@ -28,8 +28,8 @@ export const PropertyCard = (props: PropertyCardProps) => {
         <div className='relative h-64 md:h-80 overflow-hidden'>
           <Image
             fill
-            src={`/images/${propertyConfiguration.id}/coverPhoto.webp`}
-            alt='Estate'
+            src={propertyConfiguration.images.cover.src}
+            alt={resolveText(propertyConfiguration.title, locale)}
             className='object-cover transition-transform duration-700 group-hover:scale-110'
             quality={80}
             sizes='(max-width: 40rem) 90vw, 350px'
@@ -68,7 +68,7 @@ export const PropertyCard = (props: PropertyCardProps) => {
 
       <CardFooter>
         <Button asChild>
-          <Link href={`/property/${propertyConfiguration.id}`}>
+          <Link href={`/property/${propertyConfiguration.slug}`}>
             {t('showMe')}
             <MdOutlineOpenInNew
               size={16}

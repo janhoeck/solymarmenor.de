@@ -1,6 +1,7 @@
 'use client'
 
 import type { Property } from '@/data/property-schema'
+import { resolveText } from '@/data/localized-text'
 import {
   Button,
   Dialog,
@@ -11,23 +12,30 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui'
+import { useLocale } from 'next-intl'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import { MdOutlineChevronLeft, MdOutlineChevronRight } from 'react-icons/md'
 
 export type PropertyImageGridProps = {
-  imageSources: Property['imageSources']
+  images: Property['images']
+  fallbackAlt: string
 }
 
 export const PropertyImageGrid = (props: PropertyImageGridProps) => {
-  const { imageSources } = props
+  const { images, fallbackAlt } = props
+  const locale = useLocale()
 
+  const allImages = [images.cover, ...images.gallery]
   const [selectedIndex, setSelectedIndex] = useState(0)
+
+  const altFor = (image: Property['images']['cover']) =>
+    image.alt ? resolveText(image.alt, locale) : fallbackAlt
 
   const handlePrevClick = () => {
     setSelectedIndex((prev) => {
       if (prev === 0) {
-        return imageSources.length - 1
+        return allImages.length - 1
       }
       return prev - 1
     })
@@ -35,7 +43,7 @@ export const PropertyImageGrid = (props: PropertyImageGridProps) => {
 
   const handleNextClick = () => {
     setSelectedIndex((prev) => {
-      if (prev === imageSources.length - 1) {
+      if (prev === allImages.length - 1) {
         return 0
       }
       return prev + 1
@@ -50,31 +58,28 @@ export const PropertyImageGrid = (props: PropertyImageGridProps) => {
             <Image
               fill
               priority
-              src={imageSources[0]!}
-              alt='Hauptbild'
+              src={images.cover.src}
+              alt={altFor(images.cover)}
               className='object-cover hover:brightness-75 transition-all'
               sizes='(max-width: 768px) 100vw, 50vw'
             />
           </div>
 
           <div className='grid grid-cols-2 gap-2 h-full'>
-            {Array.from({ length: 4 }).map((_, index) => {
-              const src = imageSources[index + 1]!
-              return (
-                <div
-                  key={src}
-                  className='relative'
-                >
-                  <Image
-                    fill
-                    src={src}
-                    alt={`Immobilienbild ${index + 1}`}
-                    className='object-cover hover:brightness-75 transition-all'
-                    sizes='(max-width: 768px) 50vw, 25vw'
-                  />
-                </div>
-              )
-            })}
+            {images.gallery.slice(0, 4).map((image) => (
+              <div
+                key={image.src}
+                className='relative'
+              >
+                <Image
+                  fill
+                  src={image.src}
+                  alt={altFor(image)}
+                  className='object-cover hover:brightness-75 transition-all'
+                  sizes='(max-width: 768px) 50vw, 25vw'
+                />
+              </div>
+            ))}
           </div>
         </div>
       </DialogTrigger>
@@ -83,7 +88,7 @@ export const PropertyImageGrid = (props: PropertyImageGridProps) => {
           <DialogHeader>
             <DialogTitle>Immobilienbild</DialogTitle>
             <DialogDescription>
-              {selectedIndex + 1} / {imageSources.length}
+              {selectedIndex + 1} / {allImages.length}
             </DialogDescription>
           </DialogHeader>
           <div className='flex justify-between items-center flex-1 gap-4 px-4 min-h-0'>
@@ -96,10 +101,13 @@ export const PropertyImageGrid = (props: PropertyImageGridProps) => {
               <MdOutlineChevronLeft size={24} />
             </Button>
             <div className='flex-1 h-full flex items-center justify-center min-h-0 overflow-hidden'>
-              <img
-                src={imageSources[selectedIndex]!}
-                alt={`Immobilienbild`}
+              <Image
+                src={allImages[selectedIndex]!.src}
+                alt={altFor(allImages[selectedIndex]!)}
+                width={allImages[selectedIndex]!.width}
+                height={allImages[selectedIndex]!.height}
                 className='max-w-full max-h-full w-auto h-auto rounded-xl object-contain'
+                sizes='100vw'
               />
             </div>
             <Button

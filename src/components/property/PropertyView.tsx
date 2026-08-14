@@ -2,7 +2,9 @@ import { BookItCard } from '@/components/property/bookIt/BookItCard'
 import { CalendarCard } from '@/components/property/calendar/CalendarCard'
 import { PropertyImageGrid } from '@/components/property/images/PropertyImageGrid'
 import type { Property } from '@/data/property-schema'
+import { resolveText } from '@/data/localized-text'
 import { Separator } from '@/components/ui'
+import { useLocale } from 'next-intl'
 
 import { ContentContainer } from '../shared/Container/ContentContainer'
 import { AmenitiesSection } from './sections/amenitiesSection/AmenitiesSection'
@@ -17,11 +19,15 @@ export type PropertyViewProps = {
 
 export const PropertyView = (props: PropertyViewProps) => {
   const { configuration } = props
+  const locale = useLocale()
 
   return (
     <div>
       <ContentContainer>
-        <PropertyImageGrid imageSources={configuration.imageSources} />
+        <PropertyImageGrid
+          images={configuration.images}
+          fallbackAlt={resolveText(configuration.title, locale)}
+        />
         <div className='grid lg:grid-cols-3 gap-8 md:gap-12 mt-10'>
           <div className='lg:col-span-2 space-y-8'>
             <div className='flex flex-col gap-12'>

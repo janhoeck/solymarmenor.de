@@ -33,13 +33,15 @@ const propertyFixture: Property = {
     },
     description: [{ type: 'paragraph', text: translation }],
   },
-  imageSources: [
-    '/images/fixture/a.webp',
-    '/images/fixture/b.webp',
-    '/images/fixture/c.webp',
-    '/images/fixture/d.webp',
-    '/images/fixture/e.webp',
-  ],
+  images: {
+    cover: { src: '/images/fixture/a.webp', width: 1600, height: 1067 },
+    gallery: [
+      { src: '/images/fixture/b.webp', width: 1600, height: 1067 },
+      { src: '/images/fixture/c.webp', width: 1600, height: 1067 },
+      { src: '/images/fixture/d.webp', width: 1600, height: 1067 },
+      { src: '/images/fixture/e.webp', width: 1600, height: 1067 },
+    ],
+  },
   propertyDetails: [],
   amenities: {},
   houseRules: { checkIn: translation, checkOut: translation, rules: [] },
