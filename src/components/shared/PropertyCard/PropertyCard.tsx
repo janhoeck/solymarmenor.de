@@ -27,6 +27,11 @@ const CARD_AMENITY_MESSAGE_KEYS = {
   parking: 'parking',
 } as const
 
+/** Derived, so the badges and their message keys cannot drift apart. */
+const CARD_AMENITY_KEYS = Object.keys(CARD_AMENITY_MESSAGE_KEYS) as Array<
+  keyof typeof CARD_AMENITY_MESSAGE_KEYS
+>
+
 export const PropertyCard = (props: PropertyCardProps) => {
   const { propertyConfiguration } = props
   const t = useTranslations('pages.home.properties.card')
@@ -72,8 +77,7 @@ export const PropertyCard = (props: PropertyCardProps) => {
           )}
         </div>
         <div className='flex flex-wrap gap-2'>
-          {(['pool', 'air_conditioner', 'wlan', 'parking'] as const)
-            .filter((key) => propertyConfiguration.amenities.includes(key))
+          {CARD_AMENITY_KEYS.filter((key) => propertyConfiguration.amenities.includes(key))
             .map((key) => (
               <Badge
                 key={key}
