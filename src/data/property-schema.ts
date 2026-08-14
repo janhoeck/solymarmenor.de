@@ -5,8 +5,6 @@ import { AMENITY_KEYS } from './amenities.ts'
 import { HIGHLIGHT_KEYS } from './highlight-keys.ts'
 import { localizedTextSchema } from './localized-text.ts'
 
-export { type LocalizedText, localizedTextSchema, LOCALES, type Locale } from './localized-text.ts'
-
 /**
  * A block of editorial content. Discriminated by `type` so new block kinds can
  * be added without touching existing data or breaking the renderer.
@@ -48,7 +46,10 @@ const addressSchema = z
     floorApartment: z.string().min(1).optional(),
     postalCode: z.string().min(1),
     city: z.string().min(1),
-    /** ISO 3166-1 alpha-2, uppercase. Rendered localized by the UI. */
+    /**
+     * ISO 3166-1 alpha-2, uppercase. Stored in ISO form and not displayed:
+     * `AddressCard` prints street, number, floor, postal code and city only.
+     */
     country: z.string().regex(/^[A-Z]{2}$/),
     /** Free-form hint about finding the address, e.g. a map correction. */
     note: localizedTextSchema.optional(),

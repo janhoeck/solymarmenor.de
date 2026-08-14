@@ -4,8 +4,12 @@ import { z } from 'zod'
 export const LOCALES = ['de', 'en', 'es'] as const
 export type Locale = (typeof LOCALES)[number]
 
-/** The locale content falls back to. Independent of `routing.defaultLocale`, which governs URLs. */
-const FALLBACK_LOCALE: Locale = 'de'
+/**
+ * The locale content falls back to. Independent of `routing.defaultLocale`,
+ * which governs URLs. Kept as a literal rather than annotated `Locale`, so
+ * `text[FALLBACK_LOCALE]` is the required `de` field and stays a plain `string`.
+ */
+const FALLBACK_LOCALE = 'de' as const satisfies Locale
 
 /**
  * The inline markup a localized string may carry. `PropertyContent` renders
@@ -51,13 +55,15 @@ export const localizedTextSchema = z
 export type LocalizedText = z.infer<typeof localizedTextSchema>
 
 /**
- * Resolves a localized string: requested locale, then german, then the first
- * value present. Always returns a non-empty string for schema-valid input.
+ * Resolves a localized string: the requested locale, otherwise German. An
+ * unknown locale, or one this text has not been translated into yet, falls back
+ * the same way. `de` is required and non-empty on `LocalizedText`, so the result
+ * is always a non-empty string — no further fallback can ever be reached.
  */
 export function resolveText(text: LocalizedText, locale: string): string {
   const requested = (LOCALES as readonly string[]).includes(locale)
     ? text[locale as Locale]
     : undefined
 
-  return requested ?? text[FALLBACK_LOCALE] ?? Object.values(text).find(Boolean) ?? ''
+  return requested ?? text[FALLBACK_LOCALE]
 }
