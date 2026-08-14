@@ -51,7 +51,7 @@ test('returns every published property', async () => {
   assert.ok(result.every((property) => property.status === 'published'))
 })
 
-test('returns properties in a stable order', async () => {
+test('returns the same properties across repeated calls', async () => {
   const first = await getProperties()
   const second = await getProperties()
   assert.deepEqual(
