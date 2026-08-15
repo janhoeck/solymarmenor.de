@@ -1,11 +1,14 @@
 'use client'
 
 import { VITALS_METRICS } from '@/lib/vitals/schema'
-import { useLocale } from 'next-intl'
 import { usePathname } from 'next/navigation'
 import { useReportWebVitals } from 'next/web-vitals'
 
 const ENDPOINT = '/api/vitals'
+
+type WebVitalsProps = {
+  locale: string
+}
 
 /**
  * Coarse form factor, derived without touching anything identifying: the
@@ -36,9 +39,8 @@ function deviceType(): 'mobile' | 'desktop' {
  * reads CrUX, which needs far more traffic than this site has. This is the
  * same information from our own measurements.
  */
-export const WebVitals = () => {
+export const WebVitals = ({ locale }: WebVitalsProps) => {
   const pathname = usePathname()
-  const locale = useLocale()
 
   useReportWebVitals((metric) => {
     // useReportWebVitals also fires for Next's own timings

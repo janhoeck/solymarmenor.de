@@ -104,7 +104,7 @@ export default async function Layout(props: LayoutProps) {
       className={geist.className}
     >
       <body>
-        <WebVitals />
+        <WebVitals locale={locale} />
         <NextIntlClientProvider>
           <LayoutNavigation />
           <main className='min-h-[calc(100%-73px-105px)]'>{children}</main>
