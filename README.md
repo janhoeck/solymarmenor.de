@@ -61,22 +61,6 @@ Betroffen sind aktuell `src/app/sitemap.ts` und `src/app/robots.ts`, `src/i18n/r
 `vitals/`, sowie `src/components/shared/GuestbookForm/types.ts`. Wer eine dieser Dateien um einen
 `@/`-Import erweitert oder eine `.ts`-Endung weglässt, merkt es erst beim nächsten `pnpm test`.
 
-## Datenbank
-
-Migrationen liegen in `drizzle/` und werden **nicht** vom Deploy ausgeführt.
-
-| Befehl | Zweck |
-|---|---|
-| `pnpm db:generate` | aus `src/utils/db/schema.ts` eine Migration nach `drizzle/` erzeugen |
-| `pnpm db:migrate` | ausstehende Migrationen auf `DATABASE_URL` anwenden |
-
-Vor einem Release, das eine neue Tabelle braucht, `pnpm db:migrate` von Hand gegen die
-Produktionsdatenbank fahren — sonst startet die App gegen ein Schema, das es dort nicht gibt.
-
-Erzeugtes SQL vor dem Ausführen lesen. Die `guestbook`-Tabelle ist vor Einführung der
-Migrationen entstanden und steht in keiner Historie; drizzle-kit will sie deshalb unter Umständen
-neu anlegen.
-
 ## Web Vitals
 
 Die Seite misst die Web Vitals ihrer Besucher selbst und schreibt sie nach `web_vitals`.
@@ -174,10 +158,9 @@ Entwicklungsrechner. Deshalb drei bewusste Entscheidungen:
 
 ## Deployment (Coolify)
 
-**Vor dem Deploy an eine neue Migration denken:** `pnpm db:migrate` läuft nicht automatisch mit
-und muss vor einem Release mit Schemaänderung von Hand gegen die Produktionsdatenbank ausgeführt
-werden (siehe `## Datenbank`) — sonst bleibt die Seite zwar erreichbar, aber die betroffenen
-Inserts scheitern still im Hintergrund.
+**Das Deploy legt keine Tabellen an.** Wer `src/utils/db/schema.ts` um eine Tabelle erweitert,
+muss sie vor dem Release selbst in der Produktionsdatenbank anlegen — sonst bleibt die Seite
+erreichbar, aber die betroffenen Inserts scheitern still im Hintergrund.
 
 Gebaut wird über `nixpacks.toml`, gestartet mit `next start`.
 

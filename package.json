@@ -17,8 +17,6 @@
     "check-types": "tsc --noEmit",
     "analyze": "next experimental-analyze",
     "format": "prettier --write \"src/**/*.{ts,tsx,md,css}\"",
-    "db:generate": "drizzle-kit generate",
-    "db:migrate": "node --env-file-if-exists=.env.local scripts/db-migrate.mjs",
     "vitals:report": "node --env-file-if-exists=.env.local scripts/vitals-report.mjs"
   },
   "dependencies": {
