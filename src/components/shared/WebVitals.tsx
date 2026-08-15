@@ -3,6 +3,7 @@
 import { VITALS_METRICS } from '@/lib/vitals/schema'
 import { usePathname } from 'next/navigation'
 import { useReportWebVitals } from 'next/web-vitals'
+import { useCallback, useEffect, useRef } from 'react'
 
 const ENDPOINT = '/api/vitals'
 
@@ -42,7 +43,33 @@ function deviceType(): 'mobile' | 'desktop' {
 export const WebVitals = ({ locale }: WebVitalsProps) => {
   const pathname = usePathname()
 
-  useReportWebVitals((metric) => {
+  // `usePathname()` makes this component re-render on every client-side
+  // navigation, including ordinary in-app <Link> transitions. Kept live here
+  // via an effect (never assigned during render — React flags that as a ref
+  // access during render) instead of closed over directly, for the reason
+  // explained on the callback below.
+  const pathnameRef = useRef(pathname)
+  const localeRef = useRef(locale)
+
+  useEffect(() => {
+    pathnameRef.current = pathname
+    localeRef.current = locale
+  }, [pathname, locale])
+
+  // `useReportWebVitals` (next/dist/client/web-vitals.js) registers its six
+  // PerformanceObserver-backed listeners inside a `useEffect(() => {...}, [fn])`
+  // that returns no cleanup. If `fn`'s identity changed on every render — which
+  // it would if this closed over `pathname`/`locale` directly — every
+  // navigation would install a fresh set of listeners on top of the
+  // never-removed previous ones, and every leaked listener would go on
+  // reporting the same metric event, each carrying whatever path/locale was
+  // captured at that listener's render. `useCallback(..., [])` keeps this
+  // callback's identity stable for the lifetime of the mount, so the effect
+  // runs exactly once and exactly one listener set exists; the refs above are
+  // how it still gets the current path and locale despite never being
+  // recreated. Do not add pathname/locale to this dependency array or close
+  // over them directly — that reintroduces the leak.
+  const reportVital = useCallback<Parameters<typeof useReportWebVitals>[0]>((metric) => {
     // useReportWebVitals also fires for Next's own timings
     // ('Next.js-hydration' and siblings) and for the retired FID.
     if (!(VITALS_METRICS as readonly string[]).includes(metric.name)) {
@@ -61,8 +88,8 @@ export const WebVitals = ({ locale }: WebVitalsProps) => {
       // CLS needs.
       value: Math.round(metric.value * 1000) / 1000,
       rating: metric.rating,
-      path: pathname,
-      locale,
+      path: pathnameRef.current,
+      locale: localeRef.current,
       device: deviceType(),
       navigationType: metric.navigationType,
     })
@@ -82,7 +109,9 @@ export const WebVitals = ({ locale }: WebVitalsProps) => {
     }).catch(() => {
       // Nothing to do: a lost measurement is not worth surfacing to a visitor.
     })
-  })
+  }, [])
+
+  useReportWebVitals(reportVital)
 
   return null
 }
