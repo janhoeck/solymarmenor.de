@@ -22,12 +22,27 @@ function flag(name, fallback) {
   return match ? match.slice(`--${name}=`.length) : fallback
 }
 
+/** Reads `--name=value` from the command line as a validated integer. */
+function numericFlag(name, fallback, min, max) {
+  const match = args.find((arg) => arg.startsWith(`--${name}=`))
+  if (!match) {
+    return fallback
+  }
+
+  const value = Number(match.slice(name.length + 3))
+  if (!Number.isFinite(value) || value < min || value > max) {
+    console.error(`error: --${name} must be an integer between ${min} and ${max}, got "${match}"`)
+    process.exit(1)
+  }
+  return value
+}
+
 const WIDTH = 1200
 const HEIGHT = 630
 
 const source = path.join(process.cwd(), flag('source', 'public/images/house/coverPhoto.webp'))
 const target = path.join(process.cwd(), 'public/og/default.jpg')
-const quality = Number(flag('quality', '82'))
+const quality = numericFlag('quality', 82, 1, 100)
 
 const metadata = await sharp(source).metadata()
 
@@ -44,7 +59,9 @@ mkdirSync(path.dirname(target), { recursive: true })
 // JPEG, not WebP: the Open Graph consumers that matter still include clients
 // that will not render WebP previews, and the file is fetched by crawlers
 // rather than by visitors, so its size barely matters.
-await sharp(source).resize(WIDTH, HEIGHT, { fit: 'cover', position: 'attention' }).jpeg({ quality }).toFile(target)
+const info = await sharp(source)
+  .resize(WIDTH, HEIGHT, { fit: 'cover', position: 'attention' })
+  .jpeg({ quality })
+  .toFile(target)
 
-const written = await sharp(target).metadata()
-console.log(`Wrote ${path.relative(process.cwd(), target)} at ${written.width}x${written.height}`)
+console.log(`Wrote ${path.relative(process.cwd(), target)} at ${info.width}x${info.height}`)
