@@ -8,7 +8,7 @@ SEO-Grundlagen korrigieren — allen voran die kanonischen URLs, die derzeit auf
 **Architecture:** Drei unabhängige, einzeln deploybare Phasen. **B** (Aufgaben 1–6) korrigiert
 Metadata, Sitemap und robots. **A** (Aufgaben 7–11) schreibt Messwerte per `sendBeacon` in eine
 neue Postgres-Tabelle und wertet sie über ein CLI-Skript aus. **C** (Aufgaben 12–16) ergänzt
-JSON-LD. Aufgabe 17 schließt ab. Die Reihenfolge ist bewusst B → A → C: die Canonical-Korrektur
+JSON-LD (VacationRental, BreadcrumbList, LodgingBusiness/WebSite, Bewertungen). Aufgabe 17 schließt ab. Die Reihenfolge ist bewusst B → A → C: die Canonical-Korrektur
 hat den größten erwarteten Effekt und braucht am längsten, bis Google sie verarbeitet hat.
 
 **Tech Stack:** Next.js 16 (App Router, Turbopack), React 19, next-intl 4, Drizzle ORM +
@@ -682,7 +682,8 @@ Run: `pnpm build`, dann `pnpm start`, dann:
 curl -s http://localhost:3000/sitemap.xml | grep -c "<url>"
 ```
 
-Expected: `21` — sechs statische Routen plus zwei Objekte, mal drei Sprachen.
+Expected: `24` — sechs statische Routen plus zwei Objekte, mal drei Sprachen: (6 + 2) x 3.
+Die alte statische Datei hatte 21, weil ihr `/privacy` in allen drei Sprachen fehlte.
 
 ```bash
 curl -s http://localhost:3000/sitemap.xml | grep -c "solymarmenor.com/en"
@@ -2252,7 +2253,7 @@ git commit -m "feat: add breadcrumb structured data to property pages"
 
 ---
 
-## Task 15: `Organization` und `WebSite` auf der Startseite
+## Task 15: `LodgingBusiness` und `WebSite` auf der Startseite
 
 **Files:**
 - Create: `src/lib/structured-data/site.ts`
@@ -2289,12 +2290,18 @@ function nodesOf(locale: string): Record<string, unknown>[] {
   return graph['@graph']
 }
 
-test('emits an Organization and a WebSite in one graph', () => {
+test('emits a LodgingBusiness and a WebSite in one graph', () => {
   assert.equal(buildSiteGraph('de')['@context'], 'https://schema.org')
   assert.deepEqual(
     nodesOf('de').map((node) => node['@type']),
-    ['Organization', 'WebSite']
+    ['LodgingBusiness', 'WebSite']
   )
+})
+
+test('uses the same @id as the guestbook markup, so both describe one entity', () => {
+  // Task 16 emits '<BASE_URL>/#organization' too. If these ever drift apart,
+  // the reviews stop attaching to the business this page describes.
+  assert.equal(nodesOf('de')[0]?.['@id'], 'https://solymarmenor.com/#organization')
 })
 
 test('gives both nodes stable identifiers so they can reference each other', () => {
@@ -2330,8 +2337,9 @@ const SITE_NAME = 'Sol y Mar Menor'
  * The site-level entity graph.
  *
  * Both nodes carry an `@id` so the WebSite can point its publisher at the
- * Organization instead of repeating it — that is what tells a consumer the two
- * describe one thing rather than two.
+ * business node instead of repeating it — that is what tells a consumer the
+ * two describe one thing rather than two, and it is the same @id the guestbook
+ * markup in reviews.ts uses.
  *
  * No `potentialAction`/SearchAction: the site has no search, and claiming one
  * that does not exist is the kind of markup that gets a site's structured data
@@ -2344,11 +2352,21 @@ export function buildSiteGraph(locale: string) {
     '@context': 'https://schema.org',
     '@graph': [
       {
-        '@type': 'Organization',
+        // LodgingBusiness, not Organization: Task 16 marks up the same @id on
+        // the guestbook page, and one identifier carrying two different types
+        // across pages is what makes a consumer distrust the whole graph.
+        // LodgingBusiness is a subtype of Organization, so WebSite.publisher
+        // still accepts it, and it is the more accurate type for a holiday let.
+        //
+        // No `logo`: schema.org means an actual logo there, and this project has
+        // none — src/components/shared/Logo/Logo.tsx draws a CSS circle with the
+        // letters SM, not an image file. `image` takes a photo of the business
+        // honestly; an omitted optional field beats a wrong one.
+        '@type': 'LodgingBusiness',
         '@id': organizationId,
         name: SITE_NAME,
         url: BASE_URL,
-        logo: absoluteUrl('/og/default.jpg'),
+        image: absoluteUrl('/og/default.jpg'),
       },
       {
         '@type': 'WebSite',
@@ -2366,7 +2384,7 @@ export function buildSiteGraph(locale: string) {
 - [ ] **Step 4: Run the test to verify it passes**
 
 Run: `node --test --experimental-strip-types src/lib/structured-data/site.test.ts`
-Expected: PASS, 4 Tests.
+Expected: PASS, 5 Tests.
 
 - [ ] **Step 5: Render it on the home page**
 
@@ -2397,14 +2415,14 @@ export default async function HomePage({ params }: { params: Params }) {
 Run: `pnpm check-types`, dann `pnpm build && pnpm start`, dann:
 
 ```bash
-curl -s http://localhost:3000/de | grep -o '"@type":"Organization"'
+curl -s http://localhost:3000/de | grep -o '"@type":"LodgingBusiness"'
 ```
 
 Expected: eine Fundstelle.
 
 ```bash
 git add src/lib/structured-data/site.ts src/lib/structured-data/site.test.ts "src/app/[locale]/page.tsx"
-git commit -m "feat: add Organization and WebSite structured data"
+git commit -m "feat: add LodgingBusiness and WebSite structured data"
 ```
 
 ---
@@ -2677,8 +2695,8 @@ pnpm validate:content
 pnpm build
 ```
 
-Expected: alle fünf ohne Fehler. `pnpm test` meldet **139** bestandene Tests: 89 aus der Baseline
-plus 8 (Aufgabe 1) + 5 (5) + 9 (8) + 5 (12) + 10 (13) + 4 (14) + 4 (15) + 5 (16). Weicht die Zahl
+Expected: alle fünf ohne Fehler. `pnpm test` meldet **140** bestandene Tests: 89 aus der Baseline
+plus 8 (Aufgabe 1) + 5 (5) + 9 (8) + 5 (12) + 10 (13) + 4 (14) + 5 (15) + 5 (16). Weicht die Zahl
 ab, fehlt eine Testdatei oder eine ist nicht vom Glob `src/**/*.test.ts` erfasst — nicht
 weitermachen, bevor das geklärt ist.
 
@@ -2688,7 +2706,7 @@ Bei laufendem `pnpm start`:
 
 ```bash
 curl -s http://localhost:3000/robots.txt
-curl -s http://localhost:3000/sitemap.xml | grep -c "<url>"       # 21
+curl -s http://localhost:3000/sitemap.xml | grep -c "<url>"       # 24
 curl -s http://localhost:3000/sitemap.xml | grep -c "com/en"      # 0
 curl -s http://localhost:3000/aboutus | grep -c 'name="keywords"' # 0
 curl -s http://localhost:3000/de/property/apartment | grep -c 'application/ld+json' # 2

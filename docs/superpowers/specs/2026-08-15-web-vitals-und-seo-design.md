@@ -313,9 +313,20 @@ Gespeist aus `src/data/property-schema.ts`, ohne neue Datenfelder:
 
 Startseite → Objekt. Davon sind Breadcrumb-Rich-Results realistisch zu erwarten.
 
-### C3. `Organization` und `WebSite` auf der Startseite
+### C3. `LodgingBusiness` und `WebSite` auf der Startseite
 
-Name, URL, Logo, `inLanguage`, Kontaktangaben aus den vorhandenen Daten.
+Name, URL, Bild, `inLanguage`.
+
+**Nachträgliche Korrektur.** Ursprünglich als `Organization` geplant. Verworfen, weil C4
+denselben `@id` unter `LodgingBusiness` auszeichnet — ein Bezeichner mit zwei verschiedenen
+Typen auf zwei Seiten ist genau das, was einen Konsumenten den ganzen Graphen verwerfen lässt.
+`LodgingBusiness` ist ein Untertyp von `Organization`, taugt also weiterhin als
+`WebSite.publisher`, und ist für eine Ferienvermietung der genauere Typ.
+
+Kein `logo`: schema.org meint damit ein echtes Logo, und das Projekt hat keines —
+`src/components/shared/Logo/Logo.tsx` zeichnet einen CSS-Kreis mit den Buchstaben „SM", keine
+Bilddatei. Stattdessen `image` mit einem Foto. Ein weggelassenes optionales Feld ist besser als
+ein falsch belegtes.
 
 ### C4. `AggregateRating` und `Review` auf der Gästebuchseite
 
