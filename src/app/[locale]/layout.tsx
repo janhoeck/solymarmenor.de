@@ -2,7 +2,7 @@ import { LayoutFooter } from '@/components/shared/LayoutFooter'
 import { LayoutNavigation } from '@/components/shared/LayoutNavigation'
 import { WebVitals } from '@/components/shared/WebVitals'
 import { Toaster } from '@/components/ui'
-import { generateCanonicalMetadata } from '@/lib/metadata'
+import { BASE_URL, absoluteUrl, generateCanonicalMetadata, localizedPathname } from '@/lib/metadata'
 import { Metadata } from 'next'
 import { NextIntlClientProvider, hasLocale } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
@@ -32,86 +32,17 @@ export async function generateMetadata(props: MetadataProps): Promise<Metadata> 
   const { locale } = await props.params
   const t = await getTranslations({ locale, namespace: 'metadata' })
 
+  const homeUrl = absoluteUrl(localizedPathname('/', locale))
+
   return {
+    // Without this, Next cannot resolve relative URLs in openGraph and
+    // alternates, and warns about it at build time.
+    metadataBase: new URL(BASE_URL),
     title: t('title'),
     description: t('description'),
-    keywords: [
-      // Primary geographic keywords
-      'Urlaub Murcia',
-      'Costa Cálida Urlaub',
-      'Ferienwohnung Murcia',
-      'Ferienhaus Costa Cálida',
-      'Spanien Urlaub',
-      'Costa Cálida',
-
-      // Accommodation keywords
-      'Ferienwohnung Spanien',
-      'Ferienhaus Murcia',
-      'Urlaubsunterkunft Costa Cálida',
-      'Ferienwohnung mieten Murcia',
-      'Ferienhaus mieten Spanien',
-
-      // Experience keywords
-      'Mediterrane Ferien',
-      'Strandurlaub Spanien',
-      'Sonniger Urlaub',
-      'Erholungsurlaub Spanien',
-      'Aktivurlaub Murcia',
-
-      // Long-tail keywords
-      'geschmackvoll eingerichtete Ferienwohnung',
-      'unvergesslicher Urlaub Costa Cálida',
-      'mediterrane Lebensgefühl genießen',
-      'Urlaubsträume wahr werden',
-      'zweites Zuhause spanische Sonne',
-
-      // Seasonal keywords
-      'Sommerurlaub Murcia',
-      'Winterurlaub Costa Cálida',
-      'Familienurlaub Spanien',
-      'Strand und Sport Urlaub',
-      'Kulinarik Urlaub Spanien',
-
-      // Specific activities
-      'Strandurlaub Costa Cálida',
-      'Sporturlaub Murcia',
-      'Entspannungsurlaub Spanien',
-      'Golfurlaub Costa Cálida',
-
-      // Local terms
-      'Costa Cálida',
-      'Murcia',
-      'Región de Murcia',
-      'Spanien',
-      'Mittelmeer',
-
-      // Booking keywords
-      'Ferienwohnung buchen Murcia',
-      'Ferienhaus reservieren Costa Cálida',
-      'Urlaubsunterkunft online buchen',
-      'Ferienwohnung direkt buchen',
-
-      // SEO keywords
-      'los alcazares',
-      'mar menor',
-      'holidays to los alcazares',
-      'mar menor spain',
-      'los alcazares beach',
-      'los alcázares',
-      'where is mar menor',
-      'holidays in los alcazares',
-      'los alcarez',
-      'alcazares murcia',
-      'los alcazares holidays',
-      'los alcarzares',
-      'mar menor murcia',
-      'murcia alcazares',
-      'los alcazares spain',
-      'los alcazares mar menor',
-      'los alcázares spain',
-      'mar menor los alcazares',
-      'the mar menor',
-    ],
+    // No `keywords`. The meta keywords tag has been ignored by Google for
+    // years, and the ~60 entries this replaced included misspelling variants
+    // ('los alcarzares', 'los alcarez') that Bing treats as a stuffing signal.
     ...generateCanonicalMetadata(locale, '/'),
     icons: {
       icon: '/favicon.ico',
@@ -132,17 +63,24 @@ export async function generateMetadata(props: MetadataProps): Promise<Metadata> 
     openGraph: {
       title: t('title'),
       description: t('description'),
-      url: 'https://solymarmenor.com',
-      siteName: 'Home',
+      url: homeUrl,
+      siteName: 'Sol y Mar Menor',
       images: [
         {
-          url: 'https://solymarmenor.com/favicon.ico',
-          width: 800,
-          height: 800,
+          url: absoluteUrl('/og/default.jpg'),
+          width: 1200,
+          height: 630,
+          alt: t('title'),
         },
       ],
       locale,
       type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('title'),
+      description: t('description'),
+      images: [absoluteUrl('/og/default.jpg')],
     },
   }
 }
