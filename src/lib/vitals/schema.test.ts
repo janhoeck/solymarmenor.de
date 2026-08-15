@@ -38,7 +38,7 @@ test('rejects an unknown locale', () => {
 })
 
 test('rejects a path that is not a path', () => {
-  const bad = ['relative', '/with space', '/query?a=1', '/frag#x', `/${'a'.repeat(300)}`, 'https://evil.example/x']
+  const bad = ['relative', '/with space', '/query?a=1', '/frag#x', `/${'a'.repeat(300)}`, 'https://evil.example/x', '//1234567890', '///x', '//']
 
   for (const path of bad) {
     assert.equal(vitalsPayloadSchema.safeParse({ ...valid, path }).success, false, path)

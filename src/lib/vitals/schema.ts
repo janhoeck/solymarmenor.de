@@ -20,7 +20,11 @@ const NAVIGATION_TYPES = ['navigate', 'reload', 'back-forward', 'back-forward-ca
 /** A page view slower than a minute is a broken measurement, not a slow page. */
 const MAX_DURATION_MS = 60_000
 
-/** CLS is unitless; anything above 1 is already catastrophic. */
+/**
+ * CLS is unitless; anything above roughly 1 is already catastrophic.
+ * Set at 10 as a deliberate outer bound with headroom for absurd measurements,
+ * not as a plausibility threshold.
+ */
 const MAX_CLS = 10
 
 export const vitalsPayloadSchema = z
@@ -28,13 +32,15 @@ export const vitalsPayloadSchema = z
     metric: z.enum(VITALS_METRICS),
     value: z.number().finite().nonnegative(),
     rating: z.enum(['good', 'needs-improvement', 'poor']),
-    // No query, no fragment, no host: this is a pathname and nothing else.
-    // Bounded at 256 to match the column and to cap what one request can store.
+    // A pathname, not a scheme-relative URL. Rejects leading '//' (e.g., '//1234567890'
+    // which browsers parse as scheme-relative, enabling decimal-IP obfuscation attacks).
+    // No query, no fragment, no host otherwise. Bounded at 256 to match the column and
+    // to cap what one request can store.
     path: z
       .string()
       .min(1)
       .max(256)
-      .regex(/^\/[\w\-/]*$/),
+      .regex(/^\/(?!\/)[\w\-/]*$/),
     locale: z.enum(routing.locales),
     device: z.enum(['mobile', 'desktop']),
     navigationType: z.enum(NAVIGATION_TYPES),
