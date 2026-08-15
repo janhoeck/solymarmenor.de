@@ -1,9 +1,9 @@
 {
   "name": "holiday_apartment",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "type": "module",
-  "homepage": "https://janhoeck.github.io/jan_hoeck",
+  "homepage": "https://solymarmenor.com",
   "scripts": {
     "dev": "cross-env NODE_OPTIONS='--inspect' next dev -p 4000",
     "build": "next build",
