@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
 
-import { BASE_URL, absoluteUrl, generateCanonicalMetadata, localizedPathname } from './metadata.ts'
+import { BASE_URL, absoluteUrl, generateCanonicalMetadata, localizedPathname, needsLocalePrefix } from './metadata.ts'
 
 test('the default locale gets no prefix under localePrefix as-needed', () => {
   assert.equal(localizedPathname('/aboutus', 'en'), '/aboutus')
@@ -59,4 +59,30 @@ test('no emitted URL carries the default locale as a path prefix', () => {
       }
     }
   }
+})
+
+test('needsLocalePrefix returns true for default locale under always mode', () => {
+  assert.equal(needsLocalePrefix('always', 'en', 'en'), true)
+})
+
+test('needsLocalePrefix returns true for non-default locale under always mode', () => {
+  assert.equal(needsLocalePrefix('always', 'de', 'en'), true)
+})
+
+test('needsLocalePrefix returns false for default locale under as-needed mode', () => {
+  assert.equal(needsLocalePrefix('as-needed', 'en', 'en'), false)
+})
+
+test('needsLocalePrefix returns true for non-default locale under as-needed mode', () => {
+  assert.equal(needsLocalePrefix('as-needed', 'de', 'en'), true)
+})
+
+test('needsLocalePrefix returns false for all locales under never mode', () => {
+  assert.equal(needsLocalePrefix('never', 'en', 'en'), false)
+  assert.equal(needsLocalePrefix('never', 'de', 'en'), false)
+})
+
+test('needsLocalePrefix returns false for all locales under unknown mode', () => {
+  assert.equal(needsLocalePrefix('unknown', 'en', 'en'), false)
+  assert.equal(needsLocalePrefix('unknown', 'de', 'en'), false)
 })
