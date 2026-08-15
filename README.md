@@ -43,6 +43,22 @@ data.
 pnpm build
 ```
 
+## Datenbank
+
+Migrationen liegen in `drizzle/` und werden **nicht** vom Deploy ausgeführt.
+
+| Befehl | Zweck |
+|---|---|
+| `pnpm db:generate` | aus `src/utils/db/schema.ts` eine Migration nach `drizzle/` erzeugen |
+| `pnpm db:migrate` | ausstehende Migrationen auf `DATABASE_URL` anwenden |
+
+Vor einem Release, das eine neue Tabelle braucht, `pnpm db:migrate` von Hand gegen die
+Produktionsdatenbank fahren — sonst startet die App gegen ein Schema, das es dort nicht gibt.
+
+Erzeugtes SQL vor dem Ausführen lesen. Die `guestbook`-Tabelle ist vor Einführung der
+Migrationen entstanden und steht in keiner Historie; drizzle-kit will sie deshalb unter Umständen
+neu anlegen.
+
 ## Objektdaten
 
 Die Objektdaten liegen in `src/data/properties/*.json` und werden beim Import gegen

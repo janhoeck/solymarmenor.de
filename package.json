@@ -5,7 +5,7 @@
   "type": "module",
   "homepage": "https://janhoeck.github.io/jan_hoeck",
   "scripts": {
-    "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
+    "dev": "cross-env NODE_OPTIONS='--inspect' next dev -p 4000",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
@@ -16,7 +16,9 @@
     "validate:content": "node --experimental-strip-types scripts/validate-content.mjs",
     "check-types": "tsc --noEmit",
     "analyze": "next experimental-analyze",
-    "format": "prettier --write \"src/**/*.{ts,tsx,md,css}\""
+    "format": "prettier --write \"src/**/*.{ts,tsx,md,css}\"",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "node --env-file-if-exists=.env.local scripts/db-migrate.mjs"
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.20",
