@@ -59,6 +59,31 @@ Erzeugtes SQL vor dem Ausführen lesen. Die `guestbook`-Tabelle ist vor Einführ
 Migrationen entstanden und steht in keiner Historie; drizzle-kit will sie deshalb unter Umständen
 neu anlegen.
 
+## Web Vitals
+
+Die Seite misst die Web Vitals ihrer Besucher selbst und schreibt sie nach `web_vitals`.
+Gespeichert wird nichts, was auf eine Person zeigt: keine IP, kein Cookie, keine Kennung — nur
+Metrik, Wert, Pfad, Sprache, Gerätetyp und Navigationsart.
+
+| Befehl | Zweck |
+|---|---|
+| `pnpm vitals:report` | p75 je Metrik über 28 Tage, nach Gerät und Pfad |
+| `pnpm vitals:report --days=7` | kürzeres Fenster |
+| `pnpm vitals:report --prune` | zusätzlich Zeilen älter als 90 Tage löschen |
+
+Das 28-Tage-Fenster ist bewusst dasselbe, das CrUX verwendet — damit sind die Zahlen mit dem
+vergleichbar, was Google sähe.
+
+**Der Core-Web-Vitals-Bericht der Search Console bleibt davon unberührt.** Er speist sich
+ausschließlich aus CrUX, und CrUX braucht mehr Chrome-Besucher, als diese Seite hat. „Keine
+Daten" dort ist keine Fehlfunktion, sondern eine Aussage über die Stichprobengröße.
+
+Bei Client-seitiger Navigation verzeichnet die Messung den Pfad, auf dem eine Metrik **final
+wurde**, nicht zwingend den, der sie verursacht hat. Ein LCP gehört zum Dokumentaufruf; wechselt
+der Besucher vorher die Seite, steht er unter der neuen Adresse. Das ist der Preis dafür, dass
+pro Dokument gemessen wird — die Aufschlüsselung nach Pfad ist deshalb ein Hinweis, keine exakte
+Zuordnung.
+
 ## Objektdaten
 
 Die Objektdaten liegen in `src/data/properties/*.json` und werden beim Import gegen
