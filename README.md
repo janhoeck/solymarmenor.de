@@ -20,15 +20,16 @@ pnpm dev
 
 ## Environment
 
-Copy `.env.example` to `.env.local` and fill in. All three are deployment
-prerequisites — without them the affected page renders empty and the only signal
-is a server-side log.
+`.env.example` nach `.env.local` kopieren und ausfüllen. Alle vier sind Deployment-Voraussetzungen —
+ohne sie rendert die betroffene Seite leer, oder die Origin-Prüfung in `/api/vitals` greift
+gegen den falschen Host, und in beiden Fällen ist ein serverseitiges Log das einzige Signal.
 
 | Variable | Purpose |
 |---|---|
 | `DATABASE_URL` | Postgres connection string for the guestbook. Required at build time, because the guestbook page is prerendered. |
 | `ICAL_APARTMENT` | Airbnb iCalendar export URL for the apartment, read by `/api/ics`. |
 | `ICAL_HOUSE` | Airbnb iCalendar export URL for the house, read by `/api/ics`. |
+| `NEXT_PUBLIC_BASE_URL` | Kanonische Origin der Seite (Vorgabe `https://solymarmenor.com`). Bestimmt kanonische URLs, hreflang, jede JSON-LD-`@id`/`url` und die Origin-Prüfung in `/api/vitals` — diese Routen sind dynamisch und lesen den Wert **zur Laufzeit** aus `process.env`; ein Neustart genügt, kein Rebuild. Ausnahme: `/sitemap.xml` und `/robots.txt` sind statisch prerendert, ihre URLs werden beim `pnpm build` eingefroren — hier ändert nur ein Rebuild etwas. |
 
 The `ICAL_*` values contain an access token in the URL and must never be
 committed. The property data does not hold them: `calendar.secretRef` in
@@ -42,6 +43,75 @@ data.
 ```bash
 pnpm build
 ```
+
+## Tests
+
+`pnpm test` läuft über `node --test --experimental-strip-types`, ganz ohne Bundler. Daraus folgt
+eine bindende Regel für jede Datei im Importgraphen eines Tests — also jede Datei, die eine
+`*.test.ts` direkt oder über eine Kette weiterer Importe erreicht: relative Importe brauchen die
+Endung `.ts` (`import { x } from './foo.ts'`, nicht `'./foo'`), und die `@/`-Pfad-Aliase aus
+`tsconfig.json` dürfen dort nicht vorkommen — Node löst weder das eine noch das andere auf, und
+das Ergebnis ist ein `ERR_MODULE_NOT_FOUND` ohne Hinweis auf die eigentliche Ursache.
+`allowImportingTsExtensions` ist in `tsconfig.json` deshalb gesetzt; Turbopack, das mit `@/`-Aliasen
+und ohne `.ts`-Endung problemlos umgeht, stört sich an keiner der beiden Schreibweisen.
+
+Betroffen sind aktuell `src/app/sitemap.ts` und `src/app/robots.ts`, `src/i18n/routing.ts`,
+`src/data/` (u. a. `property-schema.ts`, `properties/index.ts`, `amenities.ts`,
+`localized-text.ts`), `src/lib/` mit seinen Unterordnern `properties/`, `structured-data/` und
+`vitals/`, sowie `src/components/shared/GuestbookForm/types.ts`. Wer eine dieser Dateien um einen
+`@/`-Import erweitert oder eine `.ts`-Endung weglässt, merkt es erst beim nächsten `pnpm test`.
+
+## Web Vitals
+
+Die Seite misst die Web Vitals ihrer Besucher selbst und schreibt sie nach `web_vitals`.
+Gespeichert wird nichts, was auf eine Person zeigt: keine IP, kein Cookie, keine Kennung — nur
+Metrik, Wert, Pfad, Sprache, Gerätetyp und Navigationsart.
+
+| Befehl | Zweck |
+|---|---|
+| `pnpm vitals:report` | p75 je Metrik über 28 Tage, nach Gerät und Pfad |
+| `pnpm vitals:report --days=7` | kürzeres Fenster |
+| `pnpm vitals:report --prune` | zusätzlich Zeilen älter als 90 Tage löschen |
+
+Das 28-Tage-Fenster ist bewusst dasselbe, das CrUX verwendet — damit sind die Zahlen mit dem
+vergleichbar, was Google sähe.
+
+**Der Core-Web-Vitals-Bericht der Search Console bleibt davon unberührt.** Er speist sich
+ausschließlich aus CrUX, und CrUX braucht mehr Chrome-Besucher, als diese Seite hat. „Keine
+Daten“ dort ist keine Fehlfunktion, sondern eine Aussage über die Stichprobengröße.
+
+Bei Client-seitiger Navigation verzeichnet die Messung den Pfad, auf dem eine Metrik **final
+wurde**, nicht zwingend den, der sie verursacht hat. Ein LCP gehört zum Dokumentaufruf; wechselt
+der Besucher vorher die Seite, steht er unter der neuen Adresse. Das ist der Preis dafür, dass
+pro Dokument gemessen wird — die Aufschlüsselung nach Pfad ist deshalb ein Hinweis, keine exakte
+Zuordnung.
+
+Der Origin-Check in `src/app/api/vitals/route.ts` vergleicht bewusst gegen die aus `BASE_URL`
+abgeleitete Origin, nicht gegen `request.nextUrl.origin`. `next start` läuft ohne `-H`-Flag und
+bindet den Hostnamen deshalb fest auf `localhost`, ohne je den weitergereichten `Host`-Header zu
+befragen. Hinter Coolifys Reverse Proxy ist `nextUrl.origin` dadurch immer die interne Adresse
+`https://localhost:<port>` — ein Vergleich dagegen würde jeden echten Besucher-Beacon abweisen
+und dabei trotzdem jeden Testlauf auf derselben Maschine bestehen, weil dort Server und Client
+dieselbe Origin teilen. Diese Prüfung nicht wieder auf `nextUrl.origin` „vereinfachen“.
+
+## SEO
+
+Kanonische URLs, hreflang, Sitemap und robots.txt werden erzeugt, nicht gepflegt. Die statischen
+Dateien `public/sitemap.xml` und `public/robots.txt` gibt es nicht mehr — sie hätten die Routen
+`src/app/sitemap.ts` und `src/app/robots.ts` beschattet.
+
+Alle URLs entstehen über `localizedPathname` in `src/lib/metadata.ts`. Diese Funktion bildet
+`localePrefix: 'as-needed'` ab: Englisch ist die Standardsprache und wird **ohne** Präfix
+ausgeliefert, `/en/aboutus` leitet auf `/aboutus` weiter. Wer eine URL selbst zusammensetzt,
+riskiert, ein Canonical auf eine Weiterleitung zu richten — genau der Fehler, den
+`metadata.test.ts` und `sitemap.test.ts` seither festnageln.
+
+Eine neue Seite braucht einen Eintrag in `STATIC_ROUTES` in `src/app/sitemap.ts`; fehlt er,
+schlägt `sitemap.test.ts` fehl.
+
+Structured Data liegt in `src/lib/structured-data/`, gerendert über `<JsonLd />`. Die
+Bewertungen im Gästebuch erzeugen **keine** Sterne in Google-Suchergebnissen: selbst gehostete
+Bewertungen über das eigene Unternehmen sind davon seit 2019 ausgenommen.
 
 ## Objektdaten
 
@@ -87,6 +157,10 @@ Entwicklungsrechner. Deshalb drei bewusste Entscheidungen:
   weniger Varianten existieren, desto öfter trifft der Optimizer-Cache.
 
 ## Deployment (Coolify)
+
+**Das Deploy legt keine Tabellen an.** Wer `src/utils/db/schema.ts` um eine Tabelle erweitert,
+muss sie vor dem Release selbst in der Produktionsdatenbank anlegen — sonst bleibt die Seite
+erreichbar, aber die betroffenen Inserts scheitern still im Hintergrund.
 
 Gebaut wird über `nixpacks.toml`, gestartet mit `next start`.
 

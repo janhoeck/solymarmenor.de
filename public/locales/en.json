@@ -71,8 +71,8 @@
     "home": {
       "welcome": {
         "location": "Costa Cálida, Spain",
-        "title": "Holiday at the Costa Cálida",
-        "subtitle": "Holiday Apartments at Mar Menor – Sun, Sea & Relaxation at the Costa Cálida",
+        "title": "Holiday at the Mar Menor",
+        "subtitle": "Holiday apartment & house in Los Alcázares and Los Urrutias – sun, sea and relaxation on the Costa Cálida",
         "discoverAccommodationButtonLabel": "Discover Accommodations",
         "generalInfo": {
           "sunnyDaysPerYear": "Sunny Days per Year",
@@ -286,7 +286,7 @@
     }
   },
   "metadata": {
-    "title": "Vacation home & vacation apartment on the Costa Cálida",
-    "description": "Modern accommodations with a pool – perfect for beach vacations, relaxation, and family holidays."
+    "title": "Holiday Apartment & House at the Mar Menor – Los Alcázares",
+    "description": "Holiday apartment and house at the Mar Menor: private pool, 320 days of sun a year, minutes from the beach of Los Alcázares. Book direct with the owners."
   }
 }

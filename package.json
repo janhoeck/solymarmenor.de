@@ -1,21 +1,23 @@
 {
   "name": "holiday_apartment",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "type": "module",
-  "homepage": "https://janhoeck.github.io/jan_hoeck",
+  "homepage": "https://solymarmenor.com",
   "scripts": {
-    "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
+    "dev": "cross-env NODE_OPTIONS='--inspect' next dev -p 4000",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
     "test": "node --test --experimental-strip-types \"src/**/*.test.ts\"",
     "images:sync": "node scripts/images-sync.mjs",
     "images:downscale": "node scripts/images-downscale.mjs",
+    "og:generate": "node scripts/generate-og-image.mjs",
     "validate:content": "node --experimental-strip-types scripts/validate-content.mjs",
     "check-types": "tsc --noEmit",
     "analyze": "next experimental-analyze",
-    "format": "prettier --write \"src/**/*.{ts,tsx,md,css}\""
+    "format": "prettier --write \"src/**/*.{ts,tsx,md,css}\"",
+    "vitals:report": "node --env-file-if-exists=.env.local scripts/vitals-report.mjs"
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.20",

@@ -1,7 +1,8 @@
 import { GoogleMapsAPIProvider } from '@/components/shared/GoogleMapsAPIProvider/GoogleMapsAPIProvider'
 import { resolveText } from '@/data/localized-text'
-import { generateCanonicalMetadata } from '@/lib/metadata'
+import { absoluteUrl, generateCanonicalMetadata, localizedPathname } from '@/lib/metadata'
 import { getPropertyBySlug } from '@/lib/properties/repository'
+import { SITE_NAME } from '@/lib/structured-data/identity'
 import { Metadata } from 'next'
 import { PropsWithChildren } from 'react'
 
@@ -19,21 +20,40 @@ export async function generateMetadata(props: MetadataProps): Promise<Metadata> 
     return {}
   }
 
+  const title = resolveText(propertyConfiguration.title, locale)
+  const description = resolveText(propertyConfiguration.subtitle, locale)
+  const cover = propertyConfiguration.images.cover
+
   return {
-    title: resolveText(propertyConfiguration.title, locale),
+    title,
+    description,
     ...generateCanonicalMetadata(locale, `/property/${slug}`),
     openGraph: {
-      title: resolveText(propertyConfiguration.title, locale),
-      url: `https://solymarmenor.com/property/${propertyConfiguration.slug}`,
+      title,
+      description,
+      // Built from the routing config rather than hard-coded, so the preview
+      // URL points at the page in the language it describes.
+      url: absoluteUrl(localizedPathname(`/property/${propertyConfiguration.slug}`, locale)),
+      // Next replaces the parent layout's `openGraph` wholesale rather than
+      // merging it key by key, so without this the root layout's `siteName`
+      // is silently dropped on exactly the pages most likely to be shared.
+      siteName: SITE_NAME,
       images: [
         {
-          url: `https://solymarmenor.com${propertyConfiguration.images.cover.src}`,
-          width: propertyConfiguration.images.cover.width,
-          height: propertyConfiguration.images.cover.height,
+          url: absoluteUrl(cover.src),
+          width: cover.width,
+          height: cover.height,
+          alt: title,
         },
       ],
       locale,
       type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [absoluteUrl(cover.src)],
     },
   }
 }

@@ -1,0 +1,48 @@
+import { z } from 'zod'
+
+import { routing } from '../../i18n/routing.ts'
+import { VITALS_METRICS } from './metrics.ts'
+
+/**
+ * The complete set the bundled web-vitals can emit. Derived from its own
+ * normalisation, which takes PerformanceNavigationTiming.type, replaces
+ * underscores with hyphens, and adds the three cases the timing entry cannot
+ * express.
+ */
+const NAVIGATION_TYPES = ['navigate', 'reload', 'back-forward', 'back-forward-cache', 'prerender', 'restore'] as const
+
+/** A page view slower than a minute is a broken measurement, not a slow page. */
+const MAX_DURATION_MS = 60_000
+
+/**
+ * CLS is unitless; anything above roughly 1 is already catastrophic.
+ * Set at 10 as a deliberate outer bound with headroom for absurd measurements,
+ * not as a plausibility threshold.
+ */
+const MAX_CLS = 10
+
+export const vitalsPayloadSchema = z
+  .object({
+    metric: z.enum(VITALS_METRICS),
+    value: z.number().finite().nonnegative(),
+    rating: z.enum(['good', 'needs-improvement', 'poor']),
+    // A pathname, not a scheme-relative URL. Rejects leading '//' (e.g., '//1234567890'
+    // which browsers parse as scheme-relative, enabling decimal-IP obfuscation attacks).
+    // No query, no fragment, no host otherwise. Bounded at 256 to match the column and
+    // to cap what one request can store.
+    path: z
+      .string()
+      .min(1)
+      .max(256)
+      .regex(/^\/(?!\/)[\w\-/]*$/),
+    locale: z.enum(routing.locales),
+    device: z.enum(['mobile', 'desktop']),
+    navigationType: z.enum(NAVIGATION_TYPES),
+  })
+  .strict()
+  .refine((payload) => payload.value <= (payload.metric === 'CLS' ? MAX_CLS : MAX_DURATION_MS), {
+    message: 'value out of range for this metric',
+    path: ['value'],
+  })
+
+export type VitalsPayload = z.infer<typeof vitalsPayloadSchema>

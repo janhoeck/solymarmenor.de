@@ -71,9 +71,9 @@
     "home": {
       "welcome": {
         "location": "Costa Cálida, Spanien",
-        "title": "Urlaub an der Costa Cálida",
-        "subtitle": "Ferienwohnungen am Mar Menor – Sonne, Meer & Erholung an der Costa Cálida",
-        "discoverAccommodationButtonLabel": "Unterknüfte entdecken",
+        "title": "Urlaub am Mar Menor",
+        "subtitle": "Ferienwohnung & Ferienhaus in Los Alcázares und Los Urrutias – Sonne, Meer und Erholung an der Costa Cálida",
+        "discoverAccommodationButtonLabel": "Unterkünfte entdecken",
         "generalInfo": {
           "sunnyDaysPerYear": "Sonnentage im Jahr",
           "charmingCoastalTowns": "Charmante Küstenorte",
@@ -177,7 +177,7 @@
           "vacuum": "Staubsauger",
           "washing_rack": "Wäscheständer",
           "parking": "Parkmöglichkeit",
-          "tv": "Fernsehr",
+          "tv": "Fernseher",
           "wlan": "WLAN",
           "washing_machine": "Waschmaschine",
           "pool": "Pool",
@@ -190,14 +190,14 @@
           "checkin": "Check-in",
           "checkout": "Check-out",
           "pet": "Haustiere",
-          "party": "Veranstalltungen",
+          "party": "Veranstaltungen",
           "smoking": "Rauchen"
         },
         "checkinTime": "ab {time} Uhr",
         "checkoutTime": "vor {time} Uhr",
         "descriptions": {
           "pet": "Keine Haustiere erlaubt",
-          "party": "Veranstalltungen sind nicht gestattet",
+          "party": "Veranstaltungen sind nicht gestattet",
           "smoking": "Rauchen ist nicht gestattet"
         }
       },
@@ -286,7 +286,7 @@
     }
   },
   "metadata": {
-    "title": "Ferienhaus & Ferienwohnung an der Costa Cálida",
-    "description": "Moderne Unterkünfte mit Pool – ideal für Strandurlaub, Entspannung und Familienferien."
+    "title": "Ferienwohnung & Ferienhaus am Mar Menor – Los Alcázares",
+    "description": "Ferienwohnung und Ferienhaus am Mar Menor: eigener Pool, 320 Sonnentage im Jahr, wenige Minuten zum Strand von Los Alcázares. Direkt beim Eigentümer."
   }
 }
