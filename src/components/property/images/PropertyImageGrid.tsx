@@ -6,7 +6,6 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogPortal,
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui'
@@ -53,7 +52,7 @@ export const PropertyImageGrid = (props: PropertyImageGridProps) => {
 
   const altFor = (image: Property['images']['cover']) => (image.alt ? resolveText(image.alt, locale) : fallbackAlt)
 
-  const handlePrevClick = () => {
+  const showPrevious = () => {
     setSelectedIndex((prev) => {
       if (prev === 0) {
         return allImages.length - 1
@@ -62,13 +61,28 @@ export const PropertyImageGrid = (props: PropertyImageGridProps) => {
     })
   }
 
-  const handleNextClick = () => {
+  const showNext = () => {
     setSelectedIndex((prev) => {
       if (prev === allImages.length - 1) {
         return 0
       }
       return prev + 1
     })
+  }
+
+  // Radix only binds Escape, and the focus trap parks the caret on a <button>,
+  // which ignores the arrow keys natively. Listening on the content element
+  // catches them wherever focus sits inside the lightbox.
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault()
+      showPrevious()
+      return
+    }
+    if (event.key === 'ArrowRight') {
+      event.preventDefault()
+      showNext()
+    }
   }
 
   return (
@@ -104,84 +118,85 @@ export const PropertyImageGrid = (props: PropertyImageGridProps) => {
           </div>
         </div>
       </DialogTrigger>
-      <DialogPortal>
-        <DialogContent className='h-full max-w-svw w-svw sm:max-w-svw rounded-none flex flex-col'>
-          <DialogHeader>
-            <DialogTitle>Immobilienbild</DialogTitle>
-            <DialogDescription>
-              {selectedIndex + 1} / {allImages.length}
-            </DialogDescription>
-          </DialogHeader>
-          <div className='flex justify-between items-center flex-1 gap-4 px-4 min-h-0'>
-            <Button
-              size='icon'
-              aria-label='Vorheriges Bild'
-              onClick={handlePrevClick}
-              className='hidden sm:flex shrink-0'
-            >
-              <MdOutlineChevronLeft size={24} />
-            </Button>
-            <div className='flex-1 h-full flex items-center justify-center min-h-0 overflow-hidden'>
-              <Image
-                src={allImages[selectedIndex]!.src}
-                alt={altFor(allImages[selectedIndex]!)}
-                width={allImages[selectedIndex]!.width}
-                height={allImages[selectedIndex]!.height}
-                className='max-w-full max-h-full w-auto h-auto rounded-xl object-contain'
-                sizes='100vw'
-                loading='eager'
-                fetchPriority='high'
-              />
-            </div>
-            <Button
-              size='icon'
-              aria-label='Nächstes Bild'
-              onClick={handleNextClick}
-              className='hidden sm:flex shrink-0'
-            >
-              <MdOutlineChevronRight size={24} />
-            </Button>
-          </div>
-          <div className='flex sm:hidden gap-4 pb-4 justify-center'>
-            <Button
-              size='icon'
-              aria-label='Vorheriges Bild'
-              onClick={handlePrevClick}
-            >
-              <MdOutlineChevronLeft size={24} />
-            </Button>
-            <Button
-              size='icon'
-              aria-label='Nächstes Bild'
-              onClick={handleNextClick}
-            >
-              <MdOutlineChevronRight size={24} />
-            </Button>
-          </div>
-
-          {/* Zero-sized rather than `hidden`: a display:none image is still
-              fetched, but only `loading='eager'` makes that a guarantee instead
-              of a viewport heuristic. `fetchPriority='low'` keeps these behind
-              the image the visitor is actually looking at. */}
-          <div
-            aria-hidden
-            className='pointer-events-none absolute h-0 w-0 overflow-hidden opacity-0'
+      <DialogContent
+        onKeyDown={handleKeyDown}
+        className='h-full max-w-svw w-svw sm:max-w-svw rounded-none flex flex-col'
+      >
+        <DialogHeader>
+          <DialogTitle>Immobilienbild</DialogTitle>
+          <DialogDescription>
+            {selectedIndex + 1} / {allImages.length}
+          </DialogDescription>
+        </DialogHeader>
+        <div className='flex justify-between items-center flex-1 gap-4 px-4 min-h-0'>
+          <Button
+            size='icon'
+            aria-label='Vorheriges Bild'
+            onClick={showPrevious}
+            className='hidden sm:flex shrink-0'
           >
-            {preloadImages.map((image) => (
-              <Image
-                key={image.src}
-                src={image.src}
-                alt=''
-                width={image.width}
-                height={image.height}
-                sizes='100vw'
-                loading='eager'
-                fetchPriority='low'
-              />
-            ))}
+            <MdOutlineChevronLeft size={24} />
+          </Button>
+          <div className='flex-1 h-full flex items-center justify-center min-h-0 overflow-hidden'>
+            <Image
+              src={allImages[selectedIndex]!.src}
+              alt={altFor(allImages[selectedIndex]!)}
+              width={allImages[selectedIndex]!.width}
+              height={allImages[selectedIndex]!.height}
+              className='max-w-full max-h-full w-auto h-auto rounded-xl object-contain'
+              sizes='100vw'
+              loading='eager'
+              fetchPriority='high'
+            />
           </div>
-        </DialogContent>
-      </DialogPortal>
+          <Button
+            size='icon'
+            aria-label='Nächstes Bild'
+            onClick={showNext}
+            className='hidden sm:flex shrink-0'
+          >
+            <MdOutlineChevronRight size={24} />
+          </Button>
+        </div>
+        <div className='flex sm:hidden gap-4 pb-4 justify-center'>
+          <Button
+            size='icon'
+            aria-label='Vorheriges Bild'
+            onClick={showPrevious}
+          >
+            <MdOutlineChevronLeft size={24} />
+          </Button>
+          <Button
+            size='icon'
+            aria-label='Nächstes Bild'
+            onClick={showNext}
+          >
+            <MdOutlineChevronRight size={24} />
+          </Button>
+        </div>
+
+        {/* Zero-sized rather than `hidden`: a display:none image is still
+            fetched, but only `loading='eager'` makes that a guarantee instead
+            of a viewport heuristic. `fetchPriority='low'` keeps these behind
+            the image the visitor is actually looking at. */}
+        <div
+          aria-hidden
+          className='pointer-events-none absolute h-0 w-0 overflow-hidden opacity-0'
+        >
+          {preloadImages.map((image) => (
+            <Image
+              key={image.src}
+              src={image.src}
+              alt=''
+              width={image.width}
+              height={image.height}
+              sizes='100vw'
+              loading='eager'
+              fetchPriority='low'
+            />
+          ))}
+        </div>
+      </DialogContent>
     </Dialog>
   )
 }
