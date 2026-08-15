@@ -1,6 +1,5 @@
 import { BASE_URL, absoluteUrl, localizedPathname } from '../metadata.ts'
-
-const SITE_NAME = 'Sol y Mar Menor'
+import { ORGANIZATION_ID, SITE_NAME } from './identity.ts'
 
 /**
  * The site-level entity graph.
@@ -15,8 +14,6 @@ const SITE_NAME = 'Sol y Mar Menor'
  * distrusted wholesale.
  */
 export function buildSiteGraph(locale: string) {
-  const organizationId = `${BASE_URL}/#organization`
-
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -32,7 +29,7 @@ export function buildSiteGraph(locale: string) {
         // letters SM, not an image file. `image` takes a photo of the business
         // honestly; an omitted optional field beats a wrong one.
         '@type': 'LodgingBusiness',
-        '@id': organizationId,
+        '@id': ORGANIZATION_ID,
         name: SITE_NAME,
         url: BASE_URL,
         image: absoluteUrl('/og/default.jpg'),
@@ -43,7 +40,7 @@ export function buildSiteGraph(locale: string) {
         name: SITE_NAME,
         url: absoluteUrl(localizedPathname('/', locale)),
         inLanguage: locale,
-        publisher: { '@id': organizationId },
+        publisher: { '@id': ORGANIZATION_ID },
       },
     ],
   }

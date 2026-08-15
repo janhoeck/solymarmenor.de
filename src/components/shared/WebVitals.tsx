@@ -1,6 +1,6 @@
 'use client'
 
-import { VITALS_METRICS } from '@/lib/vitals/schema'
+import { VITALS_METRICS } from '@/lib/vitals/metrics'
 import { usePathname } from 'next/navigation'
 import { useReportWebVitals } from 'next/web-vitals'
 import { useCallback, useEffect, useRef } from 'react'

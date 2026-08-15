@@ -20,15 +20,16 @@ pnpm dev
 
 ## Environment
 
-Copy `.env.example` to `.env.local` and fill in. All three are deployment
-prerequisites — without them the affected page renders empty and the only signal
-is a server-side log.
+`.env.example` nach `.env.local` kopieren und ausfüllen. Alle vier sind Deployment-Voraussetzungen —
+ohne sie rendert die betroffene Seite leer, oder die Origin-Prüfung in `/api/vitals` greift
+gegen den falschen Host, und in beiden Fällen ist ein serverseitiges Log das einzige Signal.
 
 | Variable | Purpose |
 |---|---|
 | `DATABASE_URL` | Postgres connection string for the guestbook. Required at build time, because the guestbook page is prerendered. |
 | `ICAL_APARTMENT` | Airbnb iCalendar export URL for the apartment, read by `/api/ics`. |
 | `ICAL_HOUSE` | Airbnb iCalendar export URL for the house, read by `/api/ics`. |
+| `NEXT_PUBLIC_BASE_URL` | Kanonische Origin der Seite (Vorgabe `https://solymarmenor.com`). Bestimmt kanonische URLs, hreflang, Sitemap, jede JSON-LD-`@id`/`url` und die Origin-Prüfung in `/api/vitals`. Wird **zur Laufzeit** aus `process.env` gelesen, nicht zur Build-Zeit eingebettet — die Route ist serverseitig, `NEXT_PUBLIC_`-Inlining betrifft nur Client-Bundles. Ein Neustart genügt, kein Rebuild. |
 
 The `ICAL_*` values contain an access token in the URL and must never be
 committed. The property data does not hold them: `calendar.secretRef` in
@@ -42,6 +43,23 @@ data.
 ```bash
 pnpm build
 ```
+
+## Tests
+
+`pnpm test` läuft über `node --test --experimental-strip-types`, ganz ohne Bundler. Daraus folgt
+eine bindende Regel für jede Datei im Importgraphen eines Tests — also jede Datei, die eine
+`*.test.ts` direkt oder über eine Kette weiterer Importe erreicht: relative Importe brauchen die
+Endung `.ts` (`import { x } from './foo.ts'`, nicht `'./foo'`), und die `@/`-Pfad-Aliase aus
+`tsconfig.json` dürfen dort nicht vorkommen — Node löst weder das eine noch das andere auf, und
+das Ergebnis ist ein `ERR_MODULE_NOT_FOUND` ohne Hinweis auf die eigentliche Ursache.
+`allowImportingTsExtensions` ist in `tsconfig.json` deshalb gesetzt; Turbopack, das mit `@/`-Aliasen
+und ohne `.ts`-Endung problemlos umgeht, stört sich an keiner der beiden Schreibweisen.
+
+Betroffen sind aktuell `src/app/sitemap.ts` und `src/app/robots.ts`, `src/i18n/routing.ts`,
+`src/data/` (u. a. `property-schema.ts`, `properties/index.ts`, `amenities.ts`,
+`localized-text.ts`), `src/lib/` mit seinen Unterordnern `properties/`, `structured-data/` und
+`vitals/`, sowie `src/components/shared/GuestbookForm/types.ts`. Wer eine dieser Dateien um einen
+`@/`-Import erweitert oder eine `.ts`-Endung weglässt, merkt es erst beim nächsten `pnpm test`.
 
 ## Datenbank
 
@@ -155,6 +173,11 @@ Entwicklungsrechner. Deshalb drei bewusste Entscheidungen:
   weniger Varianten existieren, desto öfter trifft der Optimizer-Cache.
 
 ## Deployment (Coolify)
+
+**Vor dem Deploy an eine neue Migration denken:** `pnpm db:migrate` läuft nicht automatisch mit
+und muss vor einem Release mit Schemaänderung von Hand gegen die Produktionsdatenbank ausgeführt
+werden (siehe `## Datenbank`) — sonst bleibt die Seite zwar erreichbar, aber die betroffenen
+Inserts scheitern still im Hintergrund.
 
 Gebaut wird über `nixpacks.toml`, gestartet mit `next start`.
 

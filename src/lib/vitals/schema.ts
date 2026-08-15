@@ -1,13 +1,7 @@
 import { z } from 'zod'
 
 import { routing } from '../../i18n/routing.ts'
-
-/**
- * The metrics worth storing. `next/web-vitals` also reports Next's own timings
- * ('Next.js-hydration' and siblings) and the retired FID, none of which this
- * collects — the allowlist doubles as the filter.
- */
-export const VITALS_METRICS = ['LCP', 'INP', 'CLS', 'FCP', 'TTFB'] as const
+import { VITALS_METRICS } from './metrics.ts'
 
 /**
  * The complete set the bundled web-vitals can emit. Derived from its own

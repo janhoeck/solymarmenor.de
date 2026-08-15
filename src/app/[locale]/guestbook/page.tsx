@@ -9,10 +9,7 @@ import { db } from '@/utils/db'
 import { guestbook } from '@/utils/db/schema'
 import { desc } from 'drizzle-orm'
 
-type Params = Promise<{ locale: string }>
-
-export default async function GuestbookPage({ params }: { params: Params }) {
-  const { locale } = await params
+export default async function GuestbookPage() {
   const data = await db.select().from(guestbook).orderBy(desc(guestbook.created_at))
 
   if (data.length === 0) {
@@ -24,7 +21,7 @@ export default async function GuestbookPage({ params }: { params: Params }) {
     created_at: entry.created_at.toISOString(),
   })) as GuestbookEntry[]
 
-  const ratings = buildGuestbookRatings(entries, locale)
+  const ratings = buildGuestbookRatings(entries)
 
   return (
     <>

@@ -20,7 +20,7 @@ const unrated: GuestbookEntry = {
 
 /** Narrows away the null return so each test can assert on the payload. */
 function ratingsOf(input: GuestbookEntry[]) {
-  const data = buildGuestbookRatings(input, 'de')
+  const data = buildGuestbookRatings(input)
   assert.ok(data, 'expected ratings for this input')
 
   return data
@@ -71,9 +71,26 @@ test('skips entries without a rating, which would drag the average down', () => 
   assert.equal(aggregateRating.ratingValue, 4)
 })
 
+test('excludes an entry with an empty message', () => {
+  // `message` is a nullable column; the `as GuestbookEntry` cast in the page
+  // launders a NULL to the empty string. Without this guard it would still
+  // count toward reviewCount while emitting an empty reviewBody.
+  const empty: GuestbookEntry = {
+    id: 5,
+    name: 'Fay',
+    message: '',
+    rating: 5,
+    created_at: '2026-07-05T10:00:00.000Z',
+  }
+
+  const { aggregateRating } = ratingsOf([...entries, empty])
+
+  assert.equal(aggregateRating.reviewCount, 3)
+})
+
 test('returns null when there is nothing to aggregate', () => {
-  assert.equal(buildGuestbookRatings([], 'de'), null)
-  assert.equal(buildGuestbookRatings([unrated], 'de'), null)
+  assert.equal(buildGuestbookRatings([]), null)
+  assert.equal(buildGuestbookRatings([unrated]), null)
 })
 
 // Pinned separately from the tests above: earlier passes of this plan tested

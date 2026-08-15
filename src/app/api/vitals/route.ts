@@ -16,6 +16,15 @@ import { NextRequest, NextResponse } from 'next/server'
 const ALLOWED_ORIGIN = new URL(BASE_URL).origin
 
 /**
+ * Real beacons are around 200 bytes. This is a cheap first bound, not a
+ * complete one: a chunked request that never sends Content-Length still
+ * reaches `request.json()` unbounded. It stops the trivial case — one
+ * unauthenticated POST with a spoofed Origin claiming a huge body — from
+ * making the server buffer and parse it before Zod ever sees it.
+ */
+const MAX_CONTENT_LENGTH_BYTES = 1024
+
+/**
  * Collects Web Vitals from real visitors.
  *
  * The endpoint has to be public — it is called by every page view — so three
@@ -34,6 +43,16 @@ export async function POST(request: NextRequest) {
 
     // sendBeacon always sends Origin. A missing or foreign one is not our page.
     if (!origin || origin !== ALLOWED_ORIGIN) {
+      // Origin is attacker-settable, so it is truncated before logging —
+      // the same reasoning that keeps the payload rejection below from
+      // echoing attacker-supplied content. If NEXT_PUBLIC_BASE_URL ever
+      // disagrees with the origin browsers actually use, this is the only
+      // signal that every beacon is being silently discarded.
+      console.warn('[vitals] rejected origin:', String(origin).slice(0, 64))
+      return noContent
+    }
+
+    if (Number(request.headers.get('content-length')) > MAX_CONTENT_LENGTH_BYTES) {
       return noContent
     }
 

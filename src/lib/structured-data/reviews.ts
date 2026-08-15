@@ -1,5 +1,6 @@
 import type { GuestbookEntry } from '../../components/shared/GuestbookForm/types.ts'
-import { BASE_URL, absoluteUrl, localizedPathname } from '../metadata.ts'
+import { BASE_URL } from '../metadata.ts'
+import { ORGANIZATION_ID, SITE_NAME } from './identity.ts'
 
 const BEST_RATING = 5
 const WORST_RATING = 1
@@ -20,10 +21,21 @@ const WORST_RATING = 1
  * Returns null when there is nothing to report, so the caller renders no empty
  * AggregateRating — a rating of zero out of nothing is worse than silence.
  */
-export function buildGuestbookRatings(entries: GuestbookEntry[], locale: string) {
+export function buildGuestbookRatings(entries: GuestbookEntry[]) {
   // `rating` defaults to 0 in the database, which is not a rating anyone gave.
   // Counting those as zero-star reviews would misreport the average.
-  const rated = entries.filter((entry) => entry.rating >= WORST_RATING && entry.rating <= BEST_RATING)
+  //
+  // `name` and `message` are nullable columns (src/utils/db/schema.ts), laundered
+  // into non-null by the `as GuestbookEntry` cast in the page. The form validates
+  // `min(1)`, so live rows are fine, but a legacy or hand-inserted row with NULL
+  // would otherwise emit `"name": null` or an empty `reviewBody` into JSON-LD.
+  const rated = entries.filter(
+    (entry) =>
+      entry.rating >= WORST_RATING &&
+      entry.rating <= BEST_RATING &&
+      Boolean(entry.name?.trim()) &&
+      Boolean(entry.message?.trim())
+  )
 
   if (rated.length === 0) {
     return null
@@ -34,9 +46,12 @@ export function buildGuestbookRatings(entries: GuestbookEntry[], locale: string)
   return {
     '@context': 'https://schema.org',
     '@type': 'LodgingBusiness',
-    '@id': `${BASE_URL}/#organization`,
-    name: 'Sol y Mar Menor',
-    url: absoluteUrl(localizedPathname('/guestbook', locale)),
+    '@id': ORGANIZATION_ID,
+    name: SITE_NAME,
+    // Same value as the LodgingBusiness node in site.ts, which shares this
+    // @id — a consumer merging by @id must see one url, not one per page that
+    // happens to render this entity.
+    url: BASE_URL,
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: Math.round(average * 10) / 10,

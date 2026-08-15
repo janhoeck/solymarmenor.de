@@ -66,9 +66,7 @@ test('handles self-closing <br/> and <br /> spellings', () => {
 })
 
 test('preserves literal < for markup-free comparison text', () => {
-  const blocks: PropertyContentBlock[] = [
-    { type: 'paragraph', text: { de: 'Preis < 100 EUR.' } },
-  ]
+  const blocks: PropertyContentBlock[] = [{ type: 'paragraph', text: { de: 'Preis < 100 EUR.' } }]
 
   // localized-text.ts deliberately permits bare < in editorial copy for
   // comparisons like "Preis < 100 €" and "< 5 Minuten zum Strand", so the

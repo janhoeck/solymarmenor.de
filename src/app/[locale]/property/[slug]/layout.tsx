@@ -2,6 +2,7 @@ import { GoogleMapsAPIProvider } from '@/components/shared/GoogleMapsAPIProvider
 import { resolveText } from '@/data/localized-text'
 import { absoluteUrl, generateCanonicalMetadata, localizedPathname } from '@/lib/metadata'
 import { getPropertyBySlug } from '@/lib/properties/repository'
+import { SITE_NAME } from '@/lib/structured-data/identity'
 import { Metadata } from 'next'
 import { PropsWithChildren } from 'react'
 
@@ -33,6 +34,10 @@ export async function generateMetadata(props: MetadataProps): Promise<Metadata> 
       // Built from the routing config rather than hard-coded, so the preview
       // URL points at the page in the language it describes.
       url: absoluteUrl(localizedPathname(`/property/${propertyConfiguration.slug}`, locale)),
+      // Next replaces the parent layout's `openGraph` wholesale rather than
+      // merging it key by key, so without this the root layout's `siteName`
+      // is silently dropped on exactly the pages most likely to be shared.
+      siteName: SITE_NAME,
       images: [
         {
           url: absoluteUrl(cover.src),

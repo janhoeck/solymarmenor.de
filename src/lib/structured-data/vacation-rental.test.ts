@@ -111,6 +111,7 @@ test('omits highlights the property does not carry', () => {
   const data = buildVacationRental(withoutRooms, 'de', [])
 
   assert.ok(!('numberOfBedrooms' in data))
+  assert.ok(!('numberOfBathroomsTotal' in data))
   assert.ok(!('floorSize' in data))
   assert.deepEqual(data.occupancy, { '@type': 'QuantitativeValue', maxValue: 2 })
 })

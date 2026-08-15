@@ -3,6 +3,7 @@ import { LayoutNavigation } from '@/components/shared/LayoutNavigation'
 import { WebVitals } from '@/components/shared/WebVitals'
 import { Toaster } from '@/components/ui'
 import { BASE_URL, absoluteUrl, generateCanonicalMetadata } from '@/lib/metadata'
+import { SITE_NAME } from '@/lib/structured-data/identity'
 import { Metadata } from 'next'
 import { NextIntlClientProvider, hasLocale } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
@@ -70,7 +71,7 @@ export async function generateMetadata(props: MetadataProps): Promise<Metadata> 
       // so a URL set here would be correct for the home page only and wrong on
       // every other route. Omitting it lets crawlers fall back to the URL they
       // actually fetched, which is always right.
-      siteName: 'Sol y Mar Menor',
+      siteName: SITE_NAME,
       images: [
         {
           url: ogImageUrl,

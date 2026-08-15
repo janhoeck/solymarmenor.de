@@ -13,7 +13,8 @@ const configuredPrefix = routing.localePrefix
  * the answer. Widening keeps all three modes reachable. The fallback is
  * next-intl's own default for an unset `localePrefix`.
  */
-const prefixMode: string = typeof configuredPrefix === 'string' ? configuredPrefix : (configuredPrefix?.mode ?? 'always')
+const prefixMode: string =
+  typeof configuredPrefix === 'string' ? configuredPrefix : (configuredPrefix?.mode ?? 'always')
 
 /**
  * Whether a locale's URLs carry its prefix, per next-intl's three modes. Taken
