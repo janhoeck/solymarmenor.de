@@ -127,7 +127,7 @@ export const webVitals = pgTable(
     path: varchar('path', { length: 256 }).notNull(),
     locale: varchar('locale', { length: 5 }).notNull(),
     device: varchar('device', { length: 8 }).notNull(),
-    navigation_type: varchar('navigation_type', { length: 16 }).notNull(),
+    navigation_type: varchar('navigation_type', { length: 20 }).notNull(),
   },
   (table) => [index('web_vitals_metric_created_at_idx').on(table.metric, table.created_at)]
 )
@@ -185,6 +185,13 @@ Schranken begrenzen den Missbrauch:
    für CLS.
 3. **Kein Lesepfad.** Es gibt keine Route, die diese Daten ausliefert.
 
+Die Allowlist für `navigation_type` umfasst genau sechs Werte: `navigate`, `reload`,
+`back-forward`, `back-forward-cache`, `prerender`, `restore`. Das ist die vollständige Menge, die
+das in Next gebündelte web-vitals erzeugen kann — abgelesen aus der Ableitung in
+`node_modules/next/dist/compiled/web-vitals/web-vitals.js`, wo der `type` des
+`PerformanceNavigationTiming` mit `replace(/_/g, '-')` normalisiert und um `back-forward-cache`,
+`prerender` und `restore` ergänzt wird. Der längste Wert hat 18 Zeichen, daher `varchar(20)`.
+
 Die Antwort ist in **jedem** Fall `204 No Content` — auch bei Validierungsfehlern. Ein Prober
 bekommt so keine Rückmeldung darüber, was ihn hat scheitern lassen. Fehler werden serverseitig
 geloggt.
@@ -213,10 +220,31 @@ Schaden wäre verzerrte Statistik; die Aufbewahrungsgrenze aus A5 begrenzt ihn z
 
 ### B1. Kanonische URLs und hreflang
 
-`src/lib/metadata.ts` wird umgebaut: Statt `/{locale}/{pfad}` selbst zusammenzusetzen, ruft
-`generateCanonicalMetadata` künftig `getPathname` aus `src/i18n/navigation.ts` auf. Damit folgt
-die URL-Erzeugung automatisch der Routing-Konfiguration; änderte sich `localePrefix` später,
+`src/lib/metadata.ts` wird umgebaut: Statt `/{locale}/{pfad}` unbedingt zusammenzusetzen, leitet
+`generateCanonicalMetadata` den Pfad künftig aus `routing.localePrefix` und `routing.defaultLocale`
+ab. Damit folgt die URL-Erzeugung der Routing-Konfiguration; änderte sich `localePrefix` später,
 zöge die Metadata-Erzeugung ohne weitere Änderung nach.
+
+**Nachträgliche Korrektur zum Brainstorming.** Ursprünglich war vorgesehen, dafür `getPathname`
+aus `src/i18n/navigation.ts` zu verwenden. Das ist verworfen: `next-intl/navigation` importiert
+`next/navigation`, und das lässt sich unter `node --test --experimental-strip-types` nicht
+auflösen (`ERR_MODULE_NOT_FOUND`, empirisch geprüft). Die Kernkorrektur dieses Vorhabens wäre
+damit die einzige ungetestete Änderung — inakzeptabel für den Teil mit dem größten Risiko.
+
+Stattdessen eine reine Funktion `localizedPathname(pathname, locale)` in `src/lib/metadata.ts`,
+die alle drei Modi von `localePrefix` abbildet (`as-needed`, `always`, `never`). Sie liest
+`routing` aus `src/i18n/routing.ts`, das sich in Node sauber importieren lässt (ebenfalls
+geprüft). Die Regel für `as-needed` ist eine Zeile — Präfix genau dann, wenn die Locale nicht
+die `defaultLocale` ist —, und ein Test pinnt sie fest.
+
+Bekannte Grenze dieser Entscheidung: Die Funktion bildet `routing.pathnames` (lokalisierte
+Pfadnamen) nicht ab. Das Projekt nutzt sie nicht; würden sie eingeführt, müsste diese Funktion
+mitwachsen. Ein Test hält das fest.
+
+Damit `src/lib/metadata.ts` überhaupt aus einem Test importierbar ist, muss sein Import
+`'../i18n/routing'` die Endung `.ts` bekommen — so wie es `src/lib/properties/repository.ts`
+bereits vormacht. `allowImportingTsExtensions` ist in `tsconfig.json` gesetzt, Turbopack stört
+sich nicht daran.
 
 Zusätzlich kommt `'x-default'` in `alternates.languages` und zeigt auf die Variante der
 `defaultLocale` — bei `as-needed` also auf die präfixlose URL.
@@ -232,7 +260,7 @@ wird erzeugt aus:
 - den veröffentlichten Objekten aus `src/lib/properties/repository.ts` (`status === 'published'`),
 - gekreuzt mit `routing.locales`,
 
-mit denselben über `getPathname` erzeugten URLs wie die Canonicals, `alternates.languages`
+mit denselben über `localizedPathname` erzeugten URLs wie die Canonicals, `alternates.languages`
 inklusive `x-default`, und `lastModified` aus `updatedAt` des jeweiligen Objekts, wo es eines gibt.
 
 `src/app/robots.ts` ersetzt `public/robots.txt`; die statische Datei wird gelöscht. Inhalt:
@@ -243,7 +271,7 @@ inklusive `x-default`, und `lastModified` aus `updatedAt` des jeweiligen Objekts
 - `keywords` wird ersatzlos entfernt (`src/app/[locale]/layout.tsx:38`).
 - `siteName` wird von `'Home'` auf `'Sol y Mar Menor'` gesetzt.
 - `openGraph.url` im Root-Layout und in `src/app/[locale]/property/[slug]/layout.tsx:27` wird
-  über dieselbe `getPathname`-Erzeugung gebildet und trägt damit die Sprache.
+  über dieselbe `localizedPathname`-Erzeugung gebildet und trägt damit die Sprache.
 - `openGraph.images` verweist auf ein echtes 1200×630-Bild statt auf `favicon.ico`.
 - `twitter`-Card (`summary_large_image`) kommt dazu, damit Vorschauen auch dort greifen.
 
@@ -308,6 +336,11 @@ Site als Ganzes repräsentiert.
 
 ## Absicherung
 
+Die Tests laufen über `pnpm test`, also `node --test --experimental-strip-types` ohne Bundler.
+Daraus folgen zwei bindende Regeln für jede Datei im Importgraphen eines Tests: relative Importe
+brauchen die Endung `.ts`, und die Pfad-Aliase aus `tsconfig.json` (`@/lib/*` und Verwandte)
+dürfen dort nicht vorkommen — Node kennt sie nicht. Baseline vor Beginn: 89 Tests, alle grün.
+
 Tests in der Art des Projekts (`node --test`, neben der zu testenden Datei):
 
 - `src/lib/metadata.test.ts` — kanonische URL und Alternates für alle drei Locales; sichert
@@ -316,8 +349,11 @@ Tests in der Art des Projekts (`node --test`, neben der zu testenden Datei):
   Sprache genau einmal vor; keine URL zeigt auf eine Weiterleitung.
 - `src/lib/structured-data/*.test.ts` — Erzeugung gegen ein Beispielobjekt, Pflichtfelder vorhanden,
   Bild-URLs absolut.
-- `src/app/api/vitals/schema.test.ts` — die Zod-Validierung gegen gültige Nutzlasten sowie gegen
-  überlange Pfade, unbekannte Metriken, Werte außerhalb des Bereichs und fremde Locales.
+- `src/lib/vitals/schema.test.ts` — die Zod-Validierung gegen gültige Nutzlasten sowie gegen
+  überlange Pfade, unbekannte Metriken, Werte außerhalb des Bereichs und fremde Locales. Das
+  Schema liegt unter `src/lib/`, nicht neben der Route: `tsconfig.json` kennt einen
+  `@/lib/*`-Alias, aber keinen `@/app/*`, und die Client-Komponente braucht die Metrik-Allowlist
+  ebenfalls.
 
 Dazu `pnpm check-types`, `pnpm lint`, `pnpm test` und `pnpm build`. Die erzeugten JSON-LD-Blöcke
 werden zusätzlich gegen den Schema-Validator geprüft.
