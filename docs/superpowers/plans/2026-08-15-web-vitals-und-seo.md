@@ -2695,10 +2695,12 @@ pnpm validate:content
 pnpm build
 ```
 
-Expected: alle fünf ohne Fehler. `pnpm test` meldet **146** bestandene Tests: 89 aus der Baseline
-plus 14 (Aufgabe 1) + 5 (5) + 9 (8) + 5 (12) + 10 (13) + 4 (14) + 5 (15) + 5 (16).
-Aufgabe 1 trägt 14 statt der ursprünglich geplanten 8 bei: sechs Tests für `needsLocalePrefix`
-kamen aus Ruling 4 dazu (siehe Ledger). Weicht die Zahl
+Expected: alle fünf ohne Fehler. `pnpm test` meldet **151** bestandene Tests: 89 aus der Baseline
+plus 14 (Aufgabe 1) + 5 (5) + 9 (8) + 8 (12) + 10 (13) + 5 (14) + 5 (15) + 6 (16).
+Vier Aufgaben tragen mehr bei als ursprünglich geplant, weil Fix-Runden Tests ergänzt haben:
+Aufgabe 1 sechs Tests für `needsLocalePrefix`, Aufgabe 12 drei für Whitespace, self-closing `<br>`
+und das literale `<`, Aufgabe 14 einen für `@context`/`ListItem`, Aufgabe 16 einen für die
+geteilte `@id`. Alle vier sind im Ledger als Rulings festgehalten. Weicht die Zahl
 ab, fehlt eine Testdatei oder eine ist nicht vom Glob `src/**/*.test.ts` erfasst — nicht
 weitermachen, bevor das geklärt ist.
 
