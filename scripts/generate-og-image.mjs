@@ -30,7 +30,7 @@ function numericFlag(name, fallback, min, max) {
   }
 
   const value = Number(match.slice(name.length + 3))
-  if (!Number.isFinite(value) || value < min || value > max) {
+  if (!Number.isFinite(value) || !Number.isInteger(value) || value < min || value > max) {
     console.error(`error: --${name} must be an integer between ${min} and ${max}, got "${match}"`)
     process.exit(1)
   }
