@@ -29,7 +29,7 @@ gegen den falschen Host, und in beiden Fällen ist ein serverseitiges Log das ei
 | `DATABASE_URL` | Postgres connection string for the guestbook. Required at build time, because the guestbook page is prerendered. |
 | `ICAL_APARTMENT` | Airbnb iCalendar export URL for the apartment, read by `/api/ics`. |
 | `ICAL_HOUSE` | Airbnb iCalendar export URL for the house, read by `/api/ics`. |
-| `NEXT_PUBLIC_BASE_URL` | Kanonische Origin der Seite (Vorgabe `https://solymarmenor.com`). Bestimmt kanonische URLs, hreflang, Sitemap, jede JSON-LD-`@id`/`url` und die Origin-Prüfung in `/api/vitals`. Wird **zur Laufzeit** aus `process.env` gelesen, nicht zur Build-Zeit eingebettet — die Route ist serverseitig, `NEXT_PUBLIC_`-Inlining betrifft nur Client-Bundles. Ein Neustart genügt, kein Rebuild. |
+| `NEXT_PUBLIC_BASE_URL` | Kanonische Origin der Seite (Vorgabe `https://solymarmenor.com`). Bestimmt kanonische URLs, hreflang, jede JSON-LD-`@id`/`url` und die Origin-Prüfung in `/api/vitals` — diese Routen sind dynamisch und lesen den Wert **zur Laufzeit** aus `process.env`; ein Neustart genügt, kein Rebuild. Ausnahme: `/sitemap.xml` und `/robots.txt` sind statisch prerendert, ihre URLs werden beim `pnpm build` eingefroren — hier ändert nur ein Rebuild etwas. |
 
 The `ICAL_*` values contain an access token in the URL and must never be
 committed. The property data does not hold them: `calendar.secretRef` in
