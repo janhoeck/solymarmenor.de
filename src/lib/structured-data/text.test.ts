@@ -43,3 +43,35 @@ test('ignores list and note blocks', () => {
 test('returns an empty string when there is no paragraph', () => {
   assert.equal(plainText([{ type: 'list', items: [{ de: 'Punkt' }] }], 'de'), '')
 })
+
+test('collapses whitespace produced by <br> substitution', () => {
+  const blocks: PropertyContentBlock[] = [
+    { type: 'paragraph', text: { de: 'A <br> B' } },
+    { type: 'paragraph', text: { de: 'C<br><br>D' } },
+  ]
+
+  // The <br> → space replacement would produce doubled spaces; the collapse
+  // step is critical to avoid "A  B" when joining "A <br> B" with next block,
+  // and to avoid "C  D" from the consecutive tags in the second block.
+  assert.equal(plainText(blocks, 'de'), 'A B C D')
+})
+
+test('handles self-closing <br/> and <br /> spellings', () => {
+  const blocks: PropertyContentBlock[] = [
+    { type: 'paragraph', text: { de: 'Eins.<br/>Zwei.' } },
+    { type: 'paragraph', text: { de: 'Drei.<br />Vier.' } },
+  ]
+
+  assert.equal(plainText(blocks, 'de'), 'Eins. Zwei. Drei. Vier.')
+})
+
+test('preserves literal < for markup-free comparison text', () => {
+  const blocks: PropertyContentBlock[] = [
+    { type: 'paragraph', text: { de: 'Preis < 100 EUR.' } },
+  ]
+
+  // localized-text.ts deliberately permits bare < in editorial copy for
+  // comparisons like "Preis < 100 €" and "< 5 Minuten zum Strand", so the
+  // markup strip must not corrupt these.
+  assert.equal(plainText(blocks, 'de'), 'Preis < 100 EUR.')
+})
