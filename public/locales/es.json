@@ -71,8 +71,8 @@
     "home": {
       "welcome": {
         "location": "Costa Cálida, España",
-        "title": "Vacaciones en la Costa Cálida",
-        "subtitle": "Apartamentos Vacacionales en el Mar Menor – Sol, Mar y Relax en la Costa Cálida",
+        "title": "Vacaciones en el Mar Menor",
+        "subtitle": "Apartamento y casa de vacaciones en Los Alcázares y Los Urrutias – sol, mar y relax en la Costa Cálida",
         "discoverAccommodationButtonLabel": "Descubrir Alojamientos",
         "generalInfo": {
           "sunnyDaysPerYear": "Días de Sol al Año",
@@ -286,7 +286,7 @@
     }
   },
   "metadata": {
-    "title": "Casas y apartamentos de vacaciones en la Costa Cálida",
-    "description": "Alojamientos modernos con piscina, ideales para vacaciones en la playa, relajación y vacaciones familiares."
+    "title": "Apartamento y casa en el Mar Menor – Los Alcázares",
+    "description": "Apartamento y casa en el Mar Menor: piscina privada, 320 días de sol al año y a pocos minutos de la playa de Los Alcázares. Reserva directa."
   }
 }
