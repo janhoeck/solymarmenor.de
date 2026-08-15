@@ -28,7 +28,11 @@ const DAYS = numericFlag('days', 28)
 const PRUNE = args.includes('--prune')
 const RETENTION_DAYS = 90
 
-/** A p75 built from fewer samples than this is noise, and is labelled as such. */
+/**
+ * A p75 built from fewer samples than this is noise. The device table keeps such
+ * rows but labels them inline (`'N (too few)'`); the path table excludes them from
+ * the p75 listing entirely and instead reports how many groups it left out.
+ */
 const MIN_SAMPLES = 10
 
 /** Official Core Web Vitals thresholds: [good, needs-improvement] upper bounds. */
@@ -99,16 +103,19 @@ try {
         }))
     )
 
-    const byPath = await sql`
+    // No HAVING here (unlike byDevice's implicit threshold via the "(too few)" label):
+    // we need every group's sample count to report how many were left out below.
+    const byPathAll = await sql`
       select metric, path,
              percentile_cont(0.75) within group (order by value) as p75,
              count(*)::int as samples
       from web_vitals
       where created_at >= now() - make_interval(days => ${DAYS})
       group by metric, path
-      having count(*) >= ${MIN_SAMPLES}
-      order by metric, p75 desc
     `
+
+    const byPath = byPathAll.filter((row) => row.samples >= MIN_SAMPLES)
+    const omitted = byPathAll.length - byPath.length
 
     if (byPath.length === 0) {
       console.log(`\nBy path: no path has ${MIN_SAMPLES} or more measurements yet.`)
@@ -125,6 +132,9 @@ try {
             samples: row.samples,
           }))
       )
+      if (omitted > 0) {
+        console.log(`${omitted} metric/path groups omitted (fewer than ${MIN_SAMPLES} measurements).`)
+      }
     }
   }
 

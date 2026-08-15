@@ -76,7 +76,7 @@ vergleichbar, was Google sähe.
 
 **Der Core-Web-Vitals-Bericht der Search Console bleibt davon unberührt.** Er speist sich
 ausschließlich aus CrUX, und CrUX braucht mehr Chrome-Besucher, als diese Seite hat. „Keine
-Daten" dort ist keine Fehlfunktion, sondern eine Aussage über die Stichprobengröße.
+Daten“ dort ist keine Fehlfunktion, sondern eine Aussage über die Stichprobengröße.
 
 Bei Client-seitiger Navigation verzeichnet die Messung den Pfad, auf dem eine Metrik **final
 wurde**, nicht zwingend den, der sie verursacht hat. Ein LCP gehört zum Dokumentaufruf; wechselt
