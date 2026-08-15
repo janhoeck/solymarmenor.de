@@ -12,6 +12,7 @@
     "test": "node --test --experimental-strip-types \"src/**/*.test.ts\"",
     "images:sync": "node scripts/images-sync.mjs",
     "images:downscale": "node scripts/images-downscale.mjs",
+    "og:generate": "node scripts/generate-og-image.mjs",
     "validate:content": "node --experimental-strip-types scripts/validate-content.mjs",
     "check-types": "tsc --noEmit",
     "analyze": "next experimental-analyze",
