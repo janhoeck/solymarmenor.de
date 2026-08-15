@@ -44,3 +44,13 @@ test('carries the names through', () => {
     ['Home', 'Holiday home']
   )
 })
+
+test('declares the schema.org context and types every entry as a ListItem', () => {
+  const data = buildBreadcrumbs(trail, 'en')
+
+  assert.equal(data['@context'], 'https://schema.org')
+  assert.deepEqual(
+    data.itemListElement.map((item) => item['@type']),
+    ['ListItem', 'ListItem']
+  )
+})
