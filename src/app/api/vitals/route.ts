@@ -1,15 +1,26 @@
+import { BASE_URL } from '@/lib/metadata'
+import { vitalsPayloadSchema } from '@/lib/vitals/schema'
 import { db } from '@/utils/db'
 import { webVitals } from '@/utils/db/schema'
 import { NextRequest, NextResponse } from 'next/server'
 
-import { vitalsPayloadSchema } from '@/lib/vitals/schema'
+/**
+ * `next start` without `-H` hardcodes the server hostname to 'localhost' and never
+ * consults the incoming Host or X-Forwarded-Host header, so behind a reverse proxy
+ * `request.nextUrl.origin` is always the internal `https://localhost:<port>` origin —
+ * never a real visitor's origin. Comparing against BASE_URL's origin instead works in
+ * both dev and production, because it is fully server-controlled. Do not swap this back
+ * to `request.nextUrl.origin`, and do not trust `x-forwarded-host` either: it is
+ * attacker-settable unless the proxy strips it, which trades one bug for a weaker check.
+ */
+const ALLOWED_ORIGIN = new URL(BASE_URL).origin
 
 /**
  * Collects Web Vitals from real visitors.
  *
  * The endpoint has to be public — it is called by every page view — so three
  * things stand between it and abuse: this same-origin check, the strict schema
- * in ./schema.ts, and the absence of any route that reads the data back.
+ * in src/lib/vitals/schema.ts, and the absence of any route that reads the data back.
  *
  * The response is 204 in every case, including on rejection. A prober learns
  * nothing about what failed, and the browser has nothing to do with a reply
@@ -22,14 +33,19 @@ export async function POST(request: NextRequest) {
     const origin = request.headers.get('origin')
 
     // sendBeacon always sends Origin. A missing or foreign one is not our page.
-    if (!origin || origin !== request.nextUrl.origin) {
+    if (!origin || origin !== ALLOWED_ORIGIN) {
       return noContent
     }
 
     const parsed = vitalsPayloadSchema.safeParse(await request.json())
 
     if (!parsed.success) {
-      console.warn('[vitals] rejected payload:', parsed.error.issues)
+      // Only code and path — both come from our own schema, never from the
+      // caller. Never log `issue.input` or `issue.keys`: for an
+      // unrecognized_keys violation those carry the entire attacker-supplied
+      // request body and every attacker-chosen field name, unbounded.
+      const summary = parsed.error.issues.map((issue) => `${issue.path.join('.') || '(root)'}: ${issue.code}`)
+      console.warn('[vitals] rejected payload:', summary)
       return noContent
     }
 
@@ -45,7 +61,8 @@ export async function POST(request: NextRequest) {
       navigation_type: payload.navigationType,
     })
   } catch (error) {
-    // A failed insert must never surface to the visitor: this endpoint is
+    // Guards both a failing insert and a malformed-JSON `request.json()` throw.
+    // Either way it must never surface to the visitor: this endpoint is
     // measurement, and measurement failing is not the page failing.
     console.error('[vitals] failed to store metric:', error)
   }
