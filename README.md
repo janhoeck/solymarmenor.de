@@ -84,6 +84,33 @@ der Besucher vorher die Seite, steht er unter der neuen Adresse. Das ist der Pre
 pro Dokument gemessen wird — die Aufschlüsselung nach Pfad ist deshalb ein Hinweis, keine exakte
 Zuordnung.
 
+Der Origin-Check in `src/app/api/vitals/route.ts` vergleicht bewusst gegen die aus `BASE_URL`
+abgeleitete Origin, nicht gegen `request.nextUrl.origin`. `next start` läuft ohne `-H`-Flag und
+bindet den Hostnamen deshalb fest auf `localhost`, ohne je den weitergereichten `Host`-Header zu
+befragen. Hinter Coolifys Reverse Proxy ist `nextUrl.origin` dadurch immer die interne Adresse
+`https://localhost:<port>` — ein Vergleich dagegen würde jeden echten Besucher-Beacon abweisen
+und dabei trotzdem jeden Testlauf auf derselben Maschine bestehen, weil dort Server und Client
+dieselbe Origin teilen. Diese Prüfung nicht wieder auf `nextUrl.origin` „vereinfachen“.
+
+## SEO
+
+Kanonische URLs, hreflang, Sitemap und robots.txt werden erzeugt, nicht gepflegt. Die statischen
+Dateien `public/sitemap.xml` und `public/robots.txt` gibt es nicht mehr — sie hätten die Routen
+`src/app/sitemap.ts` und `src/app/robots.ts` beschattet.
+
+Alle URLs entstehen über `localizedPathname` in `src/lib/metadata.ts`. Diese Funktion bildet
+`localePrefix: 'as-needed'` ab: Englisch ist die Standardsprache und wird **ohne** Präfix
+ausgeliefert, `/en/aboutus` leitet auf `/aboutus` weiter. Wer eine URL selbst zusammensetzt,
+riskiert, ein Canonical auf eine Weiterleitung zu richten — genau der Fehler, den
+`metadata.test.ts` und `sitemap.test.ts` seither festnageln.
+
+Eine neue Seite braucht einen Eintrag in `STATIC_ROUTES` in `src/app/sitemap.ts`; fehlt er,
+schlägt `sitemap.test.ts` fehl.
+
+Structured Data liegt in `src/lib/structured-data/`, gerendert über `<JsonLd />`. Die
+Bewertungen im Gästebuch erzeugen **keine** Sterne in Google-Suchergebnissen: selbst gehostete
+Bewertungen über das eigene Unternehmen sind davon seit 2019 ausgenommen.
+
 ## Objektdaten
 
 Die Objektdaten liegen in `src/data/properties/*.json` und werden beim Import gegen
