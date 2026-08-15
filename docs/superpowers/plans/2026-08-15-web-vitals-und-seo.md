@@ -761,7 +761,7 @@ Sitemap: https://solymarmenor.com/sitemap.xml
 
 - [ ] **Step 4: Run the full suite**
 
-Run: `pnpm test` — erwartet: 102 bestanden, 0 Fehler.
+Run: `pnpm test` — erwartet: 108 bestanden, 0 Fehler.
 Run: `pnpm check-types` und `pnpm lint` — erwartet: sauber.
 
 - [ ] **Step 5: Commit**
@@ -937,7 +937,7 @@ neu anlegen.
 
 - [ ] **Step 8: Verify and commit**
 
-Run: `pnpm check-types` und `pnpm test` — erwartet: sauber, 102 Tests.
+Run: `pnpm check-types` und `pnpm test` — erwartet: sauber, 108 Tests.
 
 ```bash
 git add src/utils/db/schema.ts scripts/db-migrate.mjs drizzle package.json README.md
@@ -2695,8 +2695,10 @@ pnpm validate:content
 pnpm build
 ```
 
-Expected: alle fünf ohne Fehler. `pnpm test` meldet **140** bestandene Tests: 89 aus der Baseline
-plus 8 (Aufgabe 1) + 5 (5) + 9 (8) + 5 (12) + 10 (13) + 4 (14) + 5 (15) + 5 (16). Weicht die Zahl
+Expected: alle fünf ohne Fehler. `pnpm test` meldet **146** bestandene Tests: 89 aus der Baseline
+plus 14 (Aufgabe 1) + 5 (5) + 9 (8) + 5 (12) + 10 (13) + 4 (14) + 5 (15) + 5 (16).
+Aufgabe 1 trägt 14 statt der ursprünglich geplanten 8 bei: sechs Tests für `needsLocalePrefix`
+kamen aus Ruling 4 dazu (siehe Ledger). Weicht die Zahl
 ab, fehlt eine Testdatei oder eine ist nicht vom Glob `src/**/*.test.ts` erfasst — nicht
 weitermachen, bevor das geklärt ist.
 
