@@ -1,9 +1,23 @@
 import { NextConfig } from 'next'
 import createNextIntlPlugin from 'next-intl/plugin'
 
+import { canonicalHostRedirects } from './src/lib/redirects.ts'
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   basePath: '',
+  /**
+   * The www → apex redirect, built in src/lib/redirects.ts. Config redirects
+   * run before the proxy, so this answers before next-intl ever sees the
+   * request and the two cannot disagree about the locale.
+   *
+   * Coolify must stay on "Allow www & non-www" for this to be reached at all:
+   * its own "Redirect to non-www" answers at Traefik with a 302 and the app
+   * never sees those requests.
+   */
+  async redirects() {
+    return canonicalHostRedirects()
+  },
   experimental: {
     scrollRestoration: true,
   },
