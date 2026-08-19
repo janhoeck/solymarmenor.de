@@ -4,16 +4,16 @@
   "slug": "apartment",
   "status": "published",
   "kind": "apartment",
-  "updatedAt": "2026-08-14",
+  "updatedAt": "2026-08-19",
   "title": {
-    "de": "Ferienwohnung Los Alcázares Mar Menor",
-    "en": "Holiday Apartment Los Alcázares Mar Menor",
-    "es": "Apartamento Vacacional Los Alcázares Mar Menor"
+    "de": "Ferienwohnung Puerto Marina, Los Alcázares am Mar Menor",
+    "en": "Holiday Apartment Puerto Marina, Los Alcázares – Mar Menor",
+    "es": "Apartamento Puerto Marina, Los Alcázares – Mar Menor"
   },
   "subtitle": {
-    "de": "Modern ausgestattete Ferienwohnung mit Balkon, Pools und zentraler Lage nahe Strand und Restaurants.",
-    "en": "Modern holiday flat with balcony, swimming pools and central location near the beach and restaurants.",
-    "es": "Apartamento vacacional con equipamiento moderno, balcón, piscinas y ubicación céntrica cerca de la playa y los restaurantes."
+    "de": "Ferienwohnung in der Anlage Puerto Marina, Los Alcázares: Balkon, drei Pools, wenige Gehminuten zu Strand und Restaurants.",
+    "en": "Holiday apartment in the Puerto Marina complex, Los Alcázares: balcony, three pools, a short walk to beach and restaurants.",
+    "es": "Apartamento en el complejo Puerto Marina, Los Alcázares: balcón, tres piscinas y a pocos minutos a pie de la playa y los restaurantes."
   },
   "description": [
     {
@@ -27,9 +27,9 @@
     {
       "type": "paragraph",
       "text": {
-        "de": "Die Anlage verfügt über einen wunderschönen Innenbereich mit drei Pools, von denen zwei behindertengerecht sind. Palmen umrahmen die Anlage und sorgen für Karibikflair. Der ideale Ort zum Entspannen.",
-        "en": "The complex features a beautiful interior area with three pools, two of which are disabled-accessible. Palm trees frame the complex and create a Caribbean atmosphere. The ideal place to relax.",
-        "es": "El complejo cuenta con una hermosa área interior con tres piscinas, dos de las cuales son accesibles para discapacitados. Las palmeras enmarcan el complejo y crean un ambiente caribeño. El lugar ideal para relajarse."
+        "de": "Die Anlage Puerto Marina verfügt über einen wunderschönen Innenbereich mit drei Pools, von denen zwei behindertengerecht sind. Palmen umrahmen die Anlage und sorgen für Karibikflair. Der ideale Ort zum Entspannen.",
+        "en": "The Puerto Marina complex features a beautiful interior area with three pools, two of which are disabled-accessible. Palm trees frame the complex and create a Caribbean atmosphere. The ideal place to relax.",
+        "es": "El complejo Puerto Marina cuenta con una hermosa área interior con tres piscinas, dos de las cuales son accesibles para discapacitados. Las palmeras enmarcan el complejo y crean un ambiente caribeño. El lugar ideal para relajarse."
       }
     },
     {
@@ -43,9 +43,9 @@
     {
       "type": "paragraph",
       "text": {
-        "de": "Die Wohnanlage besticht durch ihre zentrale und dennoch ruhige Lage. Als geschlossene, sichere und private Residenz befindet sie sich nur wenige Gehminuten von Strand, Einkaufsmöglichkeiten, Bars und Restaurants entfernt – ein Auto ist daher nicht erforderlich, falls Sie lieber zu Fuß unterwegs sind.",
-        "en": "The residential complex impresses with its central yet quiet location. As a closed, secure and private residence, it is only a few minutes' walk from the beach, shopping, bars and restaurants - a car is therefore not necessary if you prefer to walk.",
-        "es": "El complejo residencial impresiona con su ubicación central pero tranquila. Como una residencia cerrada, segura y privada, está a solo unos minutos a pie de la playa, tiendas, bares y restaurantes - por lo tanto, no es necesario un coche si prefieres caminar."
+        "de": "Die Wohnanlage Puerto Marina besticht durch ihre zentrale und dennoch ruhige Lage. Als geschlossene, sichere und private Residenz befindet sie sich nur wenige Gehminuten von Strand, Einkaufsmöglichkeiten, Bars und Restaurants entfernt – ein Auto ist daher nicht erforderlich, falls Sie lieber zu Fuß unterwegs sind.",
+        "en": "The Puerto Marina residence impresses with its central yet quiet location. As a closed, secure and private residence, it is only a few minutes' walk from the beach, shopping, bars and restaurants - a car is therefore not necessary if you prefer to walk.",
+        "es": "El complejo residencial Puerto Marina impresiona con su ubicación central pero tranquila. Como una residencia cerrada, segura y privada, está a solo unos minutos a pie de la playa, tiendas, bares y restaurantes - por lo tanto, no es necesario un coche si prefieres caminar."
       }
     },
     {
@@ -172,9 +172,9 @@
       {
         "type": "paragraph",
         "text": {
-          "de": "Unsere Ferienwohnung in Los Alcázares liegt nur wenige Meter vom Strand entfernt und ist hervorragend erreichbar: Der Flughafen Murcia-San Javier ist nur wenige Kilometer entfernt, der Flughafen Alicante ist in etwa 50 Minuten mit dem Auto erreichbar.",
-          "en": "Our holiday apartment in Los Alcázares is located just a few meters from the beach and is excellently accessible: Murcia-San Javier Airport is only a few kilometers away, Alicante Airport can be reached in about 50 minutes by car.",
-          "es": "Nuestro apartamento vacacional en Los Alcázares está ubicado a solo unos metros de la playa y es excelentemente accesible: el Aeropuerto Murcia-San Javier está a solo unos kilómetros, el Aeropuerto de Alicante se puede alcanzar en aproximadamente 50 minutos en coche."
+          "de": "Unsere Ferienwohnung liegt in der Anlage Puerto Marina an der Calle Isla de Ibiza in Los Alcázares, nur wenige Meter vom Strand entfernt, und ist hervorragend erreichbar: Der Flughafen Murcia-San Javier ist nur wenige Kilometer entfernt, der Flughafen Alicante ist in etwa 50 Minuten mit dem Auto erreichbar.",
+          "en": "Our holiday apartment is located in the Puerto Marina complex on Calle Isla de Ibiza in Los Alcázares, just a few meters from the beach, and is excellently accessible: Murcia-San Javier Airport is only a few kilometers away, Alicante Airport can be reached in about 50 minutes by car.",
+          "es": "Nuestro apartamento vacacional está ubicado en el complejo Puerto Marina, en la Calle Isla de Ibiza de Los Alcázares, a solo unos metros de la playa, y es excelentemente accesible: el Aeropuerto Murcia-San Javier está a solo unos kilómetros, el Aeropuerto de Alicante se puede alcanzar en aproximadamente 50 minutos en coche."
         }
       },
       {
