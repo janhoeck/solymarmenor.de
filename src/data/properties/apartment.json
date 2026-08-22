@@ -500,7 +500,7 @@
     {
       "key": "area",
       "icon": "area_size",
-      "value": 95,
+      "value": 70,
       "unit": "sqm",
       "label": {
         "de": "Fläche",
