@@ -608,7 +608,7 @@
     "rates": [
       {
         "season": "main",
-        "pricePerNight": 110,
+        "pricePerNight": 120,
         "periods": [
           {
             "from": "04-01",
@@ -618,7 +618,7 @@
       },
       {
         "season": "off",
-        "pricePerNight": 60,
+        "pricePerNight": 100,
         "periods": [
           {
             "from": "10-01",
